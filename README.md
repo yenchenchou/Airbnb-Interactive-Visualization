@@ -31,16 +31,16 @@
 2. Visual information on the spots you select and show and difference
 2. Point out what features might affect the price, such as room type, facilities, home surrounding style
 3. Deeper comparison on the selected spots. Such as radar chart on the facilities, price, room type
-![readme_image](4_visualization_2.png)
+![readme_image](3_visualization_1_2.png)
 
 ### Slide6 - Do you have a story?
 I preferred to have a deep trip in a certain state, I selected the city based on the sites I want to visit, then browsed through websites such as booking.com or trivago to look for desirable places to stay. But, I had to do it again when I wanted to search for another city. I also had to google it to know the places I booked. So, an idea popped up at that moment, why it can't show all the best places at one time according to my needs and give a brief overview right away?
-![readme_image](3_visualization_1_2.png)
+![readme_image](5_visualization_3.png)
 
 ### Slide7 - Secret sauce
 How your visualization compares to what others have done on the same and different topics?
 Quick compare on staying spots through visual map and provide recommendations for the staying spots according to your previous selections
-![readme_image](5_visualization_3.jpg)
+![readme_image](4_visualization_2.jpg)
 
 ### Slide8 - What is your plan
 - What data you will use? Airbnb open data focus on 8 cities in California
