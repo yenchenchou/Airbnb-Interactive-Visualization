@@ -11,7 +11,7 @@
 
 ### Introduction
 - 10 words on what your visualization is about
-1. Select bests staying spots across multiple cities in California 
+1. Select best staying spots across multiple cities in California 
 
 - Who is it addressed to, why it is interesting, important, useful?
 1. Audience: For people who want prefer to have a deep travel in California
@@ -23,7 +23,7 @@
 
 ### Your visualization
 - What is the topic?
-1. Deep Trip to California using 
+1. Visual map for staying spot comparision
 
 - What is the information you plan to present?
 1. Visual map with price tag on the location
@@ -32,7 +32,7 @@
 3. Deeper comparison on the selected spots. Such as radar chart on the facilities, price, room type
 
 - Do you have a story?
-I prefer to have a deep travlel on a certain state, I select the place based on the sites you prefer to visit through websites like booking and trivago to look for the desire place to stay. Then, I have to do it again when I want search for another place. I also have to google it to know the places I had booked. So, an idea pops up at the moment, why not showing all the best places at one time according to my need and give a brief overview right away.
+I prefered to have a deep travlel on a certain state, I selected the place based on the sites you prefer to visit through websites such as booking and trivago to look for the desire places to stay. Then, I had to do it again when I wanted to search for another place. I also had to google it to know the places I booked. So, an idea popped up at that moment, why not showing all the best places at one time according to my need and give a brief overview right away?
 
 
 ### Secret sauce
@@ -48,29 +48,41 @@ Quick comparison on staying spots through visual map
      (2) Data cleaning
 2. D3:
      (1) Data Visualization
-3.  HTML/CSS/Javacsript:
+3. HTML/CSS/Javacsript:
      (1) result representation
+
 - How do you work together?
-All of the tasks will be discussed about the approaches to take and the tools might be used. After that, the work will be done individually.
+All of the tasks will be discussed about the approaches to take and the tools might be used by all teammembers. After that, the work will be done individually.
 
 ### Timeline
 1. 10/10/2019: data cleaning and preprocessing
 2. 10/12/2019: data preparation for visualizartion
-3. 11/10/2019: finish the visualization mentioned
-4. 11/24/2019: testing the result
+3. 11/10/2019: finish the visualization mentioned above
+4. 11/24/2019: testing the results
 
 ### The team
 Why you are confident you can deliver and the resources you will leverage
 
 
 ## PNG file provenance
-* 1. ![readme_image](screenshot.png]
-* 2. ![readme_image](screenshot.png]
-* 3. ![readme_image](screenshot.png]
-* 4. ![readme_image](screenshot.png]
-* 5. ![readme_image](screenshot.png]
-* 6. ![readme_image](screenshot.png]
-* 7. ![readme_image](screenshot.png]
-* 8. ![readme_image](screenshot.png]
-* 9. ![readme_image](screenshot.png]
-* 10. ![readme_image](screenshot.png]
+* 1. 
+![readme_image](airbnb_pic.png.png]
+* 2. jumis/Shutterstock
+![readme_image](slide2_california.png]
+* 3. https://www.hotelsbyday.com/blog/4-daycation-startups-on-the-go/
+![readme_image](slide3_viusalmap.png]
+* 4. https://www.google.com/search?biw=1440&bih=740&tbm=isch&sa=1&ei=sP2SXZCSJtat0PEPvOiUoAU&q=houese&oq=houese&gs_l=img.3..0i10i19.624210.624963..625072...0.0..0.221.724.2j3j1....3..0....1..gws-wiz-img.......0j0i10j0i30j0i10i30.Zvi5hP50Zew&ved=0ahUKEwiQqoG8wvrkAhXWFjQIHTw0BVQQ4dUDCAc&uact=5#imgrc=lr_fdbgKcDSA9M: 
+![readme_image](slide4_1_poor_apartment.png]
+![readme_image](slide4_2_style_house.png]
+* 5. http://databrit.blogspot.com/2015/10/the-story-behind-my-viz-of-day-on-airbnb.html 
+![readme_image](slide5_visual_map.png]
+* 6. https://booking.com
+![readme_image](slide6_booking.png]
+* 7. https://twitter.com/UniTaughtMe/status/594906049351655426/photo/1
+![readme_image](slide7_searching.png]
+* 8. plan
+![readme_image](screenshot.png]
+* 9. plan
+![readme_image](screenshot.png]
+* 10. timeline
+![readme_image](screenshot.png]
