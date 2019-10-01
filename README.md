@@ -1,7 +1,7 @@
 # INF 554 Assignment for 5
 
 ### Slide1 - Cover slide (manual advance not included in time)
-- Title: Deep Trip to California with D3
+- Title: Deep Trip to California
 - Group Name: Undefined
 - Names and email:
 1. WeiFan Chen => weifanch@usc.edu
