@@ -65,12 +65,12 @@ Why you are confident you can deliver and the resources you will leverage
 
 
 ## PNG file provenance
-* 1. 
-![readme_image](0_cover.png)
+* 1. https://unsplash.com
+![readme_image](0_cover.jpg)
 * 2. https://unsplash.com
-![readme_image](1_Introduction_1.png)
+![readme_image](1_Introduction_1.jpg)
 * 3. https://unsplash.com
-![readme_image](2_Introduction_2.png)
+![readme_image](2_Introduction_2.jpg)
 * 4. https://www.google.com/search?biw=1440&bih=740&tbm=isch&sa=1&ei=sP2SXZCSJtat0PEPvOiUoAU&q=houese&oq=houese&gs_l=img.3..0i10i19.624210.624963..625072...0.0..0.221.724.2j3j1....3..0....1..gws-wiz-img.......0j0i10j0i30j0i10i30.Zvi5hP50Zew&ved=0ahUKEwiQqoG8wvrkAhXWFjQIHTw0BVQQ4dUDCAc&uact=5#imgrc=lr_fdbgKcDSA9M: 
 ![readme_image](3_visualization_1_1.png)
 * 5. https://airbnb.com
@@ -78,10 +78,10 @@ Why you are confident you can deliver and the resources you will leverage
 * 6. http://databrit.blogspot.com/2015/10/the-story-behind-my-viz-of-day-on-airbnb.html 
 ![readme_image](4_visualization_2.png)
 * 7. https://booking.com
-![readme_image](5_visualization_3.png)
+![readme_image](5_visualization_3.jpg)
 * 8. https://twitter.com/UniTaughtMe/status/594906049351655426/photo/1
-![readme_image](6_plan1.png)
+![readme_image](6_plan1.jpg)
 * 9. https://unsplash.com
-![readme_image](7_plan2.png)
+![readme_image](7_plan2.jpg)
 * 10. https://unsplash.com
-![readme_image](8_timeline.png)
+![readme_image](8_timeline.jpg)
