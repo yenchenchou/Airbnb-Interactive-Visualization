@@ -66,8 +66,8 @@ All of the tasks will be discussed about the approaches to take and the tools mi
 ![readme_image](8_timeline.jpg)
 
 ### The team
-Why you are confident you can deliver and the resources you will leverage
-
+Why you are confident you can deliver and the resources you will leverage？
+According to our rich travel experience, we can deeply relate to travelers, we understand the difficulties they might encounter and the inconveniences they suffer. Therefore, our goals are clear, and with the knowledge we learn from this course, we will be able to achieve the goals.
 
 ## Image file provenance
 * 1. https://unsplash.com
