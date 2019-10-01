@@ -66,23 +66,22 @@ Why you are confident you can deliver and the resources you will leverage
 
 ## PNG file provenance
 * 1. 
-![readme_image](airbnb_pic.png.png)
-* 2. jumis/Shutterstock
-![readme_image](slide2_california.png)
-* 3. https://www.hotelsbyday.com/blog/4-daycation-startups-on-the-go/
-![readme_image](slide3_viusalmap.png)
+![readme_image](0_cover.png)
+* 2. https://unsplash.com
+![readme_image](1_Introduction_1.png)
+* 3. https://unsplash.com
+![readme_image](2_Introduction_2.png)
 * 4. https://www.google.com/search?biw=1440&bih=740&tbm=isch&sa=1&ei=sP2SXZCSJtat0PEPvOiUoAU&q=houese&oq=houese&gs_l=img.3..0i10i19.624210.624963..625072...0.0..0.221.724.2j3j1....3..0....1..gws-wiz-img.......0j0i10j0i30j0i10i30.Zvi5hP50Zew&ved=0ahUKEwiQqoG8wvrkAhXWFjQIHTw0BVQQ4dUDCAc&uact=5#imgrc=lr_fdbgKcDSA9M: 
-![readme_image](slide4_1_poor_apartment.png)
-![readme_image](slide4_2_style_house.png)
-* 5. http://databrit.blogspot.com/2015/10/the-story-behind-my-viz-of-day-on-airbnb.html 
-![readme_image](slide5_visual_map.png)
-* 6. https://booking.com
-![readme_image](slide6_booking.png)
-* 7. https://twitter.com/UniTaughtMe/status/594906049351655426/photo/1
-![readme_image](slide7_searching.png)
-* 8. plan
-![readme_image](screenshot.png)
-* 9. plan
-![readme_image](screenshot.png)
-* 10. timeline
-![readme_image](screenshot.png)
+![readme_image](3_visualization_1_1.png)
+* 5. https://airbnb.com
+![readme_image](3_visualization_1_2.png)
+* 6. http://databrit.blogspot.com/2015/10/the-story-behind-my-viz-of-day-on-airbnb.html 
+![readme_image](4_visualization_2.png)
+* 7. https://booking.com
+![readme_image](5_visualization_3.png)
+* 8. https://twitter.com/UniTaughtMe/status/594906049351655426/photo/1
+![readme_image](6_plan1.png)
+* 9. https://unsplash.com
+![readme_image](7_plan2.png)
+* 10. https://unsplash.com
+![readme_image](8_timeline.png)
