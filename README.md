@@ -63,6 +63,7 @@ All of the tasks will be discussed about the approaches to take and the tools mi
 2. 10/12/2019: data preparation for visualization
 3. 11/10/2019: finish the visualization mentioned above
 4. 11/24/2019: testing the results
+5. 12/2/2019: deploy system, finish the paper and video 
 ![readme_image](8_timeline.jpg)
 
 ### The team
