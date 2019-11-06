@@ -2,6 +2,8 @@
 <html>
   <head>
     <script src="node_modules/d3/dist/d3.min.js"></script>
+    <script src="node_modules/topojson/dist/topojson.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script type="text/javascript" src="scripts/index.js"></script>
     <title>Deep Trip to California</title>
@@ -13,5 +15,33 @@
         <h2 align="right">Name: Yen-Chen Chou USCID: 2256319992</h2>
         <h2 align="right">Name: Runze Liu USCID: 5565352666</h2>
       </div>
+      <svg width="800" height="600"></svg>
+      <script>
+      var svg = d3.select("svg"),
+            width = +svg.attr("width"),
+            height = +svg.attr("height");
+
+        d3.json("./data/dataset/california-counties.geojson").then(function (json) {
+            var projection = d3.geoMercator().fitSize([width, height], json);
+            
+            var path = d3.geoPath().projection(projection);
+
+            var graticule = d3.geoGraticule()  // graticule generator
+                .step([10, 10]);
+            
+
+            svg.selectAll(".states")
+                .data(json.features)
+                .enter()
+                .append("path")
+                .attr('fill','white')
+                .attr('stroke','black')
+                .attr("class", "states")
+                .attr("d", path);
+
+
+
+        });
+        </script>
   </body>
 </html>
