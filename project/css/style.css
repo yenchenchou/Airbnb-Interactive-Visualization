@@ -1,3 +1,7 @@
 h2 {
     align-content: "right";
 }
+
+.counties :hover {
+    fill: orange;
+  }
