@@ -1,0 +1,4 @@
+# write the files you want to ignore so that they will not be pushed
+proposal_presentation/*.jpg
+proposal_presentation/*.json
+proposal_presentation/*.svg
