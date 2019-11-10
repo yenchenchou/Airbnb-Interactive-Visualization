@@ -1,5 +1,9 @@
 # INF 554 Assignment for 5
 
+## paper
+
+- https://www.overleaf.com/4559825934xjssmcfbkrkt
+
 ### Slide1 - Cover slide (manual advance not included in time)
 - Title: Deep Trip to California
 - Group Name: Undefined
@@ -7,11 +11,9 @@
 1. WeiFan Chen => weifanch@usc.edu
 2. YenChen Chou => yenchenc@usc.edu
 3. Runze Liu => runzeliu@usc.edu
-![readme_image](0_cover.jpg)
 
 ### Slide2 - Introduction
 1. Select best staying spots across multiple cities in California 
-![readme_image](1_Introduction_1.jpg)
 
 ### Slide3 - Introduction
 1. Audience: For people who want prefer to have a deep travel in California
@@ -19,11 +21,9 @@
 3. Why useful: 
     (1) Povide a way to quickly adjust thier stays
     (2) Find the lowest price according user's requirement
-![readme_image](2_Introduction_2.jpg)
 
 ### Slide4 - Our visualization
 1. High level visual map for your staying spot comparision
-![readme_image](3_visualization_1_1.png)
 
 ### Slide5 - Our Visualization
 - What is the information you plan to present?
@@ -31,16 +31,13 @@
 2. Visual information on the spots you select and show and difference
 2. Point out what features might affect the price, such as room type, facilities, home surrounding style
 3. Deeper comparison on the selected spots. Such as radar chart on the facilities, price, room type
-![readme_image](3_visualization_1_2.png)
 
 ### Slide6 - Do you have a story?
 I preferred to have a deep trip in a certain state, I selected the city based on the sites I want to visit, then browsed through websites such as booking.com or trivago to look for desirable places to stay. But, I had to do it again when I wanted to search for another city. I also had to google it to know the places I booked. So, an idea popped up at that moment, why it can't show all the best places at one time according to my needs and give a brief overview right away?
-![readme_image](5_visualization_3.jpg)
 
 ### Slide7 - Secret sauce
 How your visualization compares to what others have done on the same and different topics?
 Quick compare on staying spots through visual map and provide recommendations for the staying spots according to your previous selections
-![readme_image](4_visualization_2.png)
 
 ### Slide8 - What is your plan
 - What data you will use? Airbnb open data focus on 8 cities in California
@@ -52,11 +49,9 @@ Quick compare on staying spots through visual map and provide recommendations fo
      (1) Data Visualization
 3. HTML/CSS/Javacsript:
      (1) result representation
-![readme_image](6_plan1.jpg)
 
 ### Slide9 - How do you work together
 All of the tasks will be discussed about the approaches to take and the tools might be used by all teammembers. After that, the work will be done individually. Then, the team will discuss about the results from each team member again.
-![readme_image](7_plan2.jpg)
 
 ### Slide10 - Timeline
 1. 10/10/2019: data cleaning and preprocessing
@@ -64,7 +59,6 @@ All of the tasks will be discussed about the approaches to take and the tools mi
 3. 11/10/2019: finish the visualization mentioned above
 4. 11/24/2019: testing the results
 5. 12/2/2019: deploy system, finish the paper and video 
-![readme_image](8_timeline.jpg)
 
 ### The team
 Why you are confident you can deliver and the resources you will leverage？
