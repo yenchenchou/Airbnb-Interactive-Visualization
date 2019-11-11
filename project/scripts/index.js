@@ -13,7 +13,8 @@ d3.json("./data/dataset/california-counties.geojson").then(function (json) {
     counties = svg.append('g')
         .attr('class','counties')
         .style('fill','whitesmoke');
-    
+     
+        
     counties.selectAll('path')
         .data(json.features)
         .enter()
