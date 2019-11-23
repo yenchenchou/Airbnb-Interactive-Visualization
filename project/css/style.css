@@ -5,3 +5,7 @@ h2 {
 .counties :hover {
     fill: orange;
   }
+
+.house_spot :hover{
+    fill: red;
+}
