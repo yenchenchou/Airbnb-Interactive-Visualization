@@ -5,15 +5,13 @@
     <script src="node_modules/topojson/dist/topojson.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
-    <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" />
+    <!-- <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" />
     <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
-    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.1/leaflet-omnivore.min.js'></script>
-
-    
-    
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.1/leaflet-omnivore.min.js'></script> -->
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />  
     <title>Deep Trip to California</title>
-    
-
   </head>
   <body>
       <div>
@@ -22,9 +20,19 @@
         <h2 align="right">Yen-Chen Chou 2256319992</h2>
         <h2 align="right">Runze Liu 5565352666</h2>
       </div>
-      <div id="mapid" style='height: 600px'></div>
+      <!-- <div id="mapid" style='height: 600px'></div> -->
+      <div id='map'></div>
+      <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoid2VpZmFuY2giLCJhIjoiY2syM3p6NGZ5MDNqbDNtbW43MGd2dHhuYiJ9.ja_sOhkG72iVGI1eeyyRbw';
+
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/streets-v10', //stylesheet location
+            center: [ -89.89709901792442, 41.29146740952274], // starting position
+            zoom: 3 // starting zoom
+        });
 
       </script>
-      <script type="text/javascript" src="./scripts/index.js"></script>
+      <!-- <script type="text/javascript" src="./scripts/index.js"></script> -->
   </body>
 </html>
