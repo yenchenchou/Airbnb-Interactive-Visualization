@@ -8,12 +8,44 @@
     <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" />
     <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.1/leaflet-omnivore.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3-scale-radial.js"></script>
 
-    
-    
     <title>Deep Trip to California</title>
-    
-
+    <style>
+      .bubbles {
+        stroke-width: 1px;
+        stroke: white;
+        opacity: '0.6'
+      }
+      .bubbles:hover {
+        stroke: black;
+        stroke-width: 3.5px;
+      }
+      .axis_x line{
+        stroke: #808080;
+        stroke-width: 2px;
+      }
+      .axis_y line{
+        stroke: #808080;
+        stroke-width: 2px;
+      }
+      .axis_x path{
+        stroke: #808080;
+        stroke-width: 2px;
+      }
+      .axis_y path{
+        stroke: #808080;
+        stroke-width: 2px;
+      }
+      .axis_x text{
+        fill: #808080;
+        font-size: 14px;
+      }
+      .axis_y text{
+        fill: #808080;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
       <div>
@@ -22,9 +54,28 @@
         <h2 align="right">Yen-Chen Chou 2256319992</h2>
         <h2 align="right">Runze Liu 5565352666</h2>
       </div>
-      <div id="mapid" style='height: 600px'></div>
+      <!-- <div id="mapid" style='height: 600px'></div> -->
+      <div>Average price of different room types, when user select the data, it will generate a new bar plot overlapped on this plot</div>
+      <div>This is to show the averge price of your selected items according to different type</div>
+      <div id="barplot"></div>
+      <div>distribution</div>
+      <div id="distplot"></div>
+      <div>bubble plot: x-axis show available days of a year and y-axis average reiviews</div>
+      <div>each point is a city and the bigger the point, the bigger number of houses in that city</div>
+      <div id="bubbleplot"></div>
+      <div>like a bar chart of the description, e.g. immense is the most mentioned keyword</div>
+      <div id="circular_bar"></div>
+      <div>scatter plot: x-axis the averge price of the description keyword and y-axis is the number of count of the keyword</div>
+      <div>e.g. don't use too frequent words because there will not increase the house price</div>
+      <div id="scatter_plot"></div>
 
+      <script  src="scripts/barplot.js"></script>
+      <script  src="scripts/distplot.js"></script>
+      <script  src="scripts/bubbleplot.js"></script>
+      <script  src="scripts/circular_bar.js"></script>
+      <script  src="scripts/scatter_plot.js"></script>
+      <script>
       </script>
-      <script type="text/javascript" src="./scripts/index.js"></script>
+      
   </body>
 </html>
