@@ -3,10 +3,11 @@ d3.json('data/dataset/room_type_price.json').then(data => {
     const svg = d3.select('#barplot')
         .append('svg')
         .attr('width', 800)
-        .attr('height', 300);
+        .attr('height', 300)
+        .style('background-color', "#f0f4f5");
 
     // create margins & dimensions
-    const margin = {top: 20, right: 20, bottom: 100, left: 120};
+    const margin = {top: 20, right: 20, bottom: 45, left: 100};
     const graphWidth = 800 - margin.left - margin.right;
     const graphHeight = 300 - margin.top - margin.bottom;
 
@@ -24,19 +25,56 @@ d3.json('data/dataset/room_type_price.json').then(data => {
         .paddingInner(0.2)
         .paddingOuter(0.2);
 
+
+    // event handler
+    const handleMouserover = (d, i, n) => {
+        d3.select(n[i])
+        .transition().duration(10)
+            .attr('stroke', '#808080')
+            .attr('stroke-width', '3px')
+    }
+    const handleMouseout = (d, i, n) => {
+        d3.select(n[i])
+        .transition().duration(10)
+            .attr('stroke','#ffd1d2')
+            .attr('stroke-width', '0px')   
+    } 
+
+
+    // Tooltip setupb order-radius: 25px;
+    const tip = d3.tip()
+    .attr('class', 'tip_card')
+    .html((d, i, n) => {
+        let content = `<p class=bubble_point>${'$' + d.price.toFixed(2)}</p>`;;
+        return content;
+    }).direction('se')
+    graph.call(tip)
+
+
     // join the data to circs
     const rects = graph.selectAll('rect')
     .data(data);
-
     // append the enter selection to the DOM
     rects.enter()
-    .append('rect')
+        .append('rect')
         .attr('height', y.bandwidth())
-        .attr("width", d => d.price)
         .attr('fill', '#FF5A5F')
         .attr('x', 0)
         .attr('y', d => y(d.room_type))
-        .style("opacity", '1');
+        .attr('stroke-width', '0px')
+        .style("opacity", '1')
+        .transition().duration(2000)
+            .attr('x', 0)
+            .attr("width", d => d.price);
+    graph.selectAll('rect')
+        .on("mouseover", (d, i, n) => {
+            tip.show(d, n[i]);
+            handleMouserover(d, i, n);
+        })
+        .on("mouseout", (d, i, n) => {
+            tip.hide();
+            handleMouseout(d, i, n);
+        })
 
     // create axes groups
     const xAxisGroup = graph.append('g')

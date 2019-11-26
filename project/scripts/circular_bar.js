@@ -1,19 +1,24 @@
 
 d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
+    // select the svg container first
+    const svg = d3.select('#circular_bar')
+        .append('svg')
+        .attr('width', 800)
+        .attr('height', 600)
+        .style('background-color', "#f0f4f5");
+
     // set the dimensions and margins of the graph
-    var margin = {top: 20, right: 0, bottom: 0, left: 0},
-        width = 400 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom,
-        innerRadius = 90,
-        outerRadius = Math.min(width, height) / 2;
+    var margin = {top: 30, right: 120, bottom: 20, left: 0},
+        graphWidth = 800 - margin.left - margin.right,
+        graphHeight = 600 - margin.top - margin.bottom,
+        innerRadius = 180,
+        outerRadius = Math.min(graphWidth, graphHeight);
 
     // append the svg object
-    var svg = d3.select("#circular_bar")
-    .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-        .attr("transform", "translate(" + (200 + margin.left) + "," + (150 + margin.top) + ")");
+    const graph = svg.append('g')
+        .attr('width', graphWidth)
+        .attr('height', graphHeight)
+        .attr('transform', `translate(${graphWidth/2}, ${graphHeight/2 + 40})`);
 
     // Scales
     var x = d3.scaleBand()
@@ -21,9 +26,36 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
         .domain(data.map(d => d.description)); 
     var y = d3.scaleRadial()
         .range([innerRadius, outerRadius])   // Domain will be define later.
-        .domain([0, 14000]);
+        .domain([0, d3.max(data, d => d.countword)]);
+
+
+    // event handler
+    const handleMouserover = (d, i, n) => {
+        d3.select(n[i])
+        .transition().duration(10)
+            .attr('stroke', '#808080')
+            .attr('stroke-width', '3px')
+    }
+    const handleMouseout = (d, i, n) => {
+        d3.select(n[i])
+        .transition().duration(10)
+            .attr('stroke','#ffd1d2')
+            .attr('stroke-width', '0px')   
+    } 
+
+
+    // Tooltip setupb order-radius: 25px;
+    const tip = d3.tip()
+    .attr('class', 'tip_card')
+    .html((d, i, n) => {
+        let content = `<p>${'avg price: $' + d.price.toFixed(0)}</p>`;
+        content += `<p>${'# of house available: ' + d.countword}</p>`;
+        return content;
+    }).direction('se')
+    graph.call(tip)
+
     // Add the bars
-    svg.append("g")
+    graph.append("g")
         .selectAll("path")
         .data(data)
         .enter()
@@ -36,8 +68,16 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
             .endAngle(function(d) { return x(d.description) + x.bandwidth(); })
             .padAngle(0.01)
             .padRadius(innerRadius))
+        .on("mouseover", (d, i, n) => {
+            tip.show(d, n[i]);
+            handleMouserover(d, i, n);
+        })
+        .on("mouseout", (d, i, n) => {
+            tip.hide();
+            handleMouseout(d, i, n);
+        })
     // Add the labels
-    svg.append("g")
+    graph.append("g")
         .selectAll("g")
         .data(data)
         .enter()
@@ -47,7 +87,11 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
         .append("text")
             .text(function(d){return(d.description)})
             .attr("transform", function(d) { return (x(d.description) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
-            .style("font-size", "11px")
+            .style("font-size", "14px")
             .attr("alignment-baseline", "middle")
+            .attr('font-family', "Arial")
+        // .on("mouseover", handleMouserover)
+        // .on("mouseout", handleMouseout);
+
 });
 

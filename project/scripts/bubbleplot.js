@@ -1,5 +1,5 @@
 d3.csv('data/dataset/df.csv').then(data => {
-    var priceAvgAmount = d3.nest()
+    const priceAvgAmount = d3.nest()
         .key(d => d.city)
         .rollup(function(v) {
             return {
@@ -15,10 +15,11 @@ d3.csv('data/dataset/df.csv').then(data => {
     const svg = d3.select('#bubbleplot')
         .append('svg')
         .attr('width', 800)
-        .attr('height', 600);
+        .attr('height', 600)
+        .style('background-color', "#f0f4f5");
 
     // create margins & dimensions
-    const margin = {top: 20, right: 20, bottom: 50, left: 120};
+    const margin = {top: 20, right: 20, bottom: 30, left: 100};
     const graphWidth = 800 - margin.left - margin.right;
     const graphHeight = 600 - margin.top - margin.bottom;
 
@@ -40,54 +41,37 @@ d3.csv('data/dataset/df.csv').then(data => {
     .domain([0, d3.max(priceAvgAmount, d => d.value.cnt_house)])
     .range([4, 30]);
 
-    // var myColor = d3.scaleSequential()
-    // .domain([0, 200])
-    // .interpolator(d3.interpolateOrRd);
-    // console.log(myColor)
-    // d3.scale.linear().domain([1,length])
-    //   .interpolate(d3.interpolateHcl)
-    //   .range([d3.rgb("#007AFF"), d3.rgb('#FFF500')])
-
-    var myColor = d3.scaleSequential()
+    const myColor = d3.scaleSequential()
         .domain([0, 150])
         .interpolator(d3.interpolateHcl("#d66014", "#ff5a5a"));
 
-    var myOpacity = d3.scaleLinear()
-    .domain([0, d3.max(priceAvgAmount, d => d.value.avg_price)])
-    .range([0.5, 1]);
+    // event handler
+    const handleMouserover = (d, i, n) => {
+        d3.select(n[i])
+        .transition().duration(10)
+            .style('opacity', 1)
+            .attr('stroke', '#808080')
+            .attr('stroke-width', '3.5px')
+    }
+    const handleMouseout = (d, i, n) => {
+        d3.select(n[i])
+        .transition().duration(10)
+            .attr('stroke','white')
+            .attr('stroke-width', '1px')
+            .style("opacity", 0.5)      
+    } 
 
-    // -1- Create a tooltip div that is hidden by default:
-    var tooltip = d3.select("#bubbleplot")
-        .append("div")
-        .style("opacity", 0)
-        .attr("class", "tooltip")
-        .style("background-color", "black")
-        .style("border-radius", "5px")
-        .style("padding", "10px")
-        .style("color", "white")
-    // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
-    var showTooltip = function(d) {
-        tooltip
-            .transition()
-            .duration(200)
-        tooltip
-            .style("opacity", 1)
-            .html("City: " + d.key)
-            .style("left", (d3.mouse(this)[0]+30) + "px")
-            .style("top", (d3.mouse(this)[1]) + "px")
-    }
-    var moveTooltip = function(d) {
-        tooltip
-            .style("opacity", 0.5)
-            .style("left", (d3.mouse(this)[0]+30) + "px")
-            .style("top", (d3.mouse(this)[1]) + "px")
-    }
-    var hideTooltip = function(d) {
-        tooltip
-            .transition()
-            .duration(200)
-            .style("opacity", 0)
-    }
+    // Tooltip setup
+    const tip = d3.tip()
+    .attr('class', 'tip_card')
+    .html((d, i, n) => {
+        let content = `<p><strong>${d.key}</strong></p>`;
+        content += `<p>avg reviews: ${d.value.avg_number_of_reviews.toFixed(0)}</p>`;
+        content += `<p>days available: ${d.value.avg_availability_365.toFixed(0)}</p>`;
+        content += `<p># of houses: ${d.value.cnt_house}</p>`;
+        return content;
+    }).direction('se')
+    graph.call(tip)
 
     // join the data to circs
     const circ = graph.selectAll('circle')
@@ -98,11 +82,20 @@ d3.csv('data/dataset/df.csv').then(data => {
         .attr("cx", function (d) { return x(d.value.avg_number_of_reviews); } )
         .attr("cy", function (d) { return y(d.value.avg_availability_365); } )
         .attr("r", function (d) { return z(d.value.cnt_house); } )
+        .attr('stroke','white')
+        .attr('stroke-width', '1px')
         .style("fill", function (d) { return myColor(d.value.avg_price); })
         .style("opacity", 0.5 )
-        .on("mouseover", showTooltip )
-        .on("mousemove", moveTooltip )
-        .on("mouseleave", hideTooltip )
+
+    graph.selectAll('circle')
+        .on("mouseover", (d, i, n) => {
+            tip.show(d, n[i]);
+            handleMouserover(d, i, n);
+        })
+        .on("mouseout", (d, i, n) => {
+            tip.hide();
+            handleMouseout(d, i, n);
+        })
         
     // create axes groups
     const xAxisGroup = graph.append('g')
@@ -129,9 +122,4 @@ d3.csv('data/dataset/df.csv').then(data => {
         .style('font-style', 'italic')
         .style("text-anchor", "middle")
         .text("Days");
-
-    // xAxisGroup.selectAll('text')
-    // .attr('fill', 'orange')
-    // .attr('transform', 'rotate(-40)')
-    // .attr('text-anchor', 'end')
 });

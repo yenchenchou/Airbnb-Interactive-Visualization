@@ -3,7 +3,8 @@ d3.csv('data/dataset/df.csv').then(data => {
     const svg = d3.select('#distplot')
         .append('svg')
         .attr('width', 800)
-        .attr('height', 300);
+        .attr('height', 300)
+        .style('background-color', "#f0f4f5");
 
     // create margins & dimensions
     const margin = {top: 20, right: 20, bottom: 100, left: 120};
@@ -31,6 +32,33 @@ d3.csv('data/dataset/df.csv').then(data => {
         .domain([0, d3.max(bins, d => d.length)])
         .range([graphHeight, 0]);
 
+
+    // event handler
+    const handleMouserover = (d, i, n) => {
+        d3.select(n[i])
+        .transition().duration(10)
+            .attr('stroke', '#808080')
+            .attr('stroke-width', '3px')
+    }
+    const handleMouseout = (d, i, n) => {
+        d3.select(n[i])
+        .transition().duration(10)
+            .attr('stroke','#ffd1d2')
+            .attr('stroke-width', '0px')   
+    } 
+
+ 
+    // Tooltip setupb order-radius: 25px;
+    const tip = d3.tip()
+    .attr('class', 'tip_card')
+    .html((d, i, n) => {
+        let content = `<p>${'price range: ' + d.x0.toFixed(0) + '-' + d.x1.toFixed(0)}</p>`;
+        content += `<p>${'houses count: ' + d.length}</p>`;
+        return content;
+    }).direction('ne')
+    graph.call(tip)  
+
+
     // append the enter selection to the DOM
     // join the data to circs
     const rects = graph.selectAll('rect')
@@ -38,11 +66,22 @@ d3.csv('data/dataset/df.csv').then(data => {
         .enter()
         .append('rect')
         .attr("x", 0.7)
-        .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
+        .attr('y', graphHeight)
+        .attr("transform", d => `translate(${x(d.x0)},0)`)
         .attr("width", function(d) { return x(d.x1) - x(d.x0) - 0.7 ; })
-        .attr("height", function(d) { return graphHeight - y(d.length); })
         .style("fill", "#FF5A5F")
-
+        .transition().duration(2000)
+            .attr('y', d => y(d.length))
+            .attr("height", function(d) { return graphHeight - y(d.length); })
+    graph.selectAll('rect')
+        .on("mouseover", (d, i, n) => {
+            tip.show(d, n[i]);
+            handleMouserover(d, i, n);
+        })
+        .on("mouseout", (d, i, n) => {
+            tip.hide();
+            handleMouseout(d, i, n);
+        })
     // create axes groups
     const xAxisGroup = graph.append('g')
         .attr("class", "axis_x")
@@ -54,6 +93,7 @@ d3.csv('data/dataset/df.csv').then(data => {
     const xAxis = d3.axisBottom(x)
         .ticks(20);
     const yAxis = d3.axisLeft(y)
+        .ticks(5);
 
     xAxisGroup.call(xAxis);
     yAxisGroup.call(yAxis);
