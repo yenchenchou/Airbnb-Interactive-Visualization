@@ -105,18 +105,20 @@ d3.csv('data/dataset/df.csv').then(data => {
 
     // text label for the x axis
     svg.append("text")             
-        .attr("transform", `translate(${graphWidth/2 + margin.left}, ${graphHeight + margin.top + 50})`)
+        .attr("transform", `translate(${graphWidth/2 + margin.left}, ${graphHeight + margin.top + 55})`)
         .attr('fill', '#808080')
-        .style('font-size', '20px')
-        .style('font-style', 'italic')
+        .style('font-size', '16px')
         .style("text-anchor", "middle")
-        .text("Price");
+        .text("Price")
+        .attr('font-family', "Arial")
+        .attr('fill', '#808080');
     // text label for the y axis
     svg.append("text")             
-        .attr("transform", `translate(25, ${graphHeight/2 + margin.top})`)
+        .attr("transform", `translate(35, ${graphHeight/2 + margin.top})`)
         .attr('fill', '#808080')
-        .style('font-size', '20px')
-        .style('font-style', 'italic')
+        .style('font-size', '16px')
         .style("text-anchor", "middle")
-        .text("Count");
+        .text("Count")            
+        .attr('font-family', "Arial")
+        .attr('fill', '#808080');
 });

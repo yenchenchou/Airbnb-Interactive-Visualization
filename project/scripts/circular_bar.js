@@ -90,8 +90,7 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
             .style("font-size", "14px")
             .attr("alignment-baseline", "middle")
             .attr('font-family', "Arial")
-        // .on("mouseover", handleMouserover)
-        // .on("mouseout", handleMouseout);
+            .attr('fill', '#808080');
 
 });
 

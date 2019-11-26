@@ -19,7 +19,7 @@ d3.csv('data/dataset/df.csv').then(data => {
         .style('background-color', "#f0f4f5");
 
     // create margins & dimensions
-    const margin = {top: 20, right: 20, bottom: 30, left: 100};
+    const margin = {top: 20, right: 20, bottom: 50, left: 120};
     const graphWidth = 800 - margin.left - margin.right;
     const graphHeight = 600 - margin.top - margin.bottom;
 
@@ -38,6 +38,10 @@ d3.csv('data/dataset/df.csv').then(data => {
     .range([graphHeight, 0]);
 
     const z = d3.scaleLinear()
+    .domain([0, d3.max(priceAvgAmount, d => d.value.cnt_house)])
+    .range([4, 30]);
+
+    const legend_size = d3.scaleSqrt()
     .domain([0, d3.max(priceAvgAmount, d => d.value.cnt_house)])
     .range([4, 30]);
 
@@ -96,7 +100,75 @@ d3.csv('data/dataset/df.csv').then(data => {
             tip.hide();
             handleMouseout(d, i, n);
         })
-        
+
+    // legend setup
+    const legendData = [
+        // d3.min(priceAvgAmount, d => d.value.cnt_house),
+        // d3.median(priceAvgAmount, d => d.value.cnt_house).toFixed(0),
+        // d3.max(priceAvgAmount, d => d.value.cnt_house),
+        1,
+        5000,
+        20000,
+    ]
+
+    graph.selectAll("legend")
+        .data(legendData)
+        .enter()
+        .append("circle")
+        .attr("cx", graphWidth - 100)
+        .attr("cy", function(d){ return 60 - legend_size(d) } )
+        .attr("r", function(d){ return legend_size(d) })
+        .style("fill", "none")
+        .attr("stroke", "#808080")
+        .attr('stroke-width', '2px')
+        .style("opacity", 0.5)
+    // Add legend: segments
+    svg.selectAll("legend")
+        .data(legendData)
+        .enter()
+        .append("line")
+            .attr('x1', graphWidth + 70)
+            .attr('x2', function(d){ return graphWidth + legend_size(d) + 20})
+            .attr('y1', function(d){ return 80 - legend_size(d) } )
+            .attr('y2', function(d){ return 80 - legend_size(d) } )
+            .attr('stroke', '#808080')
+            .attr('stroke-width', '2px')
+            .style('stroke-dasharray', ('2,2'))
+
+    // Add legend: labels
+    svg.selectAll("legend")
+        .data(legendData)
+        .enter()
+        .append("text")
+            .attr('x', graphWidth + 80)
+            .attr('y', function(d){ return 80 - legend_size(d) })
+            .text( function(d){ return d } )
+            .style("font-size", 12)
+            .attr('alignment-baseline', 'middle')
+            .attr('font-family', 'Arial')
+            .attr("fill", "#808080")
+
+    // Add square
+    svg.selectAll("legend")
+        .data(legendData)
+        .enter()
+        .append("rect")
+            .attr('x', graphWidth - 20)
+            .attr('y', margin.top)
+            .attr("width", 150)
+            .attr("height", 70)
+            .attr('stroke', '#808080')
+            .attr('stroke-width', '1.5px')
+            .style('stroke-dasharray', ('2,2'))
+            .attr("fill", "none")
+    // Add legend text
+    svg.append("text")             
+        .attr("transform", `translate(${graphWidth - 20}, ${margin.top - 1})`)
+        .attr('fill', '#808080')
+        .style('font-size', '12px')
+        .text("House Counts")
+        .attr('font-family', 'Arial');
+  
     // create axes groups
     const xAxisGroup = graph.append('g')
         .attr("class", "axis_x")
@@ -108,18 +180,18 @@ d3.csv('data/dataset/df.csv').then(data => {
 
     // text label for the x axis
     svg.append("text")             
-        .attr("transform", `translate(${graphWidth/2 + margin.left}, ${graphHeight + margin.top + 40})`)
+        .attr("transform", `translate(${graphWidth/2 + margin.left -5}, ${graphHeight + margin.top + 40})`)
         .attr('fill', '#808080')
-        .style('font-size', '20px')
-        .style('font-style', 'italic')
+        .style('font-size', '16px')
         .style("text-anchor", "middle")
-        .text("Reviews");
+        .text("Reviews")
+        .attr('font-family', 'Arial');
     // text label for the y axis
     svg.append("text")             
-        .attr("transform", `translate(40, ${graphHeight/2 + margin.top})`)
+        .attr("transform", `translate(40, ${graphHeight/2 + margin.top + 5})`)
         .attr('fill', '#808080')
-        .style('font-size', '20px')
-        .style('font-style', 'italic')
+        .style('font-size', '16px')
         .style("text-anchor", "middle")
-        .text("Days");
+        .text("Days")
+        .attr('font-family', 'Arial');
 });

@@ -7,7 +7,7 @@ d3.json('data/dataset/room_type_price.json').then(data => {
         .style('background-color', "#f0f4f5");
 
     // create margins & dimensions
-    const margin = {top: 20, right: 20, bottom: 45, left: 100};
+    const margin = {top: 20, right: 20, bottom: 45, left: 120};
     const graphWidth = 800 - margin.left - margin.right;
     const graphHeight = 300 - margin.top - margin.bottom;
 
@@ -94,15 +94,16 @@ d3.json('data/dataset/room_type_price.json').then(data => {
         // .attr('fill', '#808080')
     yAxisGroup.selectAll('text')
         // .attr('fill', '#808080')
-        .attr('transform', 'rotate(-40)')
-        .attr('text-anchor', 'end')
+        .attr("transform", translate(0,0))
+        .attr('text-anchor', 'middle')
 
     // text label for the x axis
     svg.append("text")             
         .attr("transform", `translate(${graphWidth/2 + margin.left}, ${graphHeight + margin.top + 40})`)
         .attr('fill', '#808080')
-        .style('font-size', '20px')
-        .style('font-style', 'italic')
+        .style('font-size', '16px')
         .style("text-anchor", "middle")
-        .text("Avg. Price");
+        .text("Avg. Price")
+        .attr('font-family', "Arial")
+        .attr('fill', '#808080');
 });
