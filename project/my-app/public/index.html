@@ -28,6 +28,42 @@ table, th, td {
 .top {
   height: 100px;
 }
+.tip_card {
+  padding: 3px;
+  background: #808080;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+  font-family: "Arial";
+  opacity: 0.5;
+  line-height: 10px;
+}
+.axis_x line{
+  stroke: #808080;
+  stroke-width: 2px;
+}
+.axis_y line{
+  stroke: #808080;
+  stroke-width: 2px;
+}
+.axis_x path{
+  stroke: #808080;
+  stroke-width: 2px;
+}
+.axis_y path{
+  stroke: #808080;
+  stroke-width: 2px;
+}
+.axis_x text{
+  fill: #808080;
+  font-size: 14px;
+}
+.axis_y text{
+  fill: #808080;
+  font-size: 14px;
+}
+
 </style>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,10 +76,20 @@ table, th, td {
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3-scale-radial.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- <script src="a5-undefined/project/my-app/node_modules/d3/dist/d3.min.js"></script> -->
+    <!-- chart js files -->
+    <script src="barplot.js"></script>
+    <script src="displot.js"></script>
+    <!-- <script src="barplot.js"></script>
+    <script src="barplot.js"></script> -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
+    
     <h1 align="center">Deep Trip in California</h1>
     <table border="1">
       <tbody>
@@ -72,6 +118,10 @@ table, th, td {
         <tr>
           <td class="right-part bottom">
             <!-- Used to draw graph! -->
+            <div id="barplot"></div>
+            <div id="distplot"></div>
+            <!-- <div id="bubbleplot"></div>
+            <div id="circular_bar"></div> -->
           </td>
         </tr>
       </tbody>
