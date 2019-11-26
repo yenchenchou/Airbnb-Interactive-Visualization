@@ -63,7 +63,7 @@ d3.json('data/dataset/room_type_price.json').then(data => {
         .attr('y', d => y(d.room_type))
         .attr('stroke-width', '0px')
         .style("opacity", '1')
-        .transition().duration(2000)
+        .transition().duration(3000)
             .attr('x', 0)
             .attr("width", d => d.price);
     graph.selectAll('rect')
