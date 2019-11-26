@@ -25,15 +25,17 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
         .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
         .domain(data.map(d => d.description)); 
     var y = d3.scaleRadial()
-        .range([innerRadius, outerRadius])   // Domain will be define later.
-        .domain([0, d3.max(data, d => d.countword)]);
-
+        .domain([0, d3.max(data, d => d.countword)])
+        .range([innerRadius, outerRadius / 2]);   // Domain will be define later.
+    const myColor = d3.scaleLinear()
+        .domain([20, 300])
+        .range(["#00ccbb", "#FF5A5F"]); // ["#00A699", "#FF5A5F"]
 
     // event handler
     const handleMouserover = (d, i, n) => {
         d3.select(n[i])
         .transition().duration(10)
-            .attr('stroke', '#808080')
+            .attr('stroke', '#767676')
             .attr('stroke-width', '3px')
     }
     const handleMouseout = (d, i, n) => {
@@ -51,7 +53,7 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
         let content = `<p>${'avg price: $' + d.price.toFixed(0)}</p>`;
         content += `<p>${'# of house available: ' + d.countword}</p>`;
         return content;
-    }).direction('se')
+    }).direction('ne')
     graph.call(tip)
 
     // Add the bars
@@ -60,10 +62,11 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
         .data(data)
         .enter()
         .append("path")
-        .attr("fill", "#FF5A5F")
+        .attr("fill", function (d) { return myColor(d.price); })
+        .style("opacity", '0.7')
         .attr("d", d3.arc()     // imagine your doing a part of a donut plot
             .innerRadius(innerRadius)
-            .outerRadius(function(d) { return y(d['price']); })
+            .outerRadius(function(d) { return y(d.countword); })
             .startAngle(function(d) { return x(d.description); })
             .endAngle(function(d) { return x(d.description) + x.bandwidth(); })
             .padAngle(0.01)
@@ -90,7 +93,66 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
             .style("font-size", "14px")
             .attr("alignment-baseline", "middle")
             .attr('font-family', "Arial")
-            .attr('fill', '#808080');
+            .attr('fill', '#767676');
+
+    // Color legend.
+    data_for_legend = [
+        {"color":"#ff5a5f","value":0,"price":1000},
+        {"color":"#ffb3b5","value":20,"price":300},
+        {"color":"#a28481","value":40,"price":100},
+        {"color":"#00A699","value":60,"price":50}
+    ]
+
+    graph.selectAll("legend")
+        .data(data_for_legend)
+        .enter()
+        .append('rect')
+        .attr('width', 45)
+        .attr('height', 10)
+        .attr('fill', d => d.color)
+        .attr('x', graphWidth/2.1)
+        .attr('y', d => d.value - 200)
+        .attr('stroke-width', '0px')
+        .style("anchor", "middle")
+        .style("opacity", '0.6');
+
+    graph.selectAll("legend")
+        .data(data_for_legend)
+        .enter()
+        .append("line")
+            .attr('x1', graphWidth/2.1 + 50)
+            .attr('x2', graphWidth/2.1 + 70)
+            .attr('y1', function(d){ return d.value - 195} )
+            .attr('y2', function(d){ return d.value - 195} )
+            .attr('stroke', '#767676')
+            .attr('stroke-width', '2px')
+            .style('stroke-dasharray', ('2,2'))
+    // Add legend: labels
+    graph.selectAll("legend")
+        .data(data_for_legend)
+        .enter()
+        .append("text")
+            .attr('x', graphWidth/2.1 + 80)
+            .attr('y', function(d){ return d.value - 195} )
+            .text(d => '$' + d.price)
+            .style("font-size", 12)
+            .attr('alignment-baseline', 'middle')
+            .attr('font-family', 'Arial')
+            .attr("fill", "#767676")
+    // Add square
+    graph.selectAll("legend")
+        .data(data_for_legend)
+        .enter()
+        .append("rect")
+            .attr('x', graphWidth/2.1 - 20)
+            .attr('y', -220)
+            .attr("width", 150)
+            .attr("height", 105)
+            .attr('stroke', '#767676')
+            .attr('stroke-width', '1.5px')
+            .style('stroke-dasharray', ('2,2'))
+            .attr("fill", "none")
+
 
 });
 

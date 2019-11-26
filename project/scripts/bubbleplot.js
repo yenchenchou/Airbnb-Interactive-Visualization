@@ -45,16 +45,16 @@ d3.csv('data/dataset/df.csv').then(data => {
     .domain([0, d3.max(priceAvgAmount, d => d.value.cnt_house)])
     .range([4, 30]);
 
-    const myColor = d3.scaleSequential()
-        .domain([0, 150])
-        .interpolator(d3.interpolateHcl("#d66014", "#ff5a5a"));
+    const myColor = d3.scaleLinear()
+        .domain([20, 300])
+        .range(["#00ccbb", "#FF5A5F"]); // ["#00A699", "#FF5A5F"]
 
     // event handler
     const handleMouserover = (d, i, n) => {
         d3.select(n[i])
         .transition().duration(10)
             .style('opacity', 1)
-            .attr('stroke', '#808080')
+            .attr('stroke', '#767676')
             .attr('stroke-width', '3.5px')
     }
     const handleMouseout = (d, i, n) => {
@@ -69,10 +69,10 @@ d3.csv('data/dataset/df.csv').then(data => {
     const tip = d3.tip()
     .attr('class', 'tip_card')
     .html((d, i, n) => {
-        let content = `<p><strong>${d.key}</strong></p>`;
+        let content = `<p style='color:#fda281;'><strong>${d.key}</strong></p>`;
         content += `<p>avg reviews: ${d.value.avg_number_of_reviews.toFixed(0)}</p>`;
         content += `<p>days available: ${d.value.avg_availability_365.toFixed(0)}</p>`;
-        content += `<p># of houses: ${d.value.cnt_house}</p>`;
+        content += `<p style='color:#fff;'>avg price: ${d.value.avg_price.toFixed(0)}</p>`;
         return content;
     }).direction('se')
     graph.call(tip)
@@ -101,16 +101,8 @@ d3.csv('data/dataset/df.csv').then(data => {
             handleMouseout(d, i, n);
         })
 
-    // legend setup
-    const legendData = [
-        // d3.min(priceAvgAmount, d => d.value.cnt_house),
-        // d3.median(priceAvgAmount, d => d.value.cnt_house).toFixed(0),
-        // d3.max(priceAvgAmount, d => d.value.cnt_house),
-        1,
-        5000,
-        20000,
-    ]
-
+    //// legend setup
+    const legendData = [1,5000,20000]
     graph.selectAll("legend")
         .data(legendData)
         .enter()
@@ -119,7 +111,7 @@ d3.csv('data/dataset/df.csv').then(data => {
         .attr("cy", function(d){ return 60 - legend_size(d) } )
         .attr("r", function(d){ return legend_size(d) })
         .style("fill", "none")
-        .attr("stroke", "#808080")
+        .attr("stroke", "#767676")
         .attr('stroke-width', '2px')
         .style("opacity", 0.5)
     // Add legend: segments
@@ -131,10 +123,9 @@ d3.csv('data/dataset/df.csv').then(data => {
             .attr('x2', function(d){ return graphWidth + legend_size(d) + 20})
             .attr('y1', function(d){ return 80 - legend_size(d) } )
             .attr('y2', function(d){ return 80 - legend_size(d) } )
-            .attr('stroke', '#808080')
+            .attr('stroke', '#767676')
             .attr('stroke-width', '2px')
             .style('stroke-dasharray', ('2,2'))
-
     // Add legend: labels
     svg.selectAll("legend")
         .data(legendData)
@@ -146,8 +137,7 @@ d3.csv('data/dataset/df.csv').then(data => {
             .style("font-size", 12)
             .attr('alignment-baseline', 'middle')
             .attr('font-family', 'Arial')
-            .attr("fill", "#808080")
-
+            .attr("fill", "#767676")
     // Add square
     svg.selectAll("legend")
         .data(legendData)
@@ -156,18 +146,62 @@ d3.csv('data/dataset/df.csv').then(data => {
             .attr('x', graphWidth - 20)
             .attr('y', margin.top)
             .attr("width", 150)
-            .attr("height", 70)
-            .attr('stroke', '#808080')
+            .attr("height", 160)
+            .attr('stroke', '#767676')
             .attr('stroke-width', '1.5px')
             .style('stroke-dasharray', ('2,2'))
             .attr("fill", "none")
     // Add legend text
     svg.append("text")             
         .attr("transform", `translate(${graphWidth - 20}, ${margin.top - 1})`)
-        .attr('fill', '#808080')
+        .attr('fill', '#767676')
         .style('font-size', '12px')
         .text("House Counts")
         .attr('font-family', 'Arial');
+    // Color legend.
+    data_for_legend = [
+        {"color":"#ff5a5f","value":0,"price":1000},
+        {"color":"#ffb3b5","value":20,"price":300},
+        {"color":"#a28481","value":40,"price":100},
+        {"color":"#00A699","value":60,"price":50}
+    ]
+    graph.append('g')
+        .selectAll('rect')
+        .data(data_for_legend)
+        .enter()
+        .append('rect')
+        .attr('width', 45)
+        .attr('height', 10)
+        .attr('fill', d => d.color)
+        .attr('x', graphWidth - 122)
+        .attr('y', d => d.value + 80)
+        .attr('stroke-width', '0px')
+        .style("anchor", "middle")
+        .style("opacity", '0.6');
+
+    svg.selectAll("legend")
+        .data(data_for_legend)
+        .enter()
+        .append("line")
+            .attr('x1', graphWidth + 50)
+            .attr('x2', graphWidth + 70)
+            .attr('y1', function(d){ return 105 + d.value } )
+            .attr('y2', function(d){ return 105 + d.value } )
+            .attr('stroke', '#767676')
+            .attr('stroke-width', '2px')
+            .style('stroke-dasharray', ('2,2'))
+    // Add legend: labels
+    svg.selectAll("legend")
+        .data(data_for_legend)
+        .enter()
+        .append("text")
+            .attr('x', graphWidth + 80)
+            .attr('y', function(d){ return 105 + d.value })
+            .text(d => '$' + d.price)
+            .style("font-size", 12)
+            .attr('alignment-baseline', 'middle')
+            .attr('font-family', 'Arial')
+            .attr("fill", "#767676")
   
     // create axes groups
     const xAxisGroup = graph.append('g')
@@ -181,7 +215,7 @@ d3.csv('data/dataset/df.csv').then(data => {
     // text label for the x axis
     svg.append("text")             
         .attr("transform", `translate(${graphWidth/2 + margin.left -5}, ${graphHeight + margin.top + 40})`)
-        .attr('fill', '#808080')
+        .attr('fill', '#767676')
         .style('font-size', '16px')
         .style("text-anchor", "middle")
         .text("Reviews")
@@ -189,7 +223,7 @@ d3.csv('data/dataset/df.csv').then(data => {
     // text label for the y axis
     svg.append("text")             
         .attr("transform", `translate(40, ${graphHeight/2 + margin.top + 5})`)
-        .attr('fill', '#808080')
+        .attr('fill', '#767676')
         .style('font-size', '16px')
         .style("text-anchor", "middle")
         .text("Days")

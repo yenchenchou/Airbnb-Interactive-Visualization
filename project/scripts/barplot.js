@@ -24,13 +24,15 @@ d3.json('data/dataset/room_type_price.json').then(data => {
         .range([0, graphHeight])
         .paddingInner(0.2)
         .paddingOuter(0.2);
-
+    const myColor = d3.scaleOrdinal().domain(data.map(item => item.room_type))
+        .range(['#FF5A5F', '#00A699', '#FC642D']);
+    console.log(myColor)
 
     // event handler
     const handleMouserover = (d, i, n) => {
         d3.select(n[i])
         .transition().duration(10)
-            .attr('stroke', '#808080')
+            .attr('stroke', '#767676')
             .attr('stroke-width', '3px')
     }
     const handleMouseout = (d, i, n) => {
@@ -58,7 +60,7 @@ d3.json('data/dataset/room_type_price.json').then(data => {
     rects.enter()
         .append('rect')
         .attr('height', y.bandwidth())
-        .attr('fill', '#FF5A5F')
+        .attr('fill', function(d){return myColor(d.room_type)})
         .attr('x', 0)
         .attr('y', d => y(d.room_type))
         .attr('stroke-width', '0px')
@@ -91,19 +93,16 @@ d3.json('data/dataset/room_type_price.json').then(data => {
     xAxisGroup.call(xAxis);
     yAxisGroup.call(yAxis);
     xAxisGroup.selectAll('text')
-        // .attr('fill', '#808080')
+        // .attr('fill', '#767676')
     yAxisGroup.selectAll('text')
-        // .attr('fill', '#808080')
-        .attr("transform", translate(0,0))
-        .attr('text-anchor', 'middle')
 
     // text label for the x axis
     svg.append("text")             
         .attr("transform", `translate(${graphWidth/2 + margin.left}, ${graphHeight + margin.top + 40})`)
-        .attr('fill', '#808080')
+        .attr('fill', '#767676')
         .style('font-size', '16px')
         .style("text-anchor", "middle")
         .text("Avg. Price")
         .attr('font-family', "Arial")
-        .attr('fill', '#808080');
+        .attr('fill', '#767676');
 });
