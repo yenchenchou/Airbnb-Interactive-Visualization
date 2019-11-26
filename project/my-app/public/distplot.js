@@ -37,7 +37,7 @@ d3.csv('df.csv').then(data => {
     const handleMouserover = (d, i, n) => {
         d3.select(n[i])
         .transition().duration(10)
-            .attr('stroke', '#808080')
+            .attr('stroke', '#767676')
             .attr('stroke-width', '3px')
     }
     const handleMouseout = (d, i, n) => {
@@ -105,18 +105,20 @@ d3.csv('df.csv').then(data => {
 
     // text label for the x axis
     svg.append("text")             
-        .attr("transform", `translate(${graphWidth/2 + margin.left}, ${graphHeight + margin.top + 50})`)
-        .attr('fill', '#808080')
-        .style('font-size', '20px')
-        .style('font-style', 'italic')
+        .attr("transform", `translate(${graphWidth/2 + margin.left}, ${graphHeight + margin.top + 55})`)
+        .attr('fill', '#767676')
+        .style('font-size', '16px')
         .style("text-anchor", "middle")
-        .text("Price");
+        .text("Price")
+        .attr('font-family', "Arial")
+        .attr('fill', '#767676');
     // text label for the y axis
     svg.append("text")             
-        .attr("transform", `translate(25, ${graphHeight/2 + margin.top})`)
-        .attr('fill', '#808080')
-        .style('font-size', '20px')
-        .style('font-style', 'italic')
+        .attr("transform", `translate(35, ${graphHeight/2 + margin.top})`)
+        .attr('fill', '#767676')
+        .style('font-size', '16px')
         .style("text-anchor", "middle")
-        .text("Count");
+        .text("Count")            
+        .attr('font-family', "Arial")
+        .attr('fill', '#767676');
 });
