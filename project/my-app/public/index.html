@@ -72,12 +72,15 @@ table, th, td {
         <tr>
           <td class="right-part bottom">
             <!-- Used to draw graph! -->
+
+
+            
           </td>
         </tr>
       </tbody>
     </table>
     <!-- filter function -->
-    <div type="hidden" id="detectChange">
+    <div type="hidden" id="detectChange" onchange="rerender(this.id)">
       <input type="hidden" name="flag1" id="flag1"/>
       <input type="hidden" name="flag2" id="flag2"/>
     </div>
@@ -102,4 +105,6 @@ table, th, td {
       console.log($("#flag2").val());
     });
   });
+
+
 </script>
