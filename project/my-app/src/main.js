@@ -3,9 +3,6 @@ import App from "./App.vue";
 import router from "./router";
 //import VueMapbox from "vue-mapbox";
 //import Mapbox from "mapbox-gl";
-// import { Icon }  from 'leaflet'
-// import 'leaflet/dist/leaflet.css';
-//import {L} from 'vue2-leaflet';
 
 /*
 delete Icon.Default.prototype._getIconUrl;

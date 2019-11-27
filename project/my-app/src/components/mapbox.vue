@@ -32,51 +32,70 @@ export default {
         center: [-119, 35.8],
         zoom: 5
       })
-      console.log(map)
-    },
-    loaded(map) {
-      map.addLayer({
-        id: 'points',
-        type: 'symbol',
-        source: {
-          type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: [
-              {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [-119, 35.8],
-                },
-                properties: {
-                  title: 'Mapbox DC',
-                  icon: 'monument',
-                },
-              },
-              {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [-122.414, 37.776],
-                },
-                properties: {
-                  title: 'Mapbox SF',
-                  icon: 'harbor',
-                },
-              },
-            ],
-          },
-        },
-        layout: {
-          'icon-image': '{icon}-15',
-          'text-field': '{title}',
-          'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-          'text-offset': [0, 0.6],
-          'text-anchor': 'top',
-        },
-      })
-    },
+      var geojson = {
+            "type": "FeatureCollection",
+            "features": [
+            {
+            "type": "Feature",
+            "properties": {
+            "message": "Foo",
+            "iconSize": [60, 60]
+            },
+            "geometry": {
+            "type": "Point",
+            "coordinates": [
+            -119.324462890625,
+            35.024695711685304
+            ]
+            }
+            },
+            {
+            "type": "Feature",
+            "properties": {
+            "message": "Bar",
+            "iconSize": [50, 50]
+            },
+            "geometry": {
+            "type": "Point",
+            "coordinates": [
+            -118.2158203125,
+            36.97189158092897]
+            }
+            },
+            {
+            "type": "Feature",
+            "properties": {
+            "message": "Baz",
+            "iconSize": [40, 40]
+            },
+            "geometry": {
+            "type": "Point",
+            "coordinates": [
+            -120.29223632812499,
+            38.28151823530889]
+            }
+            }
+            ]
+            };
+        
+      geojson.features.forEach(function(marker) {
+        // create a DOM element for the marker
+        var el = document.createElement('div');
+        el.className = 'marker';
+        el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
+        el.style.width = marker.properties.iconSize[0] + 'px';
+        el.style.height = marker.properties.iconSize[1] + 'px';
+        
+        el.addEventListener('click', function() {
+        window.alert(marker.properties.message);
+        });
+        
+        // add marker to map
+        new mapboxgl.Marker(el)
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(map);
+        });
+      }
   },
   computed: {
     mapSize () {
