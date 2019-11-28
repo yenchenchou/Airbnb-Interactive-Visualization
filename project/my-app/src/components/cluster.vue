@@ -15,8 +15,9 @@ export default {
       type: String
     }
   },
-  data () {
+  data:function() {
     return {
+        IamMap: {}
     }
   },
   mounted () {
@@ -32,7 +33,7 @@ export default {
         center: [-119, 35.8],
         zoom: 5
       })
-      console.log(map)
+      this.IamMap=map
 
               map.on('load', function() {
         // Add a new source from our GeoJSON data and set the

@@ -30,7 +30,7 @@ export default {
   },
   methods:{
       async fetchData(){
-          let data = await d3.csv('./df(2).csv');
+          let data = await d3.csv('./df.csv');
           this.loadData=data
       },
       createMap(){
@@ -42,7 +42,6 @@ export default {
             center: [-118.285, 34.021796], // starting position [lng, lat]
             zoom: 10 // starting zoom
             });
-        console.log('test')
     //Add marker
 
         // d3.json('test_geo.json').then(function(data){
