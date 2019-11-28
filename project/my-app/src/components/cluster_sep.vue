@@ -38,7 +38,7 @@ export default {
     },
     cluster(){
         var map = this.IamMap
-        console.log('~',map)
+        // console.log('~',map)
         map.on('load', function() {
         // Add a new source from our GeoJSON data and set the
         // 'cluster' option to true. GL-JS will add the point_count property to your source data.
@@ -133,7 +133,7 @@ export default {
             while (Math.abs(h.lngLat.lng - coordinates[0]) > 180) {
                 coordinates[0] += h.lngLat.lng > coordinates[0] ? 360 : -360;
             }
-            console.log(hotel_name)
+            // console.log(hotel_name)
             popup.setLngLat(coordinates)
                 .setHTML(hotel_name)
                 .addTo(map)
