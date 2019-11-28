@@ -8,78 +8,23 @@
     <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" />
     <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.1/leaflet-omnivore.min.js'></script>
-    <!-- <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3-scale-radial.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script> -->
-    <script src="node_modules/d3-tip/dist/index.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
 
+    
+    
     <title>Deep Trip to California</title>
-    <style>
-      .tip_card {
-        padding: 3px;
-        background: #767676;
-        color: #fff;
-        border-radius: 10px;
-        font-size: 14px;
-        text-align: center;
-        font-family: "Arial";
-        opacity: 0.5;
-        line-height: 8px;
-        /* margin-bottom: 0em; */
-      }
-      .axis_x line{
-        stroke: #767676;
-        stroke-width: 2px;
-      }
-      .axis_y line{
-        stroke: #767676;
-        stroke-width: 2px;
-      }
-      .axis_x path{
-        stroke: #767676;
-        stroke-width: 2px;
-      }
-      .axis_y path{
-        stroke: #767676;
-        stroke-width: 2px;
-      }
-      .axis_x text{
-        fill: #767676;
-        font-size: 14px;
-      }
-      .axis_y text{
-        fill: #767676;
-        font-size: 14px;
-      }
-    </style>
+    
+
   </head>
   <body>
-      <!-- <div>
+      <div>
         <h1 align="center">Deep Trip to California</h1>
         <h2 align="right">Wei-Fan Chen 6913706566</h2>
         <h2 align="right">Yen-Chen Chou 2256319992</h2>
         <h2 align="right">Runze Liu 5565352666</h2>
-      </div> -->
-      <!-- <div id="mapid" style='height: 600px'></div> -->
-      <div>Average price of different room types, when user select the data, it will generate a new bar plot overlapped on this plot</div>
-      <div>This is to show the averge price of your selected items according to different type</div>
-      <div id="barplot"></div>
-      <div>distribution</div>
-      <div id="distplot"></div>
-      <div>bubble plot: x-axis show available days of a year and y-axis average reiviews</div>
-      <div>each point is a city and the bigger the point, the bigger number of houses in that city</div>
-      <div id="bubbleplot"></div>
-      <div>like a bar chart of the description, e.g. immense is the most mentioned keyword</div>
-      <div id="circular_bar"></div>
-      <!-- <div>scatter plot: x-axis the averge price of the description keyword and y-axis is the number of count of the keyword</div>
-      <div>e.g. don't use too frequent words because there will not increase the house price</div>
-      <div id="scatter_plot"></div> -->
-
-      <script  src="scripts/barplot.js"></script>
-      <script  src="scripts/distplot.js"></script>
-      <script  src="scripts/bubbleplot.js"></script>
-      <script  src="scripts/circular_bar.js"></script>
-      <!-- <script  src="scripts/scatter_plot.js"></script>
+      </div>
       
+      <div id="mapid" style='height: 600px'></div>
+      <script type="text/javascript" src="./scripts/index.js"></script>
+
   </body>
 </html>

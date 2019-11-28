@@ -5,7 +5,7 @@ import glob
 import os
 import re
 import sys
-from decimal import Decimal
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -57,19 +57,12 @@ def data_cleaning(df):
                             'availability_365', 'instant_bookable', 'city']
     df = df[filter_column_name]
     df.dropna(subset = ['longitude', 'latitude', 'price'], inplace = True) 
-    df['price'] = [float(re.sub(r"[^0-9]", "", row))/100 for row in df['price']]
-
+    df['price'] = [float(re.sub(r"[^0-9]", "", row)) for row in df['price']]
     df['description'] = get_keyword(df)
-    df['description'] = df['description'].replace('', '<None>', regex=False)
-
+    df['description'].fillna('<None>', inplace = True)
     df['amenities'] = [re.sub(r"[\"\{\}]", "", row) for row in df['amenities']]
-    # df['amenities'] = df['amenities'].str.replace(' ', 'Unknown', regex=False)
     df['amenities'].fillna('Unknown', inplace = True)
-
-    df['name'].fillna('Unknown', inplace = True)
-    df['reviews_per_month'].fillna(0, inplace = True)
-    df['city'].fillna('Unknown', inplace = True)
-    # df.fillna( 0, inplace = True)
+    df.fillna(0, inplace = True)
 
     return df
 
@@ -79,9 +72,5 @@ if __name__ == '__main__':
     describe_word = hotel_describe_words(path)
     df_new = data_cleaning(df)
     save_path = '/Users/yc/Desktop/OneDrive/USC/課程syllabus+resource/INF554/a5-undefined/project/data/dataset'
-    # df_new.to_csv(os.path.join(save_path ,"df.csv"), index = False)
-    df_new.to_json('project/df.json', orient = 'records')
+    df_new.to_csv(os.path.join(save_path ,"df.csv"), index = False)
     print('complete!')
-
-
-# %%
