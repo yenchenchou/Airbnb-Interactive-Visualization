@@ -14,8 +14,9 @@ d3.csv('data/dataset/df.csv').then(data => {
     // select the svg container first
     const svg = d3.select('#bubbleplot')
         .append('svg')
-        .attr('width', 800)
-        .attr('height', 600)
+        // .attr('width', 800)
+        // .attr('height', 600)
+        .attr('viewBox', `0 0 800 600`)
         .style('background-color', "#f0f4f5");
 
     // create margins & dimensions

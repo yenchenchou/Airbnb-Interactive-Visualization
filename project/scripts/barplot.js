@@ -1,9 +1,11 @@
 d3.json('data/dataset/room_type_price.json').then(data => {
     // select the svg container first
     const svg = d3.select('#barplot')
+        // .attr("preserveAspectRatio", "xMinYMin meet")
         .append('svg')
-        .attr('width', 800)
-        .attr('height', 300)
+        .attr('viewBox', `0 0 800 300`)
+        // .attr('width', 800)
+        // .attr('height', 300)
         .style('background-color', "#f0f4f5");
 
     // create margins & dimensions
@@ -13,6 +15,7 @@ d3.json('data/dataset/room_type_price.json').then(data => {
     const graph = svg.append('g')
         .attr('width', graphWidth)
         .attr('height', graphHeight)
+        // .attr('viewBox', `0 0 ${graphWidth} ${graphHeight}`)
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
     // prepare scale for rect/color
     const x = d3.scaleLinear()
@@ -62,7 +65,7 @@ d3.json('data/dataset/room_type_price.json').then(data => {
         .style("opacity", '1')
         .transition().duration(3000)
             .attr('x', 0)
-            .attr("width", d => d.price);
+            .attr("width", d => x(d.price));
     graph.selectAll('rect')
         .on("mouseover", (d, i, n) => {
             tip.show(d, n[i]);

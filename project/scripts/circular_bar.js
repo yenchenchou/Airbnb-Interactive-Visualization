@@ -3,8 +3,7 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
     // select the svg container first
     const svg = d3.select('#circular_bar')
         .append('svg')
-        .attr('width', 800)
-        .attr('height', 600)
+        .attr('viewBox', `0 0 800 600`)
         .style('background-color', "#f0f4f5");
 
     // set the dimensions and margins of the graph

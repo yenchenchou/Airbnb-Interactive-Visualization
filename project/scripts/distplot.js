@@ -2,8 +2,7 @@ d3.csv('data/dataset/df.csv').then(data => {
     // select the svg container first
     const svg = d3.select('#distplot')
         .append('svg')
-        .attr('width', 800)
-        .attr('height', 300)
+        .attr('viewBox', `0 0 800 300`)
         .style('background-color', "#f0f4f5");
 
     // create margins & dimensions
