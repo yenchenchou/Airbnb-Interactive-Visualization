@@ -1,0 +1,65 @@
+
+/* body {
+  position:absolute;
+  background-image: url('background.jpg');
+  background-size: cover;
+} */
+table {
+  position: relative;
+  top: 5px;
+  left: 10px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-weight: 600;
+}
+
+.left-part {
+  width: 950px;
+  height: 900px;
+}
+
+.right-part {
+  width: 500px;
+}
+
+.top {
+  height: 100px;
+}
+.tip_card {
+  padding: 3px;
+  background: #808080;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+  font-family: "Arial";
+  opacity: 0.5;
+  line-height: 10px;
+}
+.axis_x line{
+  stroke: #808080;
+  stroke-width: 2px;
+}
+.axis_y line{
+  stroke: #808080;
+  stroke-width: 2px;
+}
+.axis_x path{
+  stroke: #808080;
+  stroke-width: 2px;
+}
+.axis_y path{
+  stroke: #808080;
+  stroke-width: 2px;
+}
+.axis_x text{
+  fill: #808080;
+  font-size: 14px;
+}
+.axis_y text{
+  fill: #808080;
+  font-size: 14px;
+}
