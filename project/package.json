@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "d3": "^5.12.0",
+    "d3-tip": "^0.9.1",
     "topojson": "^3.0.2"
   }
 }
