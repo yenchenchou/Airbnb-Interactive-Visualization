@@ -7,11 +7,11 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
         .style('background-color', "#f0f4f5");
 
     // set the dimensions and margins of the graph
-    var margin = {top: 30, right: 120, bottom: 20, left: 0},
-        graphWidth = 800 - margin.left - margin.right;
-        graphHeight = 600 - margin.top - margin.bottom;
-        innerRadius = 180;
-        outerRadius = Math.min(graphWidth, graphHeight);
+    const margin = {top: 30, right: 120, bottom: 20, left: 0};
+    const graphWidth = 800 - margin.left - margin.right;
+    const graphHeight = 600 - margin.top - margin.bottom;
+    const innerRadius = 180;
+    const outerRadius = Math.min(graphWidth, graphHeight);
     const graph = svg.append('g')
         .attr('width', graphWidth)
         .attr('height', graphHeight)
@@ -95,11 +95,11 @@ d3.json("data/dataset/description_cnt_avg_df.json").then(data => {
         .on("mouseover", (d, i, n) => {
             tip.show(d, n[i]);
         })
-        .on("mouseout", (d, i, n) => {
-            tip.hide();
-        });
+        .on("mouseout", 
+            tip.hide()
+        );
     // legend setup (colored square, which represent the price)
-    data_for_legend = [
+    const data_for_legend = [
         {"color":"#ff5a5f","value":0,"price":1000},
         {"color":"#ffb3b5","value":20,"price":300},
         {"color":"#a28481","value":40,"price":100},
