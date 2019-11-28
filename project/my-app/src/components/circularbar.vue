@@ -21,7 +21,7 @@ export default {
   },
   methods: {
    drawcircularbar(){
-       d3.csv('df.csv').then(function(data){
+       d3.json('description_cnt_avg_df.json').then(function(data){
         // select the svg container first
         const svg = d3.select('#circularbar')
             .append('svg')
