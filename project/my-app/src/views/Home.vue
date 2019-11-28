@@ -75,39 +75,31 @@ export default {
 };
 </script>
 <style scoped>
-/* body {
-  position:absolute;
-  background-image: url('background.jpg');
-  background-size: cover;
-} */
-table {
+/*
+    table {
     position: relative;
     top: 5px;
     left: 130px;
     }
-
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
         font-weight: 600;
     }
-
     .left-part {
     width: 950px;
     height: 900px;
     }
-
     .right-part {
     width: 500px;
     }
-
     .top {
     height: 100px;
     }
     .tip_card {
     padding: 3px;
-    background: #808080;
-    color: #fff;
+    background-color: #808080;
+    color: "#fff";
     border-radius: 10px;
     font-size: 14px;
     text-align: center;
@@ -139,5 +131,5 @@ table {
     fill: #808080;
     font-size: 14px;
     }
-
+    */
 </style>
