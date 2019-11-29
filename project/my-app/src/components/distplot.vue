@@ -1,7 +1,6 @@
 <template>
   <div style="height:100%;width:100%;text-align:left;">
     <div id="distplot"></div>
-    <!-- <h1>{{hhhhh}}</h1> -->
   </div>
 </template>
 <script>
@@ -11,29 +10,50 @@ import d3Tip from 'd3-tip'
 
 export default {
   name: "distplot",
-  data() {
+  data: function(){
     return {
+        //test:[1,2,3],
+        //hotel: [],
     }
   },
-  //props: ['hhhh'],
-  mounted () {
-    this.drawplot()
+  props:{
+      width: Number,
+      height: Number,
+      test: Array,
+      hotel: Array,
+  },
+  async mounted() {
+      console.log('hello',this.hotel.length)
+      await this.nextTick()
+      console.log('hello',this.hotel.length)
+    //   this.$nextTick(()=>{
+    //       
+    //       if (!this.hotel || !this.hotel.length) {
+    //       this.drawplot()
+    //   }
+
+    //   })
+      
   },
   methods: {
    drawplot(){
-       d3.csv('df.csv').then(function(data){
-       //var data = this.data;
+       var self = this;
+       // Value of this is different in the callback function of d3.then() method. 
+       // You have to save the value of this outside before using it in callback scope.
+       console.log('plot',self.hotel)
+       var data = self.hotel;
 
+       //d3.csv('df.csv').then(function(data){
         const svg = d3.select('#distplot')
         .append('svg')
-        .attr('width', 800)
-        .attr('height', 300)
+        .attr('width', self.width)
+        .attr('height', self.height)
         .style('background-color', "#f0f4f5");
 
     // set the dimensions and margins of the graph
     const margin = {top: 20, right: 20, bottom: 100, left: 120};
-    const graphWidth = 800 - margin.left - margin.right;
-    const graphHeight = 300 - margin.top - margin.bottom;
+    const graphWidth = self.width - margin.left - margin.right;
+    const graphHeight = self.height - margin.top - margin.bottom;
 
     // append the svg object
     const graph = svg.append('g')
@@ -148,7 +168,7 @@ export default {
         .attr('font-family', "Arial")
         .attr('fill', '#767676');
 
-});
+//});
  
        }
   }

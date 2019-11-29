@@ -8,7 +8,7 @@
       <tbody>
         <tr>
           <td class="left-part" rowspan="2">
-              <cluster_sep/>
+              <!-- <cluster_sep/> -->
             <!-- Used to draw map! -->
           </td>
           <td class="right-part top">
@@ -32,10 +32,10 @@
         <tr>
           <td class="right-part bottom">
             <!-- Used to draw graph! -->
-            <barplot/>
+            <!-- <barplot/>
             <bubbleplot/>
-            <circular_bar/>
-            <distplot/>
+            <circular_bar/>-->
+            <distplot v-if="!this.hotel.length" :width="pltwidth" :height="pltheight" :test="test" :hotel="hotel"/> 
           </td>
         </tr>
       </tbody>
@@ -51,28 +51,59 @@
 
 <script>
 // @ is an alias to /src
-import barplot from "@/components/barplot.vue";
-import bubbleplot from "@/components/bubbleplot.vue";
-import circular_bar from "@/components/circular_bar.vue";
+// import barplot from "@/components/barplot.vue";
+// import bubbleplot from "@/components/bubbleplot.vue";
+// import circular_bar from "@/components/circular_bar.vue";
 import distplot from "@/components/distplot.vue";
-import cluster_sep from "@/components/cluster_sep.vue";
+// import cluster_sep from "@/components/cluster_sep.vue";
+import * as d3 from 'd3'
 
 
 export default {
   name: "home",
   components: {
-      cluster_sep,
-      barplot,
-      bubbleplot,
-      circular_bar,
+    //   cluster_sep,
+    //   barplot,
+    //   bubbleplot,
+    //   circular_bar,
       distplot
   },
   data(){
       return{
-          testdata: 'hey'
+          pltwidth:800,
+          pltheight:300,
+          hotel:[],
+          test:[1,33,55]
       }
-  }
-};
+  },
+  created() {
+      this.$nextTick(()=>{
+        this.fetchData();
+      });
+  },
+  mounted() {
+      //alert('mounted');
+    //this.readData()
+  },
+  methods:{
+  fetchData(){
+    var self = this;
+    d3.csv('df.csv').then(data=>{
+        //console.log(data)
+        self.hotel = data;
+        console.log('load',self.hotel)
+        self.test = Array([1,1,1])
+        console.log('load',self.test)
+        console.log("in fetchData")
+
+    });
+},
+readData(){
+        console.log('read',this.hotel)
+        console.log('read',this.test)
+    }
+}
+}
 </script>
 <style scoped>
 /* body {
