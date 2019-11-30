@@ -65,10 +65,6 @@
         </tr>
       </tbody>
     </table>
-    <!-- filter function -->
-      <input name="flag1" id="flag1"/>
-      <input type="hidden" name="flag2" id="flag2"/>
-
   </div>
 </template>
 
