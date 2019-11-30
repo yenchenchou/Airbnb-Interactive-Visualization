@@ -37,14 +37,19 @@ export default {
           .attr("preserveAspectRatio", "xMinYMin meet")
           .append('svg')
           // .attr('viewBox', `0 0 {$width} {$height}`)
-          .attr('width', this.width)
-          .attr('height', this.height)
+          // .attr('width', this.width)
+          // .attr('height', this.height)
+          // .attr('viewBox', `0 0 800 300`)
+          .attr('width', 650)
+          .attr('height', 450)
           .style('background-color', "#f0f4f5");
 
       // create margins & dimensions
       const margin = {top: 20, right: 20, bottom: 45, left: 120};
-      const graphWidth = this.width - margin.left - margin.right;
-      const graphHeight = this.height - margin.top - margin.bottom;
+      // const graphWidth = this.width - margin.left - margin.right;
+      // const graphHeight = this.height - margin.top - margin.bottom;
+      const graphWidth = 650 - margin.left - margin.right;
+      const graphHeight = 450 - margin.top - margin.bottom;
       const graph = svg.append('g')
         .attr('width', graphWidth)
         .attr('height', graphHeight)
