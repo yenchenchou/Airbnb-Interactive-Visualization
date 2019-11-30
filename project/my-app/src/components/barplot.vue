@@ -12,8 +12,8 @@ export default {
   name: "barplot",
   data:function() {
     return {
-      height : 300,  
-      width : 800
+      width : 650,
+      height : 450  
     }
   },
   mounted () {
@@ -30,26 +30,18 @@ export default {
             }
         }).entries(data.features);
 
-    // d3.json('test_geo.json').then(data => {
-    //   var new_data = data.features;
-    //   console.log(d3.map(new_data => new_data.properties.room_type));
       const svg = d3.select('#barplot')
           .attr("preserveAspectRatio", "xMinYMin meet")
           .append('svg')
           // .attr('viewBox', `0 0 {$width} {$height}`)
-          // .attr('width', this.width)
-          // .attr('height', this.height)
-          // .attr('viewBox', `0 0 800 300`)
-          .attr('width', 650)
-          .attr('height', 450)
-          .style('background-color', "#f0f4f5");
+          .attr('width', this.width)
+          .attr('height', this.height)
+          .style('background-color', "#f5f5f5");
 
       // create margins & dimensions
-      const margin = {top: 20, right: 20, bottom: 45, left: 120};
-      // const graphWidth = this.width - margin.left - margin.right;
-      // const graphHeight = this.height - margin.top - margin.bottom;
-      const graphWidth = 650 - margin.left - margin.right;
-      const graphHeight = 450 - margin.top - margin.bottom;
+      const margin = {top: 20, right: 40, bottom: 45, left: 120};
+      const graphWidth = this.width - margin.left - margin.right;
+      const graphHeight = this.height - margin.top - margin.bottom;
       const graph = svg.append('g')
         .attr('width', graphWidth)
         .attr('height', graphHeight)
@@ -85,17 +77,18 @@ export default {
       // tooltip function and content setup
       const tip = d3Tip()
       .attr('class', 'tip_card')
-      .html(priceAvg => {
-        let content = `<p class=bubble_point>${'$ ' + priceAvg.value.avg_price.toFixed(0)}</p>`;
+      .html(d => {
+        let content = `<p class=bubble_point>${'$ ' + d.value.avg_price.toFixed(0)}</p>`;
         return content;
-      }).direction('se');
+      }).direction('e');
       graph.call(tip);
 
       // join the data to rects
-      graph.selectAll('rect')
+      graph.selectAll('.bar')
         .data(priceAvg)
         .enter()
         .append('rect')
+        .attr("class", "bar1")
         .attr('height', y.bandwidth())
         .attr('fill', d => myColor(d.key))
         .attr('x', 0)
@@ -135,6 +128,29 @@ export default {
         .text("Average Price")
         .style('font-size', '16px')
         .style("text-anchor", "middle");
+
+      // click data show own plot 
+      var has_data = true;
+      if(has_data == true){
+        const new_coming = [{'properties':{'room_type':'Entire home/apt', 'price':100}}]
+        graph.selectAll('.bar2')
+          .data(new_coming)
+          .enter()
+          .append('rect')
+          .attr("class", "bar2")
+          .attr('x', 0)
+          .attr('y', d => y(d.properties.room_type))
+          .attr('height', y.bandwidth())
+          .attr("width", d => x(d.properties.price))
+          .attr('fill', '#FF5A5F')
+          .attr('stroke-width', '0px')
+          .style("opacity", '1')
+      }
+      else{
+        const new_coming = [{'properties':{'room_type':'Entire home/apt', 'price':100}}]
+        console.log(new_coming)
+      }
+
       });
     }
   }

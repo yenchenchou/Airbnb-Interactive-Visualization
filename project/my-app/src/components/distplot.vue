@@ -11,6 +11,8 @@ export default {
   name: "distplot",
   data:function() {
     return {
+      width : 650,
+      height : 450  
     }
   },
   mounted () {
@@ -18,31 +20,34 @@ export default {
   },
   methods: {
     drawdistplot(){
-      d3.csv('df.csv').then(function(data){
+      d3.json('test_geo.json').then(data => {
+        const new_data = data.features;
         // select the svg container first
         const svg = d3.select('#distplot')
             .append('svg')
             // .attr('viewBox', `0 0 800 300`)
-            .attr('width', 650)
-            .attr('height', 450)
-            .style('background-color', "#f0f4f5");
+            .attr('width', this.width)
+            .attr('height', this.height)
+            .style('background-color', "#f5f5f5");
+
         // create margins & dimensions
-        const margin = {top: 20, right: 20, bottom: 100, left: 120};
-        const graphWidth = 650 - margin.left - margin.right;
-        const graphHeight = 450 - margin.top - margin.bottom;
+        const margin = {top: 20, right: 20, bottom: 70, left: 120};
+        const graphWidth = this.width - margin.left - margin.right;
+        const graphHeight = this.height - margin.top - margin.bottom;
         const graph = svg.append('g')
         .attr('width', graphWidth)
         .attr('height', graphHeight)
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
+        // console.log(d3.max(new_data, d => d.properties.price));
         // prepare scale for histogram
         var x = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d.price)])
+            .domain([0, d3.max(new_data, d => d.properties.price)])
             .range([0, graphWidth]);
         var histogram = d3.histogram()
-            .value(d => d.price)   // I need to give the vector of value
+            .value(d => d.properties.price)   // I need to give the vector of value
             .domain(x.domain())  // then the domain of the graphic
             .thresholds(x.ticks(200)); // then the numbers of bins
-        var bins = histogram(data);
+        var bins = histogram(new_data);
         var y = d3.scaleLinear()
             .domain([0, d3.max(bins, d => d.length)])
             .range([graphHeight, 0]);
@@ -62,7 +67,7 @@ export default {
         // tooltip function and content setup
         const tip = d3Tip()
         .attr('class', 'tip_card')
-        .html(d=> {
+        .html(d => {
             let content = `<p>${'price range: ' + d.x0.toFixed(0) + '-' + d.x1.toFixed(0)}</p>`;
             content += `<p>${'houses count: ' + d.length}</p>`;
             return content;
@@ -74,21 +79,21 @@ export default {
             .enter()
             .append('rect')
             .attr("transform", d => `translate(${x(d.x0)},0)`)
-            .attr("x", 0.7)
+            .attr("x", 0.5)
             .attr('y', graphHeight)
-            .attr("width", d => x(d.x1) - x(d.x0) - 0.7)
+            .attr("width", d => x(d.x1) - x(d.x0)- 0.5)
             .style("fill", "#FF5A5F")
             .transition().duration(2000)
                 .attr('y', d => y(d.length))
                 .attr("height", d => graphHeight - y(d.length));
         graph.selectAll('rect')
-            .on("mouseover", (d, i, n) => {
-                tip.show(d, n[i]);
-                handleMouserover(d, i, n);
+            .on("mouseover", (new_data, i, n) => {
+                tip.show(new_data, n[i]);
+                handleMouserover(new_data, i, n);
             })
-            .on("mouseout", (d, i, n) => {
+            .on("mouseout", (new_data, i, n) => {
                 tip.hide();
-                handleMouseout(d, i, n);
+                handleMouseout(new_data, i, n);
             });
         // create axes groups
         const xAxisGroup = graph.append('g')

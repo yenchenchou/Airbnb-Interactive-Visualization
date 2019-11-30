@@ -11,6 +11,8 @@ export default {
   name: "bubbleplot",
   data:function() {
     return {
+      width : 650,
+      height : 450  
     }
   },
   mounted () {
@@ -18,26 +20,26 @@ export default {
   },
   methods: {
    drawbubbleplot(){
-       d3.csv('df.csv').then(function(data){
-        const priceAvgAmount = d3.nest().key(d => d.city)
+     d3.json('test_geo.json').then(data => {
+        const priceAvgAmount = d3.nest().key(d => d.properties.city)
         .rollup(function(v) {
             return {
-                avg_number_of_reviews: d3.mean(v, d => d.number_of_reviews),
-                avg_price: d3.mean(v, d => d.price),
-                avg_availability_365: d3.mean(v, d => d.availability_365),
+                avg_number_of_reviews: d3.mean(v, d => d.properties.number_of_reviews),
+                avg_price: d3.mean(v, d => d.properties.price),
+                avg_availability_365: d3.mean(v, d => d.properties.availability_365),
                 cnt_house: v.length
             }
-        }).entries(data);
+        }).entries(data.features);
         const svg = d3.select('#bubbleplot')
             .append('svg')
             // .attr('viewBox', `0 0 800 600`)
-            .attr('width', 650)
-            .attr('height', 450)
-            .style('background-color', "#f0f4f5");
+            .attr('width', this.width)
+            .attr('height', this.height)
+            .style('background-color', "#f5f5f5");
         // create margins & dimensions
-        const margin = {top: 20, right: 20, bottom: 50, left: 120};
-        const graphWidth = 650 - margin.left - margin.right;
-        const graphHeight = 450 - margin.top - margin.bottom;
+        const margin = {top: 20, right: 20, bottom: 50, left: 90};
+        const graphWidth = this.width - margin.left - margin.right;
+        const graphHeight = this.height - margin.top - margin.bottom;
         const graph = svg.append('g')
             .attr('width', graphWidth)
             .attr('height', graphHeight)
@@ -113,7 +115,7 @@ export default {
             .data(legendData)
             .enter()
             .append("circle")
-            .attr("cx", graphWidth - 100)
+            .attr("cx", graphWidth - 90)
             .attr("cy", d => 60 - legend_size(d))
             .attr("r", d => legend_size(d))
             .attr("stroke", "#767676")
@@ -125,8 +127,8 @@ export default {
             .data(legendData)
             .enter()
             .append("line")
-                .attr('x1', graphWidth + 70)
-                .attr('x2', d => graphWidth + legend_size(d) + 20)
+                .attr('x1', graphWidth + 60)
+                .attr('x2', d => graphWidth + legend_size(d) + 10)
                 .attr('y1', d => 80 - legend_size(d))
                 .attr('y2', d => 80 - legend_size(d))
                 .attr('stroke', '#767676')
@@ -137,7 +139,7 @@ export default {
             .data(legendData)
             .enter()
             .append("text")
-                .attr('x', graphWidth + 80)
+                .attr('x', graphWidth + 70)
                 .attr('y', d => 80 - legend_size(d))
                 .text(d => d)
                 .attr('alignment-baseline', 'middle')
@@ -179,7 +181,7 @@ export default {
             .attr('width', 45)
             .attr('height', 10)
             .attr('fill', d => d.color)
-            .attr('x', graphWidth - 122)
+            .attr('x', graphWidth - 112)
             .attr('y', d => d.value + 80)
             .attr('stroke-width', '0px')
             .style("anchor", "middle")
@@ -189,8 +191,8 @@ export default {
             .data(data_for_legend)
             .enter()
             .append("line")
-                .attr('x1', graphWidth + 50)
-                .attr('x2', graphWidth + 70)
+                .attr('x1', graphWidth + 40)
+                .attr('x2', graphWidth + 60)
                 .attr('y1', d => 105 + d.value)
                 .attr('y2', d => 105 + d.value)
                 .attr('stroke', '#767676')
@@ -201,7 +203,7 @@ export default {
             .data(data_for_legend)
             .enter()
             .append("text")
-                .attr('x', graphWidth + 80)
+                .attr('x', graphWidth + 70)
                 .attr('y', d => 105 + d.value)
                 .text(d => '$' + d.price)
                 .attr('alignment-baseline', 'middle')
@@ -227,7 +229,7 @@ export default {
             .style("text-anchor", "middle");
         // text label for the y axis
         svg.append("text")             
-            .attr("transform", `translate(40, ${graphHeight/2 + margin.top + 5})`)
+            .attr("transform", `translate(50, ${graphHeight/2 + margin.top + 5})`)
             .attr('font-family', 'Arial')
             .attr('fill', '#767676')
             .text("Days")

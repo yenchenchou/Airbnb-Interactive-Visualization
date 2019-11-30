@@ -24,21 +24,21 @@ export default {
         const svg = d3.select('#circular_bar')
         .append('svg')
         .attr('width', 650)
-        .attr('height', 600)
-        .style('background-color', "#f0f4f5");
+        .attr('height', 450)
+        .style('background-color', "#f5f5f5");
 
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 120, bottom: 20, left: 0},
+    var margin = {top: 0, right: 120, bottom: 0, left: 0},
         graphWidth = 650 - margin.left - margin.right,
-        graphHeight = 600 - margin.top - margin.bottom,
-        innerRadius = 180,
-        outerRadius = Math.min(graphWidth, graphHeight);
+        graphHeight = 450 - margin.top - margin.bottom,
+        innerRadius = 130,
+        outerRadius = 500;
 
     // append the svg object
     const graph = svg.append('g')
         .attr('width', graphWidth)
         .attr('height', graphHeight)
-        .attr('transform', `translate(${graphWidth/2}, ${graphHeight/2 + 40})`);
+        .attr('transform', `translate(${graphWidth/2}, ${graphHeight/2})`);
 
     function scaleRadial() {
     var domain = [0, 1],
@@ -85,6 +85,10 @@ export default {
         .transition().duration(10)
             .attr('stroke', '#767676')
             .attr('stroke-width', '3px')
+            // .html(
+            //   "<p>Avg. Price: $ <span style=color:#FF5A5F>" + d.price.toFixed(0) + "</span></p>"
+            // )
+            // .attr('transform', `translate(${graphWidth/2}, ${graphHeight/2})`);
     }
     const handleMouseout = (d, i, n) => {
         d3.select(n[i])
@@ -95,12 +99,12 @@ export default {
 
     // Tooltip setupb order-radius: 25px;
     const tip = d3Tip()
-    .attr('class', 'tip_card')
+    .attr('class', 'tip_card_circular_bar')
     .html(d => {
-        let content = `<p>${'avg price: $' + d.price.toFixed(0)}</p>`;
-        content += `<p>${'# of house available: ' + d.countword}</p>`;
+        let content = `<p>${'Avg. Price: $'} <span style="color:#FF5A5F">${d.price.toFixed(0)}</span></p>`;
+        content += `<p>${'Available Houses: '}<span style="color:#FF5A5F">${d.countword.toFixed(0)}</span></p>`;
         return content;
-    }).direction('ne')
+    }).direction('se')
     graph.call(tip)
 
     // Add the bars
@@ -142,9 +146,15 @@ export default {
             .attr("alignment-baseline", "middle")
             .attr('font-family', "Arial")
             .attr('fill', '#767676');
-    graph.selectAll('text')
-        .on("mouseover", (d, i, n) => {tip.show(d, n[i]);})
-        .on("mouseout", tip.hide());
+    // graph.selectAll('text')
+    //     .on("mouseover", (d, i, n) => {
+    //         tip.show(d, n[i]);
+    //         handleMouserover(d, i, n);
+    //     })
+    //     .on("mouseout", (d, i, n) => {
+    //         tip.hide();
+    //         handleMouseout(d, i, n);
+    //     })
 
     // Color legend.
     var data_for_legend = [
