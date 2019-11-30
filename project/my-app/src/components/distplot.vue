@@ -12,6 +12,7 @@ export default {
   name: "distplot",
   data: function(){
     return {
+        //width: this.width,
         //test:[1,2,3],
         //hotel: [],
     }
@@ -22,18 +23,9 @@ export default {
       test: Array,
       hotel: Array,
   },
-  async mounted() {
-      console.log('hello',this.hotel.length)
-      await this.nextTick()
-      console.log('hello',this.hotel.length)
-    //   this.$nextTick(()=>{
-    //       
-    //       if (!this.hotel || !this.hotel.length) {
-    //       this.drawplot()
-    //   }
-
-    //   })
-      
+    mounted() {
+        console.log('I am here!!!')
+        this.drawplot()
   },
   methods: {
    drawplot(){

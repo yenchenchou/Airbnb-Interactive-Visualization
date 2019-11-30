@@ -35,7 +35,7 @@ export default {
       })
       this.IamMap=map
 
-              map.on('load', function() {
+        map.on('load', function() {
         // Add a new source from our GeoJSON data and set the
         // 'cluster' option to true. GL-JS will add the point_count property to your source data.
         map.addSource("hotels", {
@@ -106,13 +106,12 @@ export default {
         var clusterId = features[0].properties.cluster_id;
         map.getSource('hotels').getClusterExpansionZoom(clusterId, function (err, zoom) {
         if (err)
-        return;
-        
+            return;
         map.easeTo({
-        center: features[0].geometry.coordinates,
-        zoom: zoom
-        });
-        });
+            center: features[0].geometry.coordinates,
+            zoom: zoom
+            });
+            });
         });
         
         var popup = new mapboxgl.Popup({
@@ -148,6 +147,9 @@ export default {
             map.getCanvas().style.cursor = '';
         });
       });
+
+  },
+  returnSelectedPoint(){
 
   }
 }

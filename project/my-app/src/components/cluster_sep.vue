@@ -18,7 +18,8 @@ export default {
   },
   data () {
     return {
-        IamMap:{}
+        IamMap:{},
+        selectedpoint:{}
     }
   },
   mounted () {
@@ -133,7 +134,7 @@ export default {
             while (Math.abs(h.lngLat.lng - coordinates[0]) > 180) {
                 coordinates[0] += h.lngLat.lng > coordinates[0] ? 360 : -360;
             }
-            console.log(hotel_name)
+            //console.log(hotel_name)
             popup.setLngLat(coordinates)
                 .setHTML(hotel_name)
                 .addTo(map)
@@ -142,6 +143,13 @@ export default {
         map.on('mouseleave', 'unclustered-point', function () {
             map.getCanvas().style.cursor = '';
             popup.remove();
+        });
+
+        map.on('click', 'unclustered-point', function (h) {
+            console.log('select')
+            console.log(h.features[0])
+            //this.$emit('click',h.features[0])
+            
         });
 
         map.on('mouseenter', 'clusters', function () {
