@@ -33,8 +33,8 @@
           <td class="right-part bottom">
             <!-- Used to draw graph! -->
             <!-- <barplot/>
-            <bubbleplot/>-->
-            <!-- <circular_bar/> -->
+            <bubbleplot/>
+            <circular_bar/> -->
             <distplot v-if="dataIsReady" :width="pltwidth" :height="pltheight" :test="test" :hotel="hotel"/>
           </td>
         </tr>
@@ -54,8 +54,8 @@
 // import barplot from "@/components/barplot.vue";
 // import bubbleplot from "@/components/bubbleplot.vue";
 // import circular_bar from "@/components/circular_bar.vue";
-// import distplot from "@/components/distplot.vue";
-import cluster_sep from "@/components/cluster_sep.vue";
+import distplot from "@/components/distplot.vue";
+// import cluster_sep from "@/components/cluster_sep.vue";
 import * as d3 from 'd3'
 
 
@@ -78,8 +78,16 @@ export default {
           selectedpoint :{}
       }
   },
-  created() {
-    this.fetchData();
+  beforeMount(){
+    var self = this;
+    d3.csv('df.csv').then(data=>{
+        //console.log(data)
+        self.hotel = data;
+        console.log('load',self.hotel.length)
+        self.dataIsReady=true
+        //self.readData()
+
+    });
   },
   mounted() {
       //alert('mounted');
@@ -92,13 +100,15 @@ export default {
         //console.log(data)
         self.hotel = data;
         console.log('load',self.hotel.length)
-        self.readData()
+        self.dataIsReady=true
+        //self.readData()
 
     });
 },
 readData(){
         console.log('read',this.hotel.length)
-        self.dataIsReady=true
+        
+        //this.$emit('test_print',this.hotel.length)
     }
 }
 }
