@@ -16,20 +16,20 @@ export default {
     }
   },
   mounted () {
-    this.drawbarplot()
+    this.drawcircularbar()
   },
   methods: {
-   drawbarplot(){
+   drawcircularbar(){
        d3.json('description_cnt_avg_df.json').then(function(data){
         const svg = d3.select('#circular_bar')
         .append('svg')
-        .attr('width', 800)
+        .attr('width', 650)
         .attr('height', 600)
         .style('background-color', "#f0f4f5");
 
     // set the dimensions and margins of the graph
-    var margin = {top: 30, right: 120, bottom: 20, left: 0},
-        graphWidth = 800 - margin.left - margin.right,
+    var margin = {top: 10, right: 120, bottom: 20, left: 0},
+        graphWidth = 650 - margin.left - margin.right,
         graphHeight = 600 - margin.top - margin.bottom,
         innerRadius = 180,
         outerRadius = Math.min(graphWidth, graphHeight);
@@ -68,7 +68,6 @@ export default {
     return scale;
     }
 
-
     // Scales
     var x = d3.scaleBand()
         .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
@@ -94,14 +93,12 @@ export default {
             .attr('stroke-width', '0px')   
     } 
 
-
     // Tooltip setupb order-radius: 25px;
     const tip = d3Tip()
     .attr('class', 'tip_card')
-    .html((d, i, n) => {
+    .html(d => {
         let content = `<p>${'avg price: $' + d.price.toFixed(0)}</p>`;
         content += `<p>${'# of house available: ' + d.countword}</p>`;
-        console.log(i,n)
         return content;
     }).direction('ne')
     graph.call(tip)
@@ -112,15 +109,16 @@ export default {
         .data(data)
         .enter()
         .append("path")
-        .attr("fill", function (d) { return myColor(d.price); })
+        .attr("fill", d => myColor(d.price))
         .style("opacity", '0.7')
         .attr("d", d3.arc()     // imagine your doing a part of a donut plot
             .innerRadius(innerRadius)
-            .outerRadius(function(d) { return y(d.countword); })
-            .startAngle(function(d) { return x(d.description); })
-            .endAngle(function(d) { return x(d.description) + x.bandwidth(); })
+            .outerRadius(d => y(d.countword))
+            .startAngle(d => x(d.description))
+            .endAngle(d => x(d.description) + x.bandwidth())
             .padAngle(0.01)
-            .padRadius(innerRadius))
+            .padRadius(innerRadius));
+    graph.selectAll('path')
         .on("mouseover", (d, i, n) => {
             tip.show(d, n[i]);
             handleMouserover(d, i, n);
@@ -135,15 +133,18 @@ export default {
         .data(data)
         .enter()
         .append("g")
-            .attr("text-anchor", function(d) { return (x(d.description) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
-            .attr("transform", function(d) { return "rotate(" + ((x(d.description) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d['price'])+10) + ",0)"; })
+            .attr("text-anchor", d => (x(d.description) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start")
+            .attr("transform", d => `rotate(${((x(d.description) + x.bandwidth() / 2) * 180 / Math.PI - 90)})` + `translate(${y(d.price)+10},${0})`)
         .append("text")
-            .text(function(d){return(d.description)})
-            .attr("transform", function(d) { return (x(d.description) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
+            .text(d => d.description)
+            .attr("transform", d => (x(d.description) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)")
             .style("font-size", "14px")
             .attr("alignment-baseline", "middle")
             .attr('font-family', "Arial")
             .attr('fill', '#767676');
+    graph.selectAll('text')
+        .on("mouseover", (d, i, n) => {tip.show(d, n[i]);})
+        .on("mouseout", tip.hide());
 
     // Color legend.
     var data_for_legend = [
@@ -152,7 +153,6 @@ export default {
         {"color":"#a28481","value":40,"price":100},
         {"color":"#00A699","value":60,"price":50}
     ]
-
     graph.selectAll("legend")
         .data(data_for_legend)
         .enter()
@@ -165,47 +165,33 @@ export default {
         .attr('stroke-width', '0px')
         .style("anchor", "middle")
         .style("opacity", '0.6');
-
+    // legend segments line (colored square, which represent the price)
     graph.selectAll("legend")
         .data(data_for_legend)
         .enter()
         .append("line")
             .attr('x1', graphWidth/2.1 + 50)
             .attr('x2', graphWidth/2.1 + 70)
-            .attr('y1', function(d){ return d.value - 195} )
-            .attr('y2', function(d){ return d.value - 195} )
+            .attr('y1', d => d.value - 195)
+            .attr('y2', d => d.value - 195)
             .attr('stroke', '#767676')
             .attr('stroke-width', '2px')
-            .style('stroke-dasharray', ('2,2'))
-    // Add legend: labels
+            .style('stroke-dasharray', ('2,2'));
+    // legend labels (colored square, which represent the price)
     graph.selectAll("legend")
         .data(data_for_legend)
         .enter()
         .append("text")
             .attr('x', graphWidth/2.1 + 80)
-            .attr('y', function(d){ return d.value - 195} )
+            .attr('y', d => d.value - 195)
             .text(d => '$' + d.price)
             .style("font-size", 12)
             .attr('alignment-baseline', 'middle')
             .attr('font-family', 'Arial')
-            .attr("fill", "#767676")
-    // Add square
-    graph.selectAll("legend")
-        .data(data_for_legend)
-        .enter()
-        .append("rect")
-            .attr('x', graphWidth/2.1 - 20)
-            .attr('y', -220)
-            .attr("width", 150)
-            .attr("height", 105)
-            .attr('stroke', '#767676')
-            .attr('stroke-width', '1.5px')
-            .style('stroke-dasharray', ('2,2'))
-            .attr("fill", "none")
+            .attr("fill", "#767676");
 
-
-       });
-       }
+      });
+    }
   }
-  }
+}
 </script>
