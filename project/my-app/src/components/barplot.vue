@@ -21,8 +21,18 @@ export default {
   },
   methods: {
     drawbarplot(){
-    d3.json('room_type_price.json').then(data => {
-      // select the svg container first
+
+      d3.json('test_geo.json').then(data => {
+        const priceAvg = d3.nest().key(d => d.properties.room_type)
+        .rollup(function(v) {
+            return {
+                avg_price: d3.mean(v, d => d.properties.price)
+            }
+        }).entries(data.features);
+
+    // d3.json('test_geo.json').then(data => {
+    //   var new_data = data.features;
+    //   console.log(d3.map(new_data => new_data.properties.room_type));
       const svg = d3.select('#barplot')
           .attr("preserveAspectRatio", "xMinYMin meet")
           .append('svg')
@@ -43,16 +53,16 @@ export default {
 
       // prepare scale for rect/color
       const x = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.price)])
+        .domain([0, d3.max(priceAvg, d => d.value.avg_price)])
         .range([0, graphWidth]); 
       const y = d3.scaleBand()
-        .domain(data.map(item => item.room_type))
+        .domain(['Entire home/apt', 'Private room', 'Shared room']) // d3.map(new_data => new_data.properties.room_type)
         .range([0, graphHeight])
         .paddingInner(0.2)
         .paddingOuter(0.2);
-      const myColor = d3.scaleOrdinal().domain(data.map(item => item.room_type))
+      const myColor = d3.scaleOrdinal().domain(['Entire home/apt', 'Private room', 'Shared room'])
         .range(['#FF5A5F', '#00A699', '#FC642D']);
-
+      
       // mouse hover event handler
       const handleMouserover = (d, i, n) => {
         d3.select(n[i])
@@ -70,26 +80,26 @@ export default {
       // tooltip function and content setup
       const tip = d3Tip()
       .attr('class', 'tip_card')
-      .html(d => {
-        let content = `<p class=bubble_point>${'$ ' + d.price.toFixed(0)}</p>`;
+      .html(priceAvg => {
+        let content = `<p class=bubble_point>${'$ ' + priceAvg.value.avg_price.toFixed(0)}</p>`;
         return content;
       }).direction('se');
       graph.call(tip);
 
       // join the data to rects
       graph.selectAll('rect')
-        .data(data)
+        .data(priceAvg)
         .enter()
         .append('rect')
         .attr('height', y.bandwidth())
-        .attr('fill', d => myColor(d.room_type))
+        .attr('fill', d => myColor(d.key))
         .attr('x', 0)
-        .attr('y', d => y(d.room_type))
+        .attr('y', d => y(d.key))
         .attr('stroke-width', '0px')
         .style("opacity", '1')
         .transition().duration(3000)
           .attr('x', 0)
-          .attr("width", d => x(d.price));
+          .attr("width", d => x(d.value.avg_price));
       graph.selectAll('rect')
         .on("mouseover", (d, i, n) => {
           tip.show(d, n[i]);
