@@ -24,15 +24,15 @@ export default {
       const svg = d3.select('#barplot')
           .attr("preserveAspectRatio", "xMinYMin meet")
           .append('svg')
-          .attr('viewBox', `0 0 800 300`)
-          // .attr('width', 800)
-          // .attr('height', 300)
+          // .attr('viewBox', `0 0 800 300`)
+          .attr('width', 650)
+          .attr('height', 450)
           .style('background-color', "#f0f4f5");
 
       // create margins & dimensions
       const margin = {top: 20, right: 20, bottom: 45, left: 120};
-      const graphWidth = 800 - margin.left - margin.right;
-      const graphHeight = 300 - margin.top - margin.bottom;
+      const graphWidth = 650 - margin.left - margin.right;
+      const graphHeight = 450 - margin.top - margin.bottom;
       const graph = svg.append('g')
         .attr('width', graphWidth)
         .attr('height', graphHeight)

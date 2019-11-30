@@ -23,13 +23,13 @@ export default {
        d3.json('description_cnt_avg_df.json').then(function(data){
         const svg = d3.select('#circular_bar')
         .append('svg')
-        .attr('width', 800)
+        .attr('width', 650)
         .attr('height', 600)
         .style('background-color', "#f0f4f5");
 
     // set the dimensions and margins of the graph
-    var margin = {top: 30, right: 120, bottom: 20, left: 0},
-        graphWidth = 800 - margin.left - margin.right,
+    var margin = {top: 10, right: 120, bottom: 20, left: 0},
+        graphWidth = 650 - margin.left - margin.right,
         graphHeight = 600 - margin.top - margin.bottom,
         innerRadius = 180,
         outerRadius = Math.min(graphWidth, graphHeight);
