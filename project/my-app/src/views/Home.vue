@@ -55,11 +55,18 @@
         <tr>
           <!-- <td class="right-part bottom"> -->
             <div style="height:700px;overflow:auto">
-              <barplot>
-              </barplot>
-              <distplot/>
-              <bubbleplot/>
-              <circular_bar/>
+              <div class="plotmargin"><barplot/></div>
+              <div class="plotmargin">
+                <button id="btn1" type="button" class="btn btn-info btn-sm">Remove Extreme Price</button>
+                <button id="btn2" type="button" class="btn btn-info btn-sm">Keep Extreme Price</button>
+                <distplot/>
+              </div>
+              <div class="plotmargin">
+                <bubbleplot/>
+              </div>
+              <div class="plotmargin"> 
+                <circular_bar/>
+              </div> 
             </div>
           <!-- </td> -->
         </tr>

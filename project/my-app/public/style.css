@@ -114,3 +114,9 @@ table, th, td {
 .right_part_bottom{
   margin : 0 px;
 }
+
+.plotmargin{
+  position:relative;
+  padding:0;
+  margin:0;
+}
