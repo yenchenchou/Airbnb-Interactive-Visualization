@@ -7,18 +7,18 @@ body {
 table {
   position: relative;
   top: 0px;
-  left: 5px;
+  left: -10px;
 }
 
 table, th, td {
-  border: 1px solid black;
+  border: 1px solid white;
   border-collapse: collapse;
   font-weight: 600;
 }
 
 .left-part {
-  width: 1000px;
-  height: 800px;
+  width: 1300px;
+  height: 820px;
 }
 
 .right-part {
