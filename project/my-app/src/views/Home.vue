@@ -3,7 +3,7 @@
     <!-- <h1>INF554 Project</h1>
     <h2>include the link to our paper and video</h2> -->
     <!-- <mainpage/> -->
-    <h1 align="center">Deep Trip in California</h1>
+    <h1 align="left">Deep Trip in California</h1>
     <table border="0">
       <tbody>
         <tr>
@@ -12,8 +12,8 @@
             <!-- Used to draw map! -->
           </td>
           <td class="right-part top">
-                <div>Room Type</div>
-                <div class="taskList" @click="handle1"> 
+                <div style="color:#767676;">Room Type</div>
+                <div style="color:#767676;" class="taskList" @click="handle1"> 
                   <!-- <input class="filter" type="radio" name="condition1" value="0"> All
                   <input class="filter" type="radio" name="condition1" value="1"> Shared Room
                   <input class="filter" type="radio" name="condition1" value="2"> Private Room
@@ -24,8 +24,8 @@
                   <input type="radio"  name="task1" value="3" v-model='selectStatus1'> Entire Home/Apt
                   <input class="forSearch" type="button" value="Search" @click="search1(selectStatus1)"/>
                 </div>
-                <div>Instant Bookable</div>
-                <div class="taskList" @click="handle2"> 
+                <div style="color:#767676;">Instant Bookable</div>
+                <div style="color:#767676;" class="taskList" @click="handle2"> 
                   <!-- <input class="filter" type="radio" name="condition2" value="0"> All
                   <input class="filter" type="radio" name="condition2" value="1"> Bookable
                   <input class="filter" type="radio" name="condition2" value="2"> Not Bookable -->
@@ -55,15 +55,26 @@
         <tr>
           <!-- <td class="right-part bottom"> -->
             <div style="height:700px;overflow:auto">
+              <h3 class='plot_name_h3'>Room Type</h3>
+              <hr>
               <div class="plotmargin"><barplot/></div>
+
+              <h3 class='plot_name_h3'>Price Distribution</h3>
+              <hr>
               <div class="plotmargin">
                 <button id="btn1" type="button" class="btn btn-info btn-sm">Remove Extreme Price</button>
                 <button id="btn2" type="button" class="btn btn-info btn-sm">Keep Extreme Price</button>
                 <distplot/>
               </div>
+
+              <h3 class='plot_name_h3'>Available Days versus Number of Reviews</h3>
+              <hr>
               <div class="plotmargin">
                 <bubbleplot/>
               </div>
+
+              <h3 class='plot_name_h3'>House Style</h3>
+              <hr>              
               <div class="plotmargin"> 
                 <circular_bar/>
               </div> 
