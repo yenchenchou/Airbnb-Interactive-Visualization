@@ -8,12 +8,13 @@
       <tbody>
         <tr>
           <td class="left-part" rowspan="2">
-              <cluster_sep/>
+              <cluster_sep  :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
             <!-- Used to draw map! -->
           </td>
           <td class="right-part top">
                 <div>Room Type</div>
-                <div class="taskList" @click="handle1"> 
+                <div class="taskList" >
+                <!-- <div class="taskList" @click="handle1">  -->
                   <!-- <input class="filter" type="radio" name="condition1" value="0"> All
                   <input class="filter" type="radio" name="condition1" value="1"> Shared Room
                   <input class="filter" type="radio" name="condition1" value="2"> Private Room
@@ -25,14 +26,15 @@
                   <input class="forSearch" type="button" value="Search" @click="search1(selectStatus1)"/>
                 </div>
                 <div>Instant Bookable</div>
-                <div class="taskList" @click="handle2"> 
+                <div class="taskList" >
+                <!-- <div class="taskList" @click="handle2">  -->
                   <!-- <input class="filter" type="radio" name="condition2" value="0"> All
                   <input class="filter" type="radio" name="condition2" value="1"> Bookable
                   <input class="filter" type="radio" name="condition2" value="2"> Not Bookable -->
-                  <input type="radio"  name="task2" value="0"  v-model='selectStatus2'> All
+                  <input type="radio"  name="task2" value="0" v-model='selectStatus2'> All
                   <input type="radio"  name="task2" value="1" v-model='selectStatus2'> Bookable
                   <input type="radio"  name="task2" value="2" v-model='selectStatus2'> Not Bookable
-                  <input class="forSearch" type="button" value="Search" @click="searc2(selectStatus2)"/>
+                  <input class="forSearch" type="button" value="Search" @click="search2(selectStatus2)"/>
                 </div>
                 <!-- <div class="taskList" @click="handle1">
                 <label for="all">All</label>
@@ -55,20 +57,15 @@
         <tr>
           <!-- <td class="right-part bottom"> -->
             <div style="height:700px;overflow:auto">
-              <barplot>
-              </barplot>
-              <distplot v-if="dataIsReady" :width="pltwidth" :height="pltheight" :test="test" :hotel="hotel"/>
-              <bubbleplot/>
-              <circular_bar/>
+              <barplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel" :incomingpoint="selectedpoint"/>
+              <distplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel"  :incomingpoint="selectedpoint"/>
+              <bubbleplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel" :incomingpoint="selectedpoint"/>
+              <circular_bar v-if="dataIsReady" :pltwidth="plotswidth"/>
             </div>
           <!-- </td> -->
         </tr>
       </tbody>
     </table>
-    <!-- filter function -->
-      <input name="flag1" id="flag1"/>
-      <input type="hidden" name="flag2" id="flag2"/>
-
   </div>
 </template>
 
@@ -80,6 +77,7 @@ import bubbleplot from "@/components/bubbleplot.vue";
 import circular_bar from "@/components/circular_bar.vue";
 import distplot from "@/components/distplot.vue";
 import cluster_sep from "@/components/cluster_sep.vue";
+
 export default {
   name: "home",
   components: {
@@ -87,15 +85,14 @@ export default {
       barplot,
       bubbleplot,
       circular_bar,
-      distplot
+      distplot,
   },
   data(){
       return{
-          pltwidth:600,
-          pltheight:450,
-          hotel:[],
-          test:[1,33,55],
-          dataIsReady:false,
+          plotswidth:600,
+          hotel:{},
+          all_hotel:{},
+          dataIsReady:0,
           selectedpoint :{},
           selectStatus1: 0, // Room type
           selectStatus2: 0 // Instant bookable
@@ -103,114 +100,67 @@ export default {
   },
   beforeMount(){
     var self = this;
-    d3.csv('df.csv').then(data=>{
+    d3.json('test_geo.json').then(data=>{
         //console.log(data)
+        self.all_hotel = data;
         self.hotel = data;
-        console.log('load',self.hotel.length)
-        self.dataIsReady=true
-        //self.readData()
+        self.dataIsReady+=1
 
     });
   },
-  mounted() {
-      //alert('mounted');
-    //this.readData()
+  Mounted(){
+      //all_hotelconsole.log(this.)
   },
   methods:{
-  fetchData(){
-    var self = this;
-    d3.csv('df.csv').then(data=>{
-        //console.log(data)
-        self.hotel = data;
-        console.log('load',self.hotel.length)
-        self.dataIsReady=true
-        //self.readData()
-
-    });
+    forceRerender(){
+        this.dataIsReady+=1
     },
-    readData(){
-        console.log('read',this.hotel.length)
-        
-        //this.$emit('test_print',this.hotel.length)
-    },
-        handle1(){
-      console.log("取到的值是"+this.selectStatus1);
-    },
-    handle2(){
-      console.log("取到的值是"+this.selectStatus2);
-    },
-
-    //////////////////////// Filter API for weifan
     search1(val){
-      console.log("Search1取到的值是"+val);
+        // room type
+        if (val==0){
+            console.log("show all")
+            this.hotel = this.all_hotel
+        } else{
+            var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
+            var data = this.all_hotel
+            var temp = data.features.filter(d=>d.properties.room_type==room_type_map[val])
+            this.hotel = {type:"FeatureCollection",features: temp }
+        }
+        console.log(room_type_map[val])
+        this.forceRerender()
     },
-    searc2(val){
-      console.log("Search2取到的值是"+val);
-    }
+    search2(val){
+        // bookable
+        if (val==0){
+            this.hotel = this.all_hotel;
+        } else{
+            var bookable_map = {1:"t",2:"f"}
+            var data = this.all_hotel
+            console.log(data.features.filter(d=>d.properties.instant_bookable==bookable_map[val]))
+            var temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[val])
+            this.hotel = {type:"FeatureCollection",features: temp }
+        }
+        console.log(bookable_map[val])
+        this.forceRerender()
+
+    },
+    print_input(variable){
+        console.log("Home/print_input",variable)
+        this.selectedpoint = variable
+        //this.$emit("point_hometoplot",this.point)
+        
+      }
+  },
+computed:{
+    // filter_data(){
+    //     if (this.selectStatus1==0 & this.selectStatus2==0){
+    //         this.hotel = this.all_hotel
+    //     }
+    //     else{
+
+    //     }
+    // }
 }
+
 }
 </script>
-<style scoped>
-/* body {
-  position:absolute;
-  background-image: url('background.jpg');
-  background-size: cover;
-} */
-/* 
-    table {
-    position: relative;
-    top: 5px;
-    left: 130px;
-    }
-    table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        font-weight: 600;
-    }
-    .left-part {
-    width: 950px;
-    height: 900px;
-    }
-    .right-part {
-    width: 500px;
-    }
-    .top {
-    height: 100px;
-    }
-    .tip_card {
-    padding: 3px;
-    background-color: #808080;
-    color: "#fff";
-    border-radius: 10px;
-    font-size: 14px;
-    text-align: center;
-    font-family: "Arial";
-    opacity: 0.5;
-    line-height: 10px;
-    }
-    .axis_x line{
-    stroke: #808080;
-    stroke-width: 2px;
-    }
-    .axis_y line{
-    stroke: #808080;
-    stroke-width: 2px;
-    }
-    .axis_x path{
-    stroke: #808080;
-    stroke-width: 2px;
-    }
-    .axis_y path{
-    stroke: #808080;
-    stroke-width: 2px;
-    }
-    .axis_x text{
-    fill: #808080;
-    font-size: 14px;
-    }
-    .axis_y text{
-    fill: #808080;
-    font-size: 14px;
-    }
-     */
-</style>

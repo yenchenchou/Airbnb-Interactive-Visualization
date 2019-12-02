@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>tttt</h1>
+    </body>
+    <script>
+        $(document).ready(function () {
+            $.getJSON('users.json', function (data) {
+              // Work with your JSON data here..
+              console.log(data[0].name);
+            });
+          });
+    </script>
+</html>

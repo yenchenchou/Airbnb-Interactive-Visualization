@@ -11,27 +11,45 @@ export default {
   name: "barplot",
   data:function() {
     return {
+      width : this.pltwidth,
+      height : 450,  
+      //point:this.incomingpoint
     }
+  },
+  props: {
+      pltwidth:Number,
+      hotel:Object,
+      incomingpoint:Object
   },
   mounted () {
     this.drawbarplot()
+    this.testing()
   },
   methods: {
     drawbarplot(){
-    d3.json('room_type_price.json').then(data => {
-      // select the svg container first
+
+      var data = this.hotel;
+
+
+    const priceAvg = d3.nest().key(d => d.properties.room_type)
+        .rollup(function(v) {
+            return {
+                avg_price: d3.mean(v, d => d.properties.price)
+            }
+        }).entries(data.features);
+
       const svg = d3.select('#barplot')
           .attr("preserveAspectRatio", "xMinYMin meet")
           .append('svg')
-          // .attr('viewBox', `0 0 800 300`)
-          .attr('width', 650)
-          .attr('height', 450)
-          .style('background-color', "#f0f4f5");
+          // .attr('viewBox', `0 0 {$width} {$height}`)
+          .attr('width', this.width)
+          .attr('height', this.height)
+          .style('background-color', "#f5f5f5");
 
       // create margins & dimensions
-      const margin = {top: 20, right: 20, bottom: 45, left: 120};
-      const graphWidth = 650 - margin.left - margin.right;
-      const graphHeight = 450 - margin.top - margin.bottom;
+      const margin = {top: 20, right: 40, bottom: 45, left: 120};
+      const graphWidth = this.width - margin.left - margin.right;
+      const graphHeight = this.height - margin.top - margin.bottom;
       const graph = svg.append('g')
         .attr('width', graphWidth)
         .attr('height', graphHeight)
@@ -40,16 +58,16 @@ export default {
 
       // prepare scale for rect/color
       const x = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.price)])
+        .domain([0, d3.max(priceAvg, d => d.value.avg_price)])
         .range([0, graphWidth]); 
       const y = d3.scaleBand()
-        .domain(data.map(item => item.room_type))
+        .domain(['Entire home/apt', 'Private room', 'Shared room']) // d3.map(new_data => new_data.properties.room_type)
         .range([0, graphHeight])
         .paddingInner(0.2)
         .paddingOuter(0.2);
-      const myColor = d3.scaleOrdinal().domain(data.map(item => item.room_type))
+      const myColor = d3.scaleOrdinal().domain(['Entire home/apt', 'Private room', 'Shared room'])
         .range(['#FF5A5F', '#00A699', '#FC642D']);
-
+      
       // mouse hover event handler
       const handleMouserover = (d, i, n) => {
         d3.select(n[i])
@@ -68,25 +86,26 @@ export default {
       const tip = d3Tip()
       .attr('class', 'tip_card')
       .html(d => {
-        let content = `<p class=bubble_point>${'$ ' + d.price.toFixed(0)}</p>`;
+        let content = `<p class=bubble_point>${'$ ' + d.value.avg_price.toFixed(0)}</p>`;
         return content;
-      }).direction('se');
+      }).direction('e');
       graph.call(tip);
 
       // join the data to rects
-      graph.selectAll('rect')
-        .data(data)
+      graph.selectAll('.bar')
+        .data(priceAvg)
         .enter()
         .append('rect')
+        .attr("class", "bar1")
         .attr('height', y.bandwidth())
-        .attr('fill', d => myColor(d.room_type))
+        .attr('fill', d => myColor(d.key))
         .attr('x', 0)
-        .attr('y', d => y(d.room_type))
+        .attr('y', d => y(d.key))
         .attr('stroke-width', '0px')
         .style("opacity", '1')
         .transition().duration(3000)
           .attr('x', 0)
-          .attr("width", d => x(d.price));
+          .attr("width", d => x(d.value.avg_price));
       graph.selectAll('rect')
         .on("mouseover", (d, i, n) => {
           tip.show(d, n[i]);
@@ -117,8 +136,38 @@ export default {
         .text("Average Price")
         .style('font-size', '16px')
         .style("text-anchor", "middle");
-      });
+
+      // click data show own plot 
+      var has_data = true;
+      if(has_data == true){
+        const new_coming = [{'properties':{'room_type':'Entire home/apt', 'price':100}}]
+        graph.selectAll('.bar2')
+          .data(new_coming)
+          .enter()
+          .append('rect')
+          .attr("class", "bar2")
+          .attr('x', 0)
+          .attr('y', d => y(d.properties.room_type))
+          .attr('height', y.bandwidth())
+          .attr("width", d => x(d.properties.price))
+          .attr('fill', '#FF5A5F')
+          .attr('stroke-width', '0px')
+          .style("opacity", '1')
+      }
+      else{
+        const new_coming = [{'properties':{'room_type':'Entire home/apt', 'price':100}}]
+        console.log(new_coming)
+      }
+    },
+    update_plot(){
+        console.log("testing in bar",this.incomingpoint)
     }
+  },
+  watch:{
+      incomingpoint: function(newValue,oldValue) {
+          console.log("watch",newValue,oldValue)
+          this.update_plot()
+      },
   }
 }
 </script>
