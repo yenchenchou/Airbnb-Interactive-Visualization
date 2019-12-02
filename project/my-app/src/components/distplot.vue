@@ -11,26 +11,28 @@ export default {
   name: "distplot",
   data:function() {
     return {
-      width : 650,
+      width : this.pltwidth,
       height : 450  
     }
+  },
+  props: {
+      pltwidth:Number,
+      hotel:Object,
+      incomingpoint:Object
   },
   mounted () {
     this.drawdistplot()
   },
   methods: {
     drawdistplot(){
-      d3.json('test_geo.json').then(data => {
-        const new_data = data.features;
-        // select the svg container first
+        var new_data = this.hotel.features;
+        
         const svg = d3.select('#distplot')
             .append('svg')
-            .attr('class', 'distsvg')
             // .attr('viewBox', `0 0 800 300`)
             .attr('width', this.width)
             .attr('height', this.height)
             .style('background-color', "#f5f5f5");
-
         // create margins & dimensions
         const margin = {top: 20, right: 20, bottom: 70, left: 120};
         const graphWidth = this.width - margin.left - margin.right;
@@ -39,7 +41,7 @@ export default {
         .attr('width', graphWidth)
         .attr('height', graphHeight)
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
-
+        // console.log(d3.max(new_data, d => d.properties.price));
         // prepare scale for histogram
         var x = d3.scaleLinear()
             .domain([0, d3.max(new_data, d => d.properties.price)])
@@ -47,9 +49,8 @@ export default {
         var histogram = d3.histogram()
             .value(d => d.properties.price)   // I need to give the vector of value
             .domain(x.domain())  // then the domain of the graphic
-            .thresholds(x.ticks(200)); // then the numbers of bins
+            .thresholds(x.ticks(100)); // then the numbers of bins
         var bins = histogram(new_data);
-        // console.log(new_data.filter(function(d){return d.properties.price < 30;}))
         var y = d3.scaleLinear()
             .domain([0, d3.max(bins, d => d.length)])
             .range([graphHeight, 0]);
@@ -74,31 +75,31 @@ export default {
             content += `<p>${'houses count: ' + d.length}</p>`;
             return content;
         }).direction('ne');
-        graph.call(tip); 
-
+        graph.call(tip);  
+        // join the data to rects
         graph.selectAll('rect')
-          .data(bins)
-          .enter()
-          .append('rect')
-          .attr("transform", d => `translate(${x(d.x0)},0)`)
-          .attr("x", 0.5)
-          .attr('y', graphHeight)
-          .attr("width", d => x(d.x1) - x(d.x0)- 0.5)
-          .style("fill", "#FF5A5F")
-          .transition().duration(2000)
-            .attr('y', d => y(d.length))
-            .attr("height", d => graphHeight - y(d.length));
+            .data(bins)
+            .enter()
+            .append('rect')
+            .attr("transform", d => `translate(${x(d.x0)},0)`)
+            .attr("x", 0.5)
+            .attr('y', graphHeight)
+            .attr("width", d => x(d.x1) - x(d.x0)- 0.5)
+            .style("fill", "#FF5A5F")
+            .transition().duration(2000)
+                .attr('y', d => y(d.length))
+                .attr("height", d => graphHeight - y(d.length));
         graph.selectAll('rect')
-          .on("mouseover", (new_data, i, n) => {
-              tip.show(new_data, n[i]);
-              handleMouserover(new_data, i, n);
-          })
-          .on("mouseout", (new_data, i, n) => {
-              tip.hide();
-              handleMouseout(new_data, i, n);
-          })
+            .on("mouseover", (new_data, i, n) => {
+                tip.show(new_data, n[i]);
+                handleMouserover(new_data, i, n);
+            })
+            .on("mouseout", (new_data, i, n) => {
+                tip.hide();
+                handleMouseout(new_data, i, n);
+            });
 
-
+        // click function
         var pos = 1;
         d3.select("#btn1").on("click", function () {
           if (pos == 1) {
@@ -118,7 +119,6 @@ export default {
             var y = d3.scaleLinear()
               .domain([0, d3.max(bins, d => d.length)])
               .range([graphHeight, 0]);
-
             // draw plot
             graph.selectAll('rect')
               .data(bins)
@@ -144,31 +144,29 @@ export default {
               .on("start", function repeat() {
                 d3.active(this).transition().duration(2000)
               });
-            }
-
-          // create axes groups
-          const xAxisGroup = graph.append('g')
-              .attr("class", "axis_x")
-              .attr('transform', `translate(0, ${graphHeight})`);
-          const yAxisGroup = graph.append('g')
-              .attr("class", "axis_y");
-          const xAxis = d3.axisBottom(x)
-              .ticks(5);
-          const yAxis = d3.axisLeft(y)
-              .ticks(5);
-          xAxisGroup.call(xAxis);
-          yAxisGroup.call(yAxis);
-          xAxisGroup.selectAll('text')
-            .attr('transform', 'rotate(-40)')
-            .attr('text-anchor', 'end');
-          pos = 2
+          }
+            // create axes groups
+            const xAxisGroup = graph.append('g')
+                .attr("class", "axis_x")
+                .attr('transform', `translate(0, ${graphHeight})`);
+            const yAxisGroup = graph.append('g')
+                .attr("class", "axis_y");
+            const xAxis = d3.axisBottom(x)
+                .ticks(5);
+            const yAxis = d3.axisLeft(y)
+                .ticks(5);
+            xAxisGroup.call(xAxis);
+            yAxisGroup.call(yAxis);
+            xAxisGroup.selectAll('text')
+                .attr('transform', 'rotate(-40)')
+                .attr('text-anchor', 'end');
+            pos = 2
         }); 
         d3.select("#btn2").on("click", function () {
           if (pos == 2) {
             graph.selectAll('rect').remove();
             graph.selectAll('.axis_x').remove();
             graph.selectAll('.axis_y').remove();
-
             // replot x-scale
             var x = d3.scaleLinear()
                 .domain([0, d3.max(new_data, d => d.properties.price)])
@@ -176,12 +174,11 @@ export default {
             var histogram = d3.histogram()
                 .value(d => d.properties.price)   // I need to give the vector of value
                 .domain(x.domain())  // then the domain of the graphic
-                .thresholds(x.ticks(200)); // then the numbers of bins
+                .thresholds(x.ticks(100)); // then the numbers of bins
             var bins = histogram(new_data);
             var y = d3.scaleLinear()
               .domain([0, d3.max(bins, d => d.length)])
               .range([graphHeight, 0]);
-
             // draw plot
             graph.selectAll('rect')
               .data(bins)
@@ -208,24 +205,24 @@ export default {
                 d3.active(this).transition().duration(2000)
               });
             }
-
-          // create axes groups
-          const xAxisGroup = graph.append('g')
-              .attr("class", "axis_x")
-              .attr('transform', `translate(0, ${graphHeight})`);
-          const yAxisGroup = graph.append('g')
-              .attr("class", "axis_y");
-          const xAxis = d3.axisBottom(x)
-              .ticks(20);
-          const yAxis = d3.axisLeft(y)
-              .ticks(5);
-          xAxisGroup.call(xAxis);
-          yAxisGroup.call(yAxis);
-          xAxisGroup.selectAll('text')
-            .attr('transform', 'rotate(-40)')
-            .attr('text-anchor', 'end');
-          pos = 1
+            // create axes groups
+            const xAxisGroup = graph.append('g')
+                .attr("class", "axis_x")
+                .attr('transform', `translate(0, ${graphHeight})`);
+            const yAxisGroup = graph.append('g')
+                .attr("class", "axis_y");
+            const xAxis = d3.axisBottom(x)
+                .ticks(20);
+            const yAxis = d3.axisLeft(y)
+                .ticks(5);
+            xAxisGroup.call(xAxis);
+            yAxisGroup.call(yAxis);
+            xAxisGroup.selectAll('text')
+              .attr('transform', 'rotate(-40)')
+              .attr('text-anchor', 'end');
+            pos = 1
         }); 
+
 
         // create axes groups
         const xAxisGroup = graph.append('g')
@@ -258,8 +255,16 @@ export default {
             .text("Counts")
             .style('font-size', '16px')
             .style("text-anchor", "middle");
-      });
+    },
+    update_plot(){
+        console.log("testing in coming",this.incomingpoint)
     }
+  },
+  watch:{
+      incomingpoint: function(newValue,oldValue) {
+          console.log("watch",newValue,oldValue)
+          this.update_plot()
+      }
   }
 }
 </script>

@@ -9,16 +9,13 @@ import mapboxgl from 'mapbox-gl'
 export default {
   name: "cluster_sep",
   props: {
-    mapWidth: {
-      type: String
-    },
-    mapHeight: {
-      type: String
-    }
+      hotel:Object,
+      thekey: Number
   },
   data () {
     return {
-        IamMap:{}
+        IamMap:{},
+        selectedpoint:{}
     }
   },
   mounted () {
@@ -31,26 +28,25 @@ export default {
       var map = new mapboxgl.Map({
         container: this.$refs.clustermap_2,
         style: 'mapbox://styles/mapbox/streets-v9',
-        center: [-119, 35.8],
+        center: [-118.6, 33],
         zoom: 5
       })
       this.IamMap = map
     },
     cluster(){
         var map = this.IamMap
-        // console.log('~',map)
+        var self = this
         map.on('load', function() {
         // Add a new source from our GeoJSON data and set the
         // 'cluster' option to true. GL-JS will add the point_count property to your source data.
         map.addSource("hotels", {
-        type: "geojson",
-        // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
-        // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-        data: "test_geo.json",
-        cluster: true,
-        clusterMaxZoom: 14, // Max zoom to cluster points on
-        clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-        });
+            type: "geojson",
+            data: self.hotel,
+            cluster: true,
+            tolerance:3.5,
+            clusterMaxZoom: 14, // Max zoom to cluster points on
+            clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+            });
         
         map.addLayer({
         id: "clusters",
@@ -104,18 +100,19 @@ export default {
         }
         });
         
+      });
+    
         // inspect a cluster on click
         map.on('click', 'clusters', function (e) {
-        var features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
-        var clusterId = features[0].properties.cluster_id;
-        map.getSource('hotels').getClusterExpansionZoom(clusterId, function (err, zoom) {
-        if (err)
-        return;
-        
-        map.easeTo({
-        center: features[0].geometry.coordinates,
-        zoom: zoom
-        });
+            var features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+            var clusterId = features[0].properties.cluster_id;
+            map.getSource('hotels').getClusterExpansionZoom(clusterId, function (err, zoom) {
+            if (err)
+            return;
+            map.easeTo({
+            center: features[0].geometry.coordinates,
+            zoom: zoom
+                });
         });
         });
         
@@ -123,39 +120,42 @@ export default {
             closeButton: false,
             closeOnClick: false
             });
-
         map.on('mouseenter','unclustered-point',function(h){
             map.getCanvas().style.cursor = 'pointer';
             
             var coordinates = h.features[0].geometry.coordinates.slice();
             var hotel_name = h.features[0].properties.name +'\n' +h.features[0].properties.price;
-
             while (Math.abs(h.lngLat.lng - coordinates[0]) > 180) {
                 coordinates[0] += h.lngLat.lng > coordinates[0] ? 360 : -360;
             }
-            // console.log(hotel_name)
+            //console.log(hotel_name)
             popup.setLngLat(coordinates)
                 .setHTML(hotel_name)
                 .addTo(map)
         });
-
         map.on('mouseleave', 'unclustered-point', function () {
             map.getCanvas().style.cursor = '';
             popup.remove();
         });
-
+        map.on('click', 'unclustered-point', function (h) {
+            console.log("selected",h.features[0])
+            self.selectedpoint = h.features[0]
+            self.whileclick()
+            //this.selectedpoint = h.features[0]
+            //this.$emit('inputdata',this.selectedpoint);
+            
+        });
         map.on('mouseenter', 'clusters', function () {
             map.getCanvas().style.cursor = 'pointer';
-
         });
         map.on('mouseleave', 'clusters', function () {
             map.getCanvas().style.cursor = '';
         });
-      });
-
   },
-  hover_effect(){
-      
+    whileclick(){
+      this.$emit('point_maptohome',this.selectedpoint)
+      console.log("map/whileclick")
+      this.selectedpoint = {}; // clear out the variable
   }
 }
 }

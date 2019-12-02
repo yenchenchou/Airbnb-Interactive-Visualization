@@ -4,23 +4,27 @@
   </div>
 </template>
 <script>
-// import mapboxgl from 'mapbox-gl'
 import * as d3 from 'd3'
 import d3Tip from 'd3-tip'
 export default {
   name: "bubbleplot",
   data:function() {
     return {
-      width : 650,
+      width : this.pltwidth,
       height : 450  
     }
+  },
+props: {
+      pltwidth:Number,
+      hotel:Object,
+      incomingpoint:Object
   },
   mounted () {
     this.drawbubbleplot()
   },
   methods: {
    drawbubbleplot(){
-     d3.json('test_geo.json').then(data => {
+     var data = this.hotel;
         const priceAvgAmount = d3.nest().key(d => d.properties.city)
         .rollup(function(v) {
             return {
@@ -235,8 +239,16 @@ export default {
             .text("Days")
             .style('font-size', '16px')
             .style("text-anchor", "middle");
-      });
-    }
+    },
+    update_plot(){
+    console.log("testing in bubble",this.incomingpoint)
+  }
+  },
+  watch:{
+      incomingpoint: function(newValue,oldValue) {
+          console.log("watch",newValue,oldValue)
+          this.update_plot()
+      },
   }
 }
 </script>

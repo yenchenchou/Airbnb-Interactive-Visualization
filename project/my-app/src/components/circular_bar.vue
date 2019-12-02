@@ -13,24 +13,30 @@ export default {
 
   data:function() {
     return {
+        width : this.pltwidth,
+        height : 500  
     }
+  },
+  props: {
+      pltwidth:Number,
   },
   mounted () {
     this.drawcircularbar()
   },
   methods: {
    drawcircularbar(){
-       d3.json('description_cnt_avg_df.json').then(function(data){
+       var self = this;
+    d3.json('description_cnt_avg_df.json').then(function(data){
         const svg = d3.select('#circular_bar')
         .append('svg')
-        .attr('width', 650)
-        .attr('height', 450)
+        .attr('width', self.width)
+        .attr('height', self.height)
         .style('background-color', "#f5f5f5");
 
     // set the dimensions and margins of the graph
     var margin = {top: 0, right: 120, bottom: 0, left: 0},
-        graphWidth = 650 - margin.left - margin.right,
-        graphHeight = 450 - margin.top - margin.bottom,
+        graphWidth = self.width - margin.left - margin.right,
+        graphHeight = self.height - margin.top - margin.bottom,
         innerRadius = 130,
         outerRadius = 500;
 
@@ -176,23 +182,35 @@ export default {
         .style("anchor", "middle")
         .style("opacity", '0.6');
     // legend segments line (colored square, which represent the price)
-    graph.selectAll("legend")
-        .data(data_for_legend)
-        .enter()
-        .append("line")
-            .attr('x1', graphWidth/2.1 + 50)
-            .attr('x2', graphWidth/2.1 + 70)
-            .attr('y1', d => d.value - 195)
-            .attr('y2', d => d.value - 195)
-            .attr('stroke', '#767676')
-            .attr('stroke-width', '2px')
-            .style('stroke-dasharray', ('2,2'));
-    // legend labels (colored square, which represent the price)
-    graph.selectAll("legend")
+    // graph.selectAll("legend")
+    //     .data(data_for_legend)
+    //     .enter()
+    //     .append("line")
+    //         .attr('x1', graphWidth/2.1 + 50)
+    //         .attr('x2', graphWidth/2.1 + 70)
+    //         .attr('y1', d => d.value - 195)
+    //         .attr('y2', d => d.value - 195)
+    //         .attr('stroke', '#767676')
+    //         .attr('stroke-width', '2px')
+    //         .style('stroke-dasharray', ('2,2'));
+    // // legend labels (colored square, which represent the price)
+    // graph.selectAll("legend")
+    //     .data(data_for_legend)
+    //     .enter()
+    //     .append("text")
+    //         .attr('x', graphWidth/2.1 + 80)
+    //         .attr('y', d => d.value - 195)
+    //         .text(d => '$' + d.price)
+    //         .style("font-size", 12)
+    //         .attr('alignment-baseline', 'middle')
+    //         .attr('font-family', 'Arial')
+    //         .attr("fill", "#767676");
+
+       graph.selectAll("legend")
         .data(data_for_legend)
         .enter()
         .append("text")
-            .attr('x', graphWidth/2.1 + 80)
+            .attr('x', graphWidth/2.1 + 10)
             .attr('y', d => d.value - 195)
             .text(d => '$' + d.price)
             .style("font-size", 12)

@@ -3,7 +3,6 @@
     <div id="barplot"></div>
   </div>
 </template>
-
 <script>
 // import mapboxgl from 'mapbox-gl'
 import * as d3 from 'd3'
@@ -12,24 +11,31 @@ export default {
   name: "barplot",
   data:function() {
     return {
-      width : 650,
-      height : 450  
+      width : this.pltwidth,
+      height : 300,  
+      //point:this.incomingpoint
     }
+  },
+  props: {
+      pltwidth:Number,
+      hotel:Object,
+      incomingpoint:Object
   },
   mounted () {
     this.drawbarplot()
+    // this.testing()
   },
   methods: {
     drawbarplot(){
-
-      d3.json('test_geo.json').then(data => {
-        const priceAvg = d3.nest().key(d => d.properties.room_type)
+      var data = this.hotel;
+      console.log(this.incomingpoint)
+      const priceAvg = d3.nest().key(d => d.properties.room_type)
         .rollup(function(v) {
             return {
-                avg_price: d3.mean(v, d => d.properties.price)
+                avg_price: d3.mean(v, d => d.properties.price),
+                cnt_house: v.length
             }
         }).entries(data.features);
-
       const svg = d3.select('#barplot')
           .attr("preserveAspectRatio", "xMinYMin meet")
           .append('svg')
@@ -37,7 +43,6 @@ export default {
           .attr('width', this.width)
           .attr('height', this.height)
           .style('background-color', "#f5f5f5");
-
       // create margins & dimensions
       const margin = {top: 20, right: 40, bottom: 45, left: 120};
       const graphWidth = this.width - margin.left - margin.right;
@@ -47,7 +52,6 @@ export default {
         .attr('height', graphHeight)
         // .attr('viewBox', `0 0 ${graphWidth} ${graphHeight}`)
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
-
       // prepare scale for rect/color
       const x = d3.scaleLinear()
         .domain([0, d3.max(priceAvg, d => d.value.avg_price)])
@@ -73,7 +77,6 @@ export default {
           .attr('stroke','#ffd1d2')
           .attr('stroke-width', '0px')   
       } ;
-
       // tooltip function and content setup
       const tip = d3Tip()
       .attr('class', 'tip_card')
@@ -82,7 +85,6 @@ export default {
         return content;
       }).direction('e');
       graph.call(tip);
-
       // join the data to rects
       graph.selectAll('.bar')
         .data(priceAvg)
@@ -107,7 +109,6 @@ export default {
           tip.hide();
           handleMouseout(d, i, n);
         });
-
       // create axes groups
       const xAxisGroup = graph.append('g')
         .attr("class", "axis_x")
@@ -128,6 +129,17 @@ export default {
         .text("Average Price")
         .style('font-size', '16px')
         .style("text-anchor", "middle");
+
+
+      // make stats text before plots
+      // const sum_room_cnt = d3.sum(priceAvg, d => d.value.cnt_house)
+      // d3.selectAll(".room_type_stats")
+      //   .data(priceAvg)
+      //   .enter()
+      //   .append("p")
+      //   .attr("fill", "#7676")
+      //   .text(d => (d.value.cnt_house / sum_room_cnt * 100).toFixed(1) + "%")
+
 
       // click data show own plot 
       var has_data = true;
@@ -150,9 +162,16 @@ export default {
         const new_coming = [{'properties':{'room_type':'Entire home/apt', 'price':100}}]
         console.log(new_coming)
       }
-
-      });
+    },
+    update_plot(){
+        console.log("testing in bar",this.incomingpoint)
     }
+  },
+  watch:{
+      incomingpoint: function(newValue,oldValue) {
+          console.log("watch",newValue,oldValue)
+          this.update_plot()
+      },
   }
 }
 </script>
