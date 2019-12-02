@@ -8,7 +8,7 @@
       <tbody>
         <tr>
           <td class="left-part" rowspan="2">
-              <cluster_sep  :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
+              <cluster_sep v-if="dataIsReady" :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
             <!-- Used to draw map! -->
           </td>
           <td class="right-part top">
@@ -114,56 +114,63 @@ export default {
   methods:{
     forceRerender(){
         this.dataIsReady+=1
+        console.log(this.hotel.features.length)
     },
     search1(val){
-        console.log(val)
+        console.log("search1",val)
         // room type
+        var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
+        var bookable_map = {1:"t",2:"f"}
+        var data = this.all_hotel
+        var temp=[];
         if (this.selectStatus1==0 & this.selectStatus2==0){
             this.hotel = this.all_hotel
+        } else if(this.selectStatus1==0) {
+            temp = data.features.filter(d=>d.properties.room_type==bookable_map[this.selectStatus2])
+        } else if(this.selectStatus2==0){
+            temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
         } else{
-            var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
-            var bookable_map = {1:"t",2:"f"}
-            var data = this.all_hotel
-            var temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
+            temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
             temp = temp.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
-            this.hotel = {type:"FeatureCollection",features: temp }
         }
-        console.log(room_type_map[this.selectStatus1],bookable_map[this.selectStatus2])
+        this.hotel = {type:"FeatureCollection",features: temp }
+        //console.log(room_type_map[this.selectStatus1],bookable_map[this.selectStatus2])
         this.forceRerender()
     },
     search2(val){
-        console.log(val)
-        // bookable
-        if (val==0){
-            this.hotel = this.all_hotel;
+        console.log("search2",val)
+        var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
+        var bookable_map = {1:"t",2:"f"}
+        var data = this.all_hotel
+        var temp=[];
+        if (this.selectStatus1==0 & this.selectStatus2==0){
+            this.hotel = this.all_hotel
+        } else if(this.selectStatus1==0) {
+            temp = data.features.filter(d=>d.properties.room_type==bookable_map[this.selectStatus2])
+        } else if(this.selectStatus2==0){
+            temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
         } else{
-            var bookable_map = {1:"t",2:"f"}
-            var data = this.all_hotel
-            console.log(data.features.filter(d=>d.properties.instant_bookable==bookable_map[val]))
-            var temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[val])
-            this.hotel = {type:"FeatureCollection",features: temp }
+            temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
+            temp = temp.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
         }
-        console.log(bookable_map[val])
+        this.hotel = {type:"FeatureCollection",features: temp }
+        //console.log(room_type_map[this.selectStatus1],bookable_map[this.selectStatus2])
         this.forceRerender()
-
     },
     print_input(variable){
-        console.log("Home/print_input",variable)
-        this.selectedpoint = variable
-        //this.$emit("point_hometoplot",this.point)
-        
-      }
+        this.selectedpoint = variable        
+      },
+    
   },
-computed:{
-    // filter_data(){
-    //     if (this.selectStatus1==0 & this.selectStatus2==0){
-    //         this.hotel = this.all_hotel
-    //     }
-    //     else{
-
-    //     }
-    // }
-}
-
+// watch:{
+//     selectStatus1: function(newValue,oldValue){
+//         console.log("select1",newValue,oldValue)
+//         this.filter_data()
+//     },
+//     selectStatus2: function(newValue,oldValue){
+//         console.log("select2",newValue,oldValue)
+//         this.filter_data()
+//     },
+//     }
 }
 </script>
