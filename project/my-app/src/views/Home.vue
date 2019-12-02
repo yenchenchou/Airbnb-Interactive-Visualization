@@ -9,7 +9,7 @@
       <tbody>
         <tr>
           <td class="left-part" rowspan="2">
-              <cluster_sep  :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
+              <cluster_sep v-if="dataIsReady" :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
             <!-- Used to draw map! -->
           </td>
           <td class="right-part top">

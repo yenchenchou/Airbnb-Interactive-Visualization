@@ -131,6 +131,7 @@ export default {
     },
     update_plot(){
         // console.log("testing in bar",this.incomingpoint.properties)
+      d3.selectAll('.bar2_identifier').remove();
       var data = this.hotel;
       var priceAvg = d3.nest().key(d => d.properties.room_type)
         .rollup(function(v) {
