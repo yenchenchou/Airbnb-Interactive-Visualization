@@ -138,7 +138,7 @@ export default {
             popup.remove();
         });
         map.on('click', 'unclustered-point', function (h) {
-            console.log("selected",h.features[0])
+            // console.log("selected",h.features[0])
             self.selectedpoint = h.features[0]
             self.whileclick()
             //this.selectedpoint = h.features[0]
@@ -154,7 +154,7 @@ export default {
   },
     whileclick(){
       this.$emit('point_maptohome',this.selectedpoint)
-      console.log("map/whileclick")
+      // console.log("map/whileclick")
       this.selectedpoint = {}; // clear out the variable
   }
 }

@@ -45,9 +45,10 @@ props: {
         const graphWidth = this.width - margin.left - margin.right;
         const graphHeight = this.height - margin.top - margin.bottom;
         const graph = svg.append('g')
-            .attr('width', graphWidth)
-            .attr('height', graphHeight)
-            .attr('transform', `translate(${margin.left}, ${margin.top})`);
+          .attr('id', 'bubble_g')
+          .attr('width', graphWidth)
+          .attr('height', graphHeight)
+          .attr('transform', `translate(${margin.left}, ${margin.top})`);
         // prepare scale for bubble/color/legend
         const x = d3.scaleLinear()
             .domain([0, d3.max(priceAvgAmount, d => d.value.avg_number_of_reviews)])
@@ -92,18 +93,18 @@ props: {
         }).direction('se')
         graph.call(tip)
         // join the data to cirlces
-        graph.selectAll('circle')
+        graph.selectAll('.circle1')
             .data(priceAvgAmount)
             .enter()
             .append('circle')
-            .attr("class", "bubbles")
+            .attr("class", "bubbles_1")
             .attr("cx", d => x(d.value.avg_number_of_reviews))
             .attr("cy", d => y(d.value.avg_availability_365))
             .attr("r", d => z(d.value.cnt_house))
             .attr('stroke','white')
             .attr('stroke-width', '1px')
             .style("fill", d => myColor(d.value.avg_price))
-            .style("opacity", 0.5 )
+            .style("opacity", 0.6)
         graph.selectAll('circle')
             .on("mouseover", (d, i, n) => {
                 tip.show(d, n[i]);
@@ -241,12 +242,62 @@ props: {
             .style("text-anchor", "middle");
     },
     update_plot(){
-    console.log("testing in bubble",this.incomingpoint)
+    // console.log("testing in bubble",this.incomingpoint)
+    d3.selectAll('.bubbles2_identifier').remove();
+     var data = this.hotel;
+      const priceAvgAmount = d3.nest().key(d => d.properties.city)
+      .rollup(function(v) {
+        return {
+          avg_number_of_reviews: d3.mean(v, d => d.properties.number_of_reviews),
+          avg_price: d3.mean(v, d => d.properties.price),
+          avg_availability_365: d3.mean(v, d => d.properties.availability_365),
+          cnt_house: v.length
+        }
+      }).entries(data.features);
+      const margin = {top: 20, right: 20, bottom: 50, left: 90};
+      const graphWidth = this.width - margin.left - margin.right;
+      const graphHeight = this.height - margin.top - margin.bottom;
+      const x = d3.scaleLinear()
+          .domain([0, d3.max(priceAvgAmount, d => d.value.avg_number_of_reviews)])
+          .range([0, graphWidth]);
+      const y = d3.scaleLinear()
+          .domain([0, d3.max(priceAvgAmount, d => d.value.avg_availability_365)])
+          .range([graphHeight, 0]);
+      const z = d3.scaleLinear()
+          .domain([0, d3.max(priceAvgAmount, d => d.value.cnt_house)])
+          .range([4, 30]);
+      const myColor = d3.scaleLinear()
+          .domain([20, 300])
+          .range(["#00ccbb", "#FF5A5F"]);
+
+      const new_coming = [{'value':{
+        'avg_number_of_reviews': this.incomingpoint.properties.number_of_reviews, 
+        'avg_price': this.incomingpoint.properties.price,
+        'avg_availability_365': this.incomingpoint.properties.availability_365, 
+        'cnt_house': 1
+        }}]    
+      d3.select("#bubble_g").selectAll('.bubbles_1').style("opacity", '0.4');
+      d3.select("#bubble_g").selectAll('.bubbles_2')
+        .data(new_coming)
+        .enter()
+        .append('circle')
+        .attr("class", "bubbles2_identifier")
+        .attr("cx", d => x(d.value.avg_number_of_reviews))
+        .attr("cy", d => y(d.value.avg_availability_365))
+        .attr("r", d => z(d.value.cnt_house) * 2)
+        .attr('stroke','white')
+        .attr('stroke-width', '1px')
+        .style("fill", d => myColor(d.value.avg_price))
+        .style("opacity", 0.8)
+        .transition().duration(2000)
+          .attr("r", d => z(d.value.cnt_house) * 5)
+          .attr('stroke','#ffbf00')
+          .attr('stroke-width', '5px');
   }
   },
   watch:{
-      incomingpoint: function(newValue,oldValue) {
-          console.log("watch",newValue,oldValue)
+      incomingpoint: function() {
+        //   console.log("watch",newValue,oldValue)
           this.update_plot()
       },
   }

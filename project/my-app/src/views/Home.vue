@@ -63,15 +63,16 @@
                 <strong style="font-size:20px;">63.2% </strong>
                 <span style="font-size:12px">Entire home/apt</span>
               </div>
-
               <div class="room_type_words" style="display: inline-block;">
                 <strong style="font-size: 20px;">33.0% </strong>
-                <span style="font-size:12px">Entire home/apt</span>
+                <span style="font-size:12px">Private room</span>
               </div>
-
               <div class="room_type_words" style="float:right; margin-right: 20px;">
                 <strong style="font-size: 20px;">3.8% </strong>
                 <span style="font-size:12px">Shared room</span>
+              </div>
+              <div id="click_data_stats" style="margin-top: 20px;">
+                Your Selection Price: NaN
               </div>
               <div class="plotmargin">
                 <barplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel" :incomingpoint="selectedpoint"/>
@@ -156,7 +157,7 @@ export default {
     search1(val){
         // room type
         if (val==0){
-            console.log("show all")
+            // console.log("show all")
             this.hotel = this.all_hotel
         } else{
             var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
@@ -164,7 +165,7 @@ export default {
             var temp = data.features.filter(d=>d.properties.room_type==room_type_map[val])
             this.hotel = {type:"FeatureCollection",features: temp }
         }
-        console.log(room_type_map[val])
+        // console.log(room_type_map[val])
         this.forceRerender()
     },
     search2(val){
@@ -174,16 +175,16 @@ export default {
         } else{
             var bookable_map = {1:"t",2:"f"}
             var data = this.all_hotel
-            console.log(data.features.filter(d=>d.properties.instant_bookable==bookable_map[val]))
+            // console.log(data.features.filter(d=>d.properties.instant_bookable==bookable_map[val]))
             var temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[val])
             this.hotel = {type:"FeatureCollection",features: temp }
         }
-        console.log(bookable_map[val])
+        // console.log(bookable_map[val])
         this.forceRerender()
 
     },
     print_input(variable){
-        console.log("Home/print_input",variable)
+        // console.log("Home/print_input",variable)
         this.selectedpoint = variable
         //this.$emit("point_hometoplot",this.point)
         

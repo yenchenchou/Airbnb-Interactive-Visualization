@@ -38,6 +38,7 @@ export default {
         const graphWidth = this.width - margin.left - margin.right;
         const graphHeight = this.height - margin.top - margin.bottom;
         const graph = svg.append('g')
+        .attr('id', 'dist_g')
         .attr('width', graphWidth)
         .attr('height', graphHeight)
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
@@ -77,10 +78,11 @@ export default {
         }).direction('ne');
         graph.call(tip);  
         // join the data to rects
-        graph.selectAll('rect')
+        graph.selectAll('.dist')
             .data(bins)
             .enter()
             .append('rect')
+            .attr("class", "dist1")
             .attr("transform", d => `translate(${x(d.x0)},0)`)
             .attr("x", 0.5)
             .attr('y', graphHeight)
@@ -98,7 +100,6 @@ export default {
                 tip.hide();
                 handleMouseout(new_data, i, n);
             });
-
         // click function
         var pos = 1;
         d3.select("#btn1").on("click", function () {
@@ -120,10 +121,11 @@ export default {
               .domain([0, d3.max(bins, d => d.length)])
               .range([graphHeight, 0]);
             // draw plot
-            graph.selectAll('rect')
+            graph.selectAll('.dist')
               .data(bins)
               .enter()
               .append('rect')
+              .attr("class", "dist1")
               .attr("transform", d => `translate(${x(d.x0)},0)`)
               .attr("x", 0.5)
               .attr('y', graphHeight)
@@ -180,10 +182,11 @@ export default {
               .domain([0, d3.max(bins, d => d.length)])
               .range([graphHeight, 0]);
             // draw plot
-            graph.selectAll('rect')
+            graph.selectAll('.dist')
               .data(bins)
               .enter()
               .append('rect')
+              .attr("class", "dist1")
               .attr("transform", d => `translate(${x(d.x0)},0)`)
               .attr("x", 0.5)
               .attr('y', graphHeight)
@@ -222,8 +225,6 @@ export default {
               .attr('text-anchor', 'end');
             pos = 1
         }); 
-
-
         // create axes groups
         const xAxisGroup = graph.append('g')
             .attr("class", "axis_x")
@@ -255,14 +256,74 @@ export default {
             .text("Counts")
             .style('font-size', '16px')
             .style("text-anchor", "middle");
+
     },
     update_plot(){
-        console.log("testing in coming",this.incomingpoint)
+      // console.log("testing in coming",this.incomingpoint)
+      d3.selectAll('.dist2_identifier').remove();
+
+      var new_data = this.hotel.features;
+      const margin = {top: 20, right: 20, bottom: 70, left: 120};
+      const graphWidth = this.width - margin.left - margin.right;
+      const graphHeight = this.height - margin.top - margin.bottom;
+      var x = d3.scaleLinear()
+        .domain([0, d3.max(new_data, d => d.properties.price)])
+        .range([0, graphWidth]);
+      var histogram = d3.histogram()
+        .value(d => d.properties.price)   // I need to give the vector of value
+        .domain(x.domain())  // then the domain of the graphic
+        .thresholds(x.ticks(100)); // then the numbers of bins
+      var bins = histogram(new_data);
+      var y = d3.scaleLinear()
+        .domain([0, d3.max(bins, d => d.length)])
+        .range([graphHeight, 0]);
+
+      var new_bins = [];
+      var cc = this.incomingpoint.properties.price
+      var i = 0
+      // console.log(bins);
+      // console.log(bins[0].length);
+      // console.log(d3.max(bins, d => d.x1));
+      if(cc == d3.max(bins, d => d.x1)){
+        new_bins.push(bins[bins.length-2].x1)
+        new_bins.push(bins[bins.length-1].x1)
+        new_bins.push(bins[bins.length-2].length)
+        // console.log(new_bins);
+      }
+      if(cc == d3.min(bins, d => d.x0)){
+        new_bins.push(bins[0].x0)
+        new_bins.push(bins[1].x0)
+        new_bins.push(bins[0].length)
+        // console.log(new_bins);
+      }
+      for (i; i < bins.length; i++) {
+        if(cc > bins[i].x0 && cc < bins[i].x1){
+          new_bins.push(bins[i].x0)
+          new_bins.push(bins[i].x1)
+          new_bins.push(bins[i].length)
+          // console.log(new_bins);
+          // breweryCircles.push(aa[i+1][0])
+        }
+      }
+      d3.select("#dist_g").selectAll('.dist1').style("opacity", '0.4');
+      d3.select("#dist_g").selectAll('.dist2')
+        .data(new_bins)
+        .enter()
+        .append('rect')
+        .attr("class", "dist2_identifier")
+        .attr("transform", `translate(${x(new_bins[0])},0)`)
+        .attr("x", 0.5)
+        .attr('y', graphHeight)
+        .attr("width", x(new_bins[1]) - x(new_bins[0])- 0.5)
+        .style("fill", "#FF5A5F")
+        .transition().duration(2000)
+          .attr('y', y(new_bins[2]))
+          .attr("height", graphHeight - y(new_bins[2]));
     }
   },
   watch:{
-      incomingpoint: function(newValue,oldValue) {
-          console.log("watch",newValue,oldValue)
+      incomingpoint: function() {
+          // console.log("watch",newValue,oldValue)
           this.update_plot()
       }
   }
