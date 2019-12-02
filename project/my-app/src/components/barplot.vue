@@ -23,14 +23,11 @@ export default {
   },
   mounted () {
     this.drawbarplot()
-    this.testing()
   },
   methods: {
     drawbarplot(){
 
       var data = this.hotel;
-
-
     const priceAvg = d3.nest().key(d => d.properties.room_type)
         .rollup(function(v) {
             return {
@@ -160,7 +157,7 @@ export default {
       }
     },
     update_plot(){
-        console.log("testing in bar",this.incomingpoint)
+        console.log("testing in bar",this.incomingpoint.properties)
     }
   },
   watch:{

@@ -158,14 +158,18 @@ export default {
         map.on('mouseleave', 'clusters', function () {
             map.getCanvas().style.cursor = '';
         });
-
-
   },
     whileclick(){
       this.$emit('point_maptohome',this.selectedpoint)
       console.log("map/whileclick")
       this.selectedpoint = {}; // clear out the variable
   }
+},
+watch:{
+    thekey: function(newValue,oldValue){
+        console.log("watch_map",newValue,oldValue)
+        //this.clusteer()
+    }
 }
 }
 </script>

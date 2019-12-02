@@ -116,20 +116,23 @@ export default {
         this.dataIsReady+=1
     },
     search1(val){
+        console.log(val)
         // room type
-        if (val==0){
-            console.log("show all")
+        if (this.selectStatus1==0 & this.selectStatus2==0){
             this.hotel = this.all_hotel
         } else{
             var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
+            var bookable_map = {1:"t",2:"f"}
             var data = this.all_hotel
-            var temp = data.features.filter(d=>d.properties.room_type==room_type_map[val])
+            var temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
+            temp = temp.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
             this.hotel = {type:"FeatureCollection",features: temp }
         }
-        console.log(room_type_map[val])
+        console.log(room_type_map[this.selectStatus1],bookable_map[this.selectStatus2])
         this.forceRerender()
     },
     search2(val){
+        console.log(val)
         // bookable
         if (val==0){
             this.hotel = this.all_hotel;
