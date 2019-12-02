@@ -111,11 +111,11 @@
 <script>
 // @ is an alias to /src
 import * as d3 from 'd3'
+import cluster_sep from "@/components/cluster_sep.vue";
 import barplot from "@/components/barplot.vue";
 import bubbleplot from "@/components/bubbleplot.vue";
 import circular_bar from "@/components/circular_bar.vue";
 import distplot from "@/components/distplot.vue";
-import cluster_sep from "@/components/cluster_sep.vue";
 
 export default {
   name: "home",

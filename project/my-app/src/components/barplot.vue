@@ -179,8 +179,8 @@ export default {
           .attr('x', 0)
           .attr("width", d => x(d.properties.price));    
 
-      // d3.select('body').select('#click_data_stats')
-      //   .text('Your Selection Price: ' + this.incomingpoint.properties.price)
+      d3.select('body').select('#click_data_stats')
+        .text('Your Selection Price: ' + this.incomingpoint.properties.price)
     }
   },
   watch:{
