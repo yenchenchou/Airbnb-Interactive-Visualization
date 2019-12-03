@@ -2,7 +2,7 @@ import csv, json
 from geojson import Feature, FeatureCollection, Point
 import pandas
 
-df = pandas.read_csv('./project/my-app/public/df(2).csv')
+df = pandas.read_csv('./project/my-app/public/df.csv')
 
 json_result_string = df.to_json(
     orient='records', 
