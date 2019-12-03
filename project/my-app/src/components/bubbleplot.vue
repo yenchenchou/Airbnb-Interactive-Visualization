@@ -52,6 +52,7 @@ props: {
           .attr('height', graphHeight)
           .attr('transform', `translate(${margin.left}, ${margin.top})`);
         // prepare scale for bubble/color/legend
+        const sorted_cnt_house = priceAvgAmount.map(d => d.value.cnt_house).sort(d3.ascending)
         const x = d3.scaleLinear()
             .domain([0, d3.max(priceAvgAmount, d => d.value.avg_number_of_reviews)])
             .range([0, graphWidth]);
@@ -60,12 +61,12 @@ props: {
             .range([graphHeight, 0]);
         const z = d3.scaleLinear()
             .domain([0, d3.max(priceAvgAmount, d => d.value.cnt_house)])
-            .range([4, 30]);
-        const legend_size = d3.scaleSqrt()
+            .range([4.5, 30]);
+        const legend_size = d3.scaleLinear()
             .domain([0, d3.max(priceAvgAmount, d => d.value.cnt_house)])
-            .range([4, 30]);
+            .range([4.5, 30]);
         const myColor = d3.scaleLinear()
-            .domain([20, 300])
+            .domain([d3.quantile(sorted_cnt_house, 0).toFixed(0), d3.quantile(sorted_cnt_house, 0.95).toFixed(0)])
             .range(["#00ccbb", "#FF5A5F"]);
         // mouse hover event handler
         const handleMouserover = (d, i, n) => {
@@ -117,13 +118,24 @@ props: {
                 handleMouseout(d, i, n);
             })
         // legend setup (bubble)
-        const legendData = [1,5000,20000]
+        const legendData = [
+            d3.quantile(sorted_cnt_house, 0.75).toFixed(0),
+            // d3.quantile(sorted_cnt_house, 0.995).toFixed(0),
+            d3.quantile(sorted_cnt_house, 1).toFixed(0)]
+        const lengend_margin = {
+            "top_circle_legend" : 65,
+            "right_circle_legend" : 100,
+            "top_line_legend" : 85,
+            "left_line_legend" : 50,
+            "top_number_legend" : 85,
+            "right_number_legend" : 60,
+        }
         graph.selectAll("legend")
             .data(legendData)
             .enter()
             .append("circle")
-            .attr("cx", graphWidth - 90)
-            .attr("cy", d => 60 - legend_size(d))
+            .attr("cx", graphWidth - lengend_margin.right_circle_legend)
+            .attr("cy", d => lengend_margin.top_circle_legend - legend_size(d))
             .attr("r", d => legend_size(d))
             .attr("stroke", "#767676")
             .attr('stroke-width', '2px')
@@ -134,10 +146,10 @@ props: {
             .data(legendData)
             .enter()
             .append("line")
-                .attr('x1', graphWidth + 60)
+                .attr('x1', graphWidth + lengend_margin.left_line_legend)
                 .attr('x2', d => graphWidth + legend_size(d) + 10)
-                .attr('y1', d => 80 - legend_size(d))
-                .attr('y2', d => 80 - legend_size(d))
+                .attr('y1', d => lengend_margin.top_line_legend - legend_size(d))
+                .attr('y2', d => lengend_margin.top_line_legend - legend_size(d))
                 .attr('stroke', '#767676')
                 .attr('stroke-width', '2px')
                 .style('stroke-dasharray', ('2,2'));
@@ -146,8 +158,8 @@ props: {
             .data(legendData)
             .enter()
             .append("text")
-                .attr('x', graphWidth + 70)
-                .attr('y', d => 80 - legend_size(d))
+                .attr('x', graphWidth + lengend_margin.right_number_legend)
+                .attr('y', d => lengend_margin.top_number_legend - legend_size(d))
                 .text(d => d)
                 .attr('alignment-baseline', 'middle')
                 .attr('font-family', 'Arial')
@@ -155,30 +167,23 @@ props: {
                 .style("font-size", 12);
         // legend text (bubble)
         svg.append("text")             
-            .attr("transform", `translate(${graphWidth - 15}, ${margin.top - 1})`)
+            .attr("transform", `translate(${graphWidth - 10}, ${margin.top})`)
             .text("House Counts")
             .attr('fill', '#767676')
             .attr('font-family', 'Arial')
-            .style('font-size', '12px');
-        // Add square for legend
-        // svg.selectAll("legend")
-        //     .data(legendData)
-        //     .enter()
-        //     .append("rect")
-        //         .attr('x', graphWidth - 20)
-        //         .attr('y', margin.top)
-        //         .attr("width", 150)
-        //         .attr("height", 160)
-        //         .attr('stroke', '#767676')
-        //         .attr('stroke-width', '1.5px')
-        //         .style('stroke-dasharray', ('2,2'))
-        //         .attr("fill", "none")
-        // legend setup (colored square, which represent the price)
+            .style('font-size', '12px')
+            .style('text-anchor', 'middle');
+        // legend for color
+        const sorted_price = priceAvgAmount.map(d => d.value.avg_price).sort(d3.ascending)
+        const q_1 = d3.quantile(sorted_price, 1).toFixed(0);
+        const q_2 = d3.quantile(sorted_price, 0.75).toFixed(0);
+        const q_3 = d3.quantile(sorted_price, 0.5).toFixed(0);
+        const q_4 = d3.quantile(sorted_price, 0.1).toFixed(0);
         const data_for_legend = [
-            {"color":"#ff5a5f","value":0,"price":1000},
-            {"color":"#ffb3b5","value":20,"price":300},
-            {"color":"#a28481","value":40,"price":100},
-            {"color":"#00A699","value":60,"price":50}
+            {"color":myColor(q_1),"value":0,"price":q_1},
+            {"color":myColor(q_2),"value":20,"price":q_2},
+            {"color":myColor(q_3),"value":40,"price":q_3},
+            {"color":myColor(q_4),"value":60,"price":q_4}
         ];
         graph.append('g')
             .selectAll('rect')
@@ -188,20 +193,20 @@ props: {
             .attr('width', 45)
             .attr('height', 10)
             .attr('fill', d => d.color)
-            .attr('x', graphWidth - 112)
-            .attr('y', d => d.value + 80)
+            .attr('x', graphWidth - lengend_margin.right_circle_legend - 21.5)
+            .attr('y', d => d.value + lengend_margin.top_circle_legend + 20)
             .attr('stroke-width', '0px')
-            .style("anchor", "middle")
+            .style("text-anchor", "middle")
             .style("opacity", '0.6');
         // legend segments line (colored square, which represent the price)
         svg.selectAll("legend")
             .data(data_for_legend)
             .enter()
             .append("line")
-                .attr('x1', graphWidth + 40)
-                .attr('x2', graphWidth + 60)
-                .attr('y1', d => 105 + d.value)
-                .attr('y2', d => 105 + d.value)
+                .attr('x1', graphWidth + 30)
+                .attr('x2', graphWidth + 50)
+                .attr('y1', d => 110 + d.value)
+                .attr('y2', d => 110 + d.value)
                 .attr('stroke', '#767676')
                 .attr('stroke-width', '2px')
                 .style('stroke-dasharray', ('2,2'));
@@ -210,8 +215,8 @@ props: {
             .data(data_for_legend)
             .enter()
             .append("text")
-                .attr('x', graphWidth + 70)
-                .attr('y', d => 105 + d.value)
+                .attr('x', graphWidth + 60)
+                .attr('y', d => 110 + d.value)
                 .text(d => '$' + d.price)
                 .attr('alignment-baseline', 'middle')
                 .attr('font-family', 'Arial')

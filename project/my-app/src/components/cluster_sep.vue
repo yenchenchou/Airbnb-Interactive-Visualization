@@ -28,7 +28,8 @@ export default {
       mapboxgl.accessToken = 'pk.eyJ1Ijoid2VpZmFuY2giLCJhIjoiY2syM3p6NGZ5MDNqbDNtbW43MGd2dHhuYiJ9.ja_sOhkG72iVGI1eeyyRbw';
       var map = new mapboxgl.Map({
         container: this.$refs.clustermap_2,
-        style: 'mapbox://styles/mapbox/streets-v9',
+        // style: 'mapbox://styles/mapbox/streets-v9',
+        style: 'mapbox://styles/mapbox/light-v10',
         center: [-118.6, 33],
         zoom: 5
       })
@@ -37,9 +38,9 @@ export default {
     layers(){
         var map = this.IamMap
         var self = this
-        console.log('in the layer function')
+        // console.log('in the layer function')
         map.on('load', function() {
-        console.log("in map on load",self.hotel.features.length)
+        // console.log("in map on load",self.hotel.features.length)
         map.addSource("hotels", {
             type: "geojson",
             data: self.hotel,
@@ -169,5 +170,5 @@ watch:{
 }
 </script>
 <style>
-@import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css');
+/* @import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css'); */
 </style>
