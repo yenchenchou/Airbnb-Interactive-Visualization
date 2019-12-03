@@ -5,59 +5,15 @@
     <!-- <mainpage/> -->
     <!-- <header style="margin-top:0px;">Deep Trip in California</header> -->
     <!-- <h1 align="center">Deep Trip in California</h1> -->
-    <table border="0">
-      <tbody>
-        <tr>
-          <td class="left-part" rowspan="2">
-              <cluster_sep  :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
-            <!-- Used to draw map! -->
-          </td>
-          <td class="right-part top">
-                <div>Room Type</div>
-                <div class="taskList" >
-                <!-- <div class="taskList" @click="handle1">  -->
-                  <!-- <input class="filter" type="radio" name="condition1" value="0"> All
-                  <input class="filter" type="radio" name="condition1" value="1"> Shared Room
-                  <input class="filter" type="radio" name="condition1" value="2"> Private Room
-                  <input class="filter" type="radio" name="condition1" value="3"> Entire Home/Apt -->
-                  <input type="radio"  name="task1" value="0"  v-model='selectStatus1'> All
-                  <input type="radio"  name="task1" value="1" v-model='selectStatus1'> Shared Room
-                  <input type="radio"  name="task1" value="2" v-model='selectStatus1'> Private Room
-                  <input type="radio"  name="task1" value="3" v-model='selectStatus1'> Entire Home/Apt
-                  <input class="forSearch" type="button" value="Search" @click="search1(selectStatus1)"/>
-                </div>
-                <div>Instant Bookable</div>
-                <div class="taskList" >
-                <!-- <div class="taskList" @click="handle2">  -->
-                  <!-- <input class="filter" type="radio" name="condition2" value="0"> All
-                  <input class="filter" type="radio" name="condition2" value="1"> Bookable
-                  <input class="filter" type="radio" name="condition2" value="2"> Not Bookable -->
-                  <input type="radio"  name="task2" value="0" v-model='selectStatus2'> All
-                  <input type="radio"  name="task2" value="1" v-model='selectStatus2'> Bookable
-                  <input type="radio"  name="task2" value="2" v-model='selectStatus2'> Not Bookable
-                  <input class="forSearch" type="button" value="Search" @click="search2(selectStatus2)"/>
-                </div>
-                <!-- <div class="taskList" @click="handle1">
-                <label for="all">All</label>
-                <input type="radio" value="1" v-model="picked">
-                <label for="sharedroom">Shared Room</label>
-                <input type="radio" value="2" v-model="picked">
-                <label for="privateroom">Private Room</label>
-                <input type="radio" value="3" v-model="picked">
-                <label for="entirehomeapt">Entire Home/Apt</label>
-                <input type="radio" value=4 v-model="picked">
-                <span id='csv'>Picked: {{ picked }}</span>
-                </div> -->
-                <!-- filter function -->
-                <!-- <div type="hidden" id="detectChange">
-                  <input name="flag1" id="flag1"/>
-                  <input type="hidden" name="flag2" id="flag2"/>
-                </div> -->
-          </td>
-        </tr>
-        <tr>
-          <!-- <td class="right-part bottom"> -->
-            <div style="height:700px;overflow:auto">
+    
+<!-- </td></td></td></td></td></td> -->
+  <div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-7">
+      <cluster_sep  :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
+    </div>
+    <div class="col-sm-5">
+      <div style="height:700px;overflow:auto">
               <h3 class='plot_name_h3'>Room Type</h3><hr>
               <div class="room_type_words" style="float:left; margin-left: 20px;" >
                 <strong style="font-size:20px;">63.2% </strong>
@@ -101,10 +57,10 @@
                 <circular_bar v-if="dataIsReady" :pltwidth="plotswidth"/>
               </div> 
             </div>
-          <!-- </td> -->
-        </tr>
-      </tbody>
-    </table>
+    </div>
+  </div>
+</div>
+<!-- </td></td></td></td></td></td> -->
   </div>
 </template>
 
@@ -112,6 +68,9 @@
 // @ is an alias to /src
 import * as d3 from 'd3'
 import cluster_sep from "@/components/cluster_sep.vue";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'jquery/src/jquery.js'
+import 'bootstrap/dist/js/bootstrap.min.js'
 import barplot from "@/components/barplot.vue";
 import bubbleplot from "@/components/bubbleplot.vue";
 import circular_bar from "@/components/circular_bar.vue";

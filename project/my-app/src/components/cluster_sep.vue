@@ -27,7 +27,8 @@ export default {
       mapboxgl.accessToken = 'pk.eyJ1Ijoid2VpZmFuY2giLCJhIjoiY2syM3p6NGZ5MDNqbDNtbW43MGd2dHhuYiJ9.ja_sOhkG72iVGI1eeyyRbw';
       var map = new mapboxgl.Map({
         container: this.$refs.clustermap_2,
-        style: 'mapbox://styles/mapbox/streets-v9',
+        // style: 'mapbox://styles/mapbox/streets-v9',
+        style: 'mapbox://styles/mapbox/light-v10',
         center: [-118.6, 33],
         zoom: 5
       })

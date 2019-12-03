@@ -28,6 +28,8 @@ h1 {
   color: #767676;
   font-size: 14px;
 }
+
+
 table {
   position: relative;
   top: 0px;
@@ -54,6 +56,8 @@ table, th, td {
 .top {
   height: 100px;
 }
+
+
 .tip_card {
   padding: 3px;
   background: #767676;
