@@ -26,6 +26,7 @@ export default {
   },
   methods: {
     drawbarplot(){
+      d3.select('#svg_bar').remove();
       var data = this.hotel;
     const priceAvg = d3.nest().key(d => d.properties.room_type)
         .rollup(function(v) {
@@ -36,6 +37,7 @@ export default {
       const svg = d3.select('#barplot')
           .attr("preserveAspectRatio", "xMinYMin meet")
           .append('svg')
+          .attr("id", "svg_bar")
           // .attr('viewBox', `0 0 {$width} {$height}`)
           .attr('width', this.width)
           .attr('height', this.height)
@@ -52,7 +54,7 @@ export default {
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
       // prepare scale for rect/color
       const x = d3.scaleLinear()
-        .domain([0, d3.max(priceAvg, d => d.value.avg_price)+100])
+        .domain([0, d3.max(priceAvg, d => d.value.avg_price)])
         .range([0, graphWidth]); 
       const y = d3.scaleBand()
         .domain(['Entire home/apt', 'Private room', 'Shared room']) // d3.map(new_data => new_data.properties.room_type)
@@ -131,6 +133,7 @@ export default {
     },
     update_plot(){
         // console.log("testing in bar",this.incomingpoint.properties)
+      d3.selectAll('.bar2_identifier').remove();
       var data = this.hotel;
       var priceAvg = d3.nest().key(d => d.properties.room_type)
         .rollup(function(v) {
@@ -188,6 +191,9 @@ export default {
           // console.log("watch",newValue,oldValue)
           this.update_plot()
       },
+      hotel: function(){
+          this.drawbarplot()
+      }
   }
 }
 </script>
