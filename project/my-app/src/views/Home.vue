@@ -6,6 +6,7 @@
     <!-- <header style="margin-top:0px;">Deep Trip in California</header> -->
     <!-- <h1 align="center">Deep Trip in California</h1> -->
     
+<<<<<<< HEAD
   <div class="container-fluid">
   <div class="row">
     <div class="col-sm-7">
@@ -47,6 +48,35 @@
         <div class="plotmargin">
           <barplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel" :incomingpoint="selectedpoint"/>
         </div>
+=======
+<!-- </td></td></td></td></td></td> -->
+  <div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-7">
+      <cluster_sep  :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
+    </div>
+    <div class="col-sm-5">
+      <div style="height:700px;overflow:auto">
+              <h3 class='plot_name_h3'>Room Type</h3><hr>
+              <div class="room_type_words" style="float:left; margin-left: 20px;" >
+                <strong style="font-size:20px;">63.2% </strong>
+                <span style="font-size:12px">Entire home/apt</span>
+              </div>
+              <div class="room_type_words" style="display: inline-block;">
+                <strong style="font-size: 20px;">33.0% </strong>
+                <span style="font-size:12px">Private room</span>
+              </div>
+              <div class="room_type_words" style="float:right; margin-right: 20px;">
+                <strong style="font-size: 20px;">3.8% </strong>
+                <span style="font-size:12px">Shared room</span>
+              </div>
+              <div id="click_data_stats" style="margin-top: 20px;">
+                Your Selection Price: NaN
+              </div>
+              <div class="plotmargin">
+                <barplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel" :incomingpoint="selectedpoint"/>
+              </div>
+>>>>>>> c7c81540f4e8317a41b6ac82d32ff3c7345cdd15
 
         <h3 class='plot_name_h3' style="margin-left: 0px;">Price Distribution</h3><hr style="margin-left: 0px;">
         <div align="justify" style="font-size: 16px; color: #767676; margin-left: 0px; margin-right: 20px;">
@@ -63,6 +93,7 @@
           <bubbleplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel" :incomingpoint="selectedpoint"/>
         </div>
 
+<<<<<<< HEAD
         <h3 class='plot_name_h3' style="margin-left: 0px;">House Style</h3><hr style="margin-left: 0px;">   
         <div align="justify" style="font-size: 16px; color: #767676; margin-left: 0px; margin-right: 20px;">
           The distribution of house types and its corresponding average price. The longer bars represent the larger number of houses. Average price between house styles are specified in different colors.
@@ -72,6 +103,20 @@
         </div> 
       </div>
     </div>
+=======
+              <h3 class='plot_name_h3'>House Style</h3><hr>   
+              <div align="justify" style="font-size: 16px; color: #767676; margin-left: 20px; margin-right: 20px;">
+                The distribution of house types and its corresponding average price. The longer bars represent the larger number of houses. Average price between house styles are specified in different colors.
+              </div>           
+              <div class="plotmargin"> 
+                <circular_bar v-if="dataIsReady" :pltwidth="plotswidth"/>
+              </div> 
+            </div>
+    </div>
+  </div>
+</div>
+<!-- </td></td></td></td></td></td> -->
+>>>>>>> c7c81540f4e8317a41b6ac82d32ff3c7345cdd15
   </div>
 </div>
 </div>
@@ -125,29 +170,25 @@ export default {
   methods:{
     forceRerender(){
         this.dataIsReady+=1
+<<<<<<< HEAD
         // console.log(this.selectStatus1,this.selectStatus2,this.hotel.features.length)
+=======
+>>>>>>> c7c81540f4e8317a41b6ac82d32ff3c7345cdd15
     },
-    print_input(variable){
-        this.selectedpoint = variable        
-      },
-    filter_data(){
-        var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
-        var bookable_map = {1:"t",2:"f"}
-        var data = this.all_hotel
-        var temp=[];
-        if (this.selectStatus1==0 & this.selectStatus2==0){
-            temp = data.features
-        } else if(this.selectStatus1==0) {
-            temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
-        } else if(this.selectStatus2==0){
-            temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
+    search1(val){
+        // room type
+        if (val==0){
+            // console.log("show all")
+            this.hotel = this.all_hotel
         } else{
-            temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
-            temp = temp.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
-            
+            var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
+            var data = this.all_hotel
+            var temp = data.features.filter(d=>d.properties.room_type==room_type_map[val])
+            this.hotel = {type:"FeatureCollection",features: temp }
         }
-        this.hotel = {type:"FeatureCollection",features: temp }
+        // console.log(room_type_map[val])
         this.forceRerender()
+<<<<<<< HEAD
     }
     
   },
@@ -159,7 +200,41 @@ watch:{
     selectStatus2: function(){
         // console.log("select2",newValue,oldValue)
         this.filter_data()
+=======
     },
-    }
+    search2(val){
+        // bookable
+        if (val==0){
+            this.hotel = this.all_hotel;
+        } else{
+            var bookable_map = {1:"t",2:"f"}
+            var data = this.all_hotel
+            // console.log(data.features.filter(d=>d.properties.instant_bookable==bookable_map[val]))
+            var temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[val])
+            this.hotel = {type:"FeatureCollection",features: temp }
+        }
+        // console.log(bookable_map[val])
+        this.forceRerender()
+
+>>>>>>> c7c81540f4e8317a41b6ac82d32ff3c7345cdd15
+    },
+    print_input(variable){
+        // console.log("Home/print_input",variable)
+        this.selectedpoint = variable
+        //this.$emit("point_hometoplot",this.point)
+        
+      }
+  },
+computed:{
+    // filter_data(){
+    //     if (this.selectStatus1==0 & this.selectStatus2==0){
+    //         this.hotel = this.all_hotel
+    //     }
+    //     else{
+
+    //     }
+    // }
+}
+
 }
 </script>
