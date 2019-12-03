@@ -53,8 +53,8 @@
           Price distribution of California. Remove Extreme button removes price larger than $1500, which occupies 1% of houses.
         </div>
         <div class="plotmargin" >
-          <button id="btn1" type="button" class="btn btn-info btn-sm">Remove Extreme Price</button>
-          <button id="btn2" type="button" class="btn btn-info btn-sm">Keep Extreme Price</button>
+          <button id="btn1" type="button" class="btn btn-info btn-sm" style="margin:5px;">Remove Extreme Price</button>
+          <button id="btn2" type="button" class="btn btn-info btn-sm" style="margin:5px;">Keep Extreme Price</button>
           <distplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel"  :incomingpoint="selectedpoint"/>
         </div>
 

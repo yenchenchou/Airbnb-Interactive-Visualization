@@ -107,8 +107,8 @@ export default {
     const tip = d3Tip()
     .attr('class', 'tip_card_circular_bar')
     .html(d => {
-        let content = `<p>${'Avg. Price: $'} <span style="color:#FF5A5F">${d.price.toFixed(0)}</span></p>`;
-        content += `<p>${'Available Houses: '}<span style="color:#FF5A5F">${d.countword.toFixed(0)}</span></p>`;
+        let content = `<p style='margin-bottom: 0px; padding: 5px;'>${'Avg. Price: $'} <span style="color:#FFF">${d.price.toFixed(0)}</span></p>`;
+        content += `<p style='margin-bottom: 0px; padding: 5px;'>${'Available Houses: '}<span style="color:#FFF">${d.countword.toFixed(0)}</span></p>`;
         return content;
     }).direction('se')
     graph.call(tip)

@@ -81,7 +81,7 @@ export default {
       const tip = d3Tip()
       .attr('class', 'tip_card')
       .html(d => {
-        let content = `<p class=bubble_point>${'$ ' + d.value.avg_price.toFixed(0)}</p>`;
+        let content = `<p class=bubble_point style="margin-bottom: 0px; padding: 5px;">${'$ ' + d.value.avg_price.toFixed(0)}</p>`;
         return content;
       }).direction('e');
       graph.call(tip);

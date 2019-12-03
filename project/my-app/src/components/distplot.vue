@@ -27,7 +27,7 @@ export default {
     drawdistplot(){
       d3.select('#svg_dist').remove();
         var new_data = this.hotel.features;
-        
+        const filter_data = new_data.filter(function(d){return d.properties.price < 1500;})
         const svg = d3.select('#distplot')
             .append('svg')
             .attr("id", "svg_dist")
@@ -47,13 +47,13 @@ export default {
         // console.log(d3.max(new_data, d => d.properties.price));
         // prepare scale for histogram
         var x = d3.scaleLinear()
-            .domain([0, d3.max(new_data, d => d.properties.price)])
+            .domain([0, d3.max(filter_data, d => d.properties.price)])
             .range([0, graphWidth]);
         var histogram = d3.histogram()
             .value(d => d.properties.price)   // I need to give the vector of value
             .domain(x.domain())  // then the domain of the graphic
             .thresholds(x.ticks(100)); // then the numbers of bins
-        var bins = histogram(new_data);
+        var bins = histogram(filter_data);
         var y = d3.scaleLinear()
             .domain([0, d3.max(bins, d => d.length)])
             .range([graphHeight, 0]);
@@ -74,8 +74,8 @@ export default {
         const tip = d3Tip()
         .attr('class', 'tip_card')
         .html(d => {
-            let content = `<p>${'price range: ' + d.x0.toFixed(0) + '-' + d.x1.toFixed(0)}</p>`;
-            content += `<p>${'houses count: ' + d.length}</p>`;
+            let content = `<p style='margin-bottom: 0px; padding: 5px;'>${'price range: ' + d.x0.toFixed(0) + '-' + d.x1.toFixed(0)}</p>`;
+            content += `<p style='margin-bottom: 0px; padding: 5px;'>${'houses count: ' + d.length}</p>`;
             return content;
         }).direction('ne');
         graph.call(tip);  
@@ -94,13 +94,13 @@ export default {
                 .attr('y', d => y(d.length))
                 .attr("height", d => graphHeight - y(d.length));
         graph.selectAll('rect')
-            .on("mouseover", (new_data, i, n) => {
-                tip.show(new_data, n[i]);
-                handleMouserover(new_data, i, n);
+            .on("mouseover", (filter_data, i, n) => {
+                tip.show(filter_data, n[i]);
+                handleMouserover(filter_data, i, n);
             })
-            .on("mouseout", (new_data, i, n) => {
+            .on("mouseout", (filter_data, i, n) => {
                 tip.hide();
-                handleMouseout(new_data, i, n);
+                handleMouseout(filter_data, i, n);
             });
         // click function
         var pos = 1;
@@ -261,22 +261,22 @@ export default {
 
     },
     update_plot(){
-
       // console.log("testing in coming",this.incomingpoint)
       d3.selectAll('.dist2_identifier').remove();
 
       var new_data = this.hotel.features;
+      const filter_data = new_data.filter(function(d){return d.properties.price < 1500;});
       const margin = {top: 20, right: 20, bottom: 70, left: 120};
       const graphWidth = this.width - margin.left - margin.right;
       const graphHeight = this.height - margin.top - margin.bottom;
       var x = d3.scaleLinear()
-        .domain([0, d3.max(new_data, d => d.properties.price)])
+        .domain([0, d3.max(filter_data, d => d.properties.price)])
         .range([0, graphWidth]);
       var histogram = d3.histogram()
         .value(d => d.properties.price)   // I need to give the vector of value
         .domain(x.domain())  // then the domain of the graphic
         .thresholds(x.ticks(100)); // then the numbers of bins
-      var bins = histogram(new_data);
+      var bins = histogram(filter_data);
       var y = d3.scaleLinear()
         .domain([0, d3.max(bins, d => d.length)])
         .range([graphHeight, 0]);
@@ -284,28 +284,22 @@ export default {
       var new_bins = [];
       var cc = this.incomingpoint.properties.price
       var i = 0
-      // console.log(bins);
-      // console.log(bins[0].length);
-      // console.log(d3.max(bins, d => d.x1));
+    // console.log(cc)
       if(cc == d3.max(bins, d => d.x1)){
         new_bins.push(bins[bins.length-2].x1)
         new_bins.push(bins[bins.length-1].x1)
         new_bins.push(bins[bins.length-2].length)
-        // console.log(new_bins);
       }
       if(cc == d3.min(bins, d => d.x0)){
         new_bins.push(bins[0].x0)
         new_bins.push(bins[1].x0)
         new_bins.push(bins[0].length)
-        // console.log(new_bins);
       }
       for (i; i < bins.length; i++) {
         if(cc > bins[i].x0 && cc < bins[i].x1){
           new_bins.push(bins[i].x0)
           new_bins.push(bins[i].x1)
           new_bins.push(bins[i].length)
-          // console.log(new_bins);
-          // breweryCircles.push(aa[i+1][0])
         }
       }
       d3.select("#dist_g").selectAll('.dist1').style("opacity", '0.4');

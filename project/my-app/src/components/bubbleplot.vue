@@ -72,7 +72,7 @@ props: {
         const handleMouserover = (d, i, n) => {
             d3.select(n[i])
                 .transition().duration(10)
-                .attr('stroke', '#767676')
+                .attr('stroke', '#FF5A5F')
                 .attr('stroke-width', '3.5px')
                 .style('opacity', 1)
         };
@@ -87,10 +87,10 @@ props: {
         const tip = d3Tip()
         .attr('class', 'tip_card')
         .html(d => {
-            let content = `<p style='color:#fda281;'><strong>${d.key}</strong></p>`;
-            content += `<p>avg reviews: ${d.value.avg_number_of_reviews.toFixed(0)}</p>`;
-            content += `<p>days available: ${d.value.avg_availability_365.toFixed(0)}</p>`;
-            content += `<p style='color:#fff;'>avg price: ${d.value.avg_price.toFixed(0)}</p>`;
+            let content = `<p style='color:#fda281; margin-bottom: 0px; padding: 5px;'><strong>${d.key}</strong></p>`;
+            content += `<p style='margin-bottom: 0px; padding: 5px;'>avg reviews: ${d.value.avg_number_of_reviews.toFixed(0)}</p>`;
+            content += `<p style='margin-bottom: 0px; padding: 5px;'>days available: ${d.value.avg_availability_365.toFixed(0)}</p>`;
+            content += `<p style='color:#fff; margin-bottom: 0px; padding: 5px;'>avg price: ${d.value.avg_price.toFixed(0)}</p>`;
             return content;
             
         }).direction('se')

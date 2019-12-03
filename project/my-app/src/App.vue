@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav"> -->
+    <div id="start">
       <router-link to="/">Deep Trip in California</router-link> |
       <router-link to="/about">About</router-link>
+    </div>
+
       <!-- <router-link to="/index">Index</router-link> -->
       
-    </div>
+    <!-- </div> -->
     <router-view />
   </div>
 </template>
@@ -16,19 +19,25 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #767676;
 }
 
-#nav {
+#start {
   padding: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 10px;
 }
 
-#nav a {
+#start a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #767676;
+  font-size: 20px;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+#start a.router-link-exact-active {
+  color: #FF5A5F;
+  font-size: 20px;
 }
+
 </style>
