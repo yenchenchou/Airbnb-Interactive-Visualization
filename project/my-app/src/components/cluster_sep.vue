@@ -20,6 +20,7 @@ export default {
   },
   mounted () {
     this.init()
+    this.layers()
     this.cluster()
   },
   methods: {
@@ -27,19 +28,18 @@ export default {
       mapboxgl.accessToken = 'pk.eyJ1Ijoid2VpZmFuY2giLCJhIjoiY2syM3p6NGZ5MDNqbDNtbW43MGd2dHhuYiJ9.ja_sOhkG72iVGI1eeyyRbw';
       var map = new mapboxgl.Map({
         container: this.$refs.clustermap_2,
-        // style: 'mapbox://styles/mapbox/streets-v9',
-        style: 'mapbox://styles/mapbox/light-v10',
+        style: 'mapbox://styles/mapbox/streets-v9',
         center: [-118.6, 33],
         zoom: 5
       })
       this.IamMap = map
     },
-    cluster(){
+    layers(){
         var map = this.IamMap
         var self = this
+        console.log('in the layer function')
         map.on('load', function() {
-        // Add a new source from our GeoJSON data and set the
-        // 'cluster' option to true. GL-JS will add the point_count property to your source data.
+        console.log("in map on load",self.hotel.features.length)
         map.addSource("hotels", {
             type: "geojson",
             data: self.hotel,
@@ -102,7 +102,10 @@ export default {
         });
         
       });
-    
+    },
+    cluster(){
+        var map = this.IamMap
+        var self = this
         // inspect a cluster on click
         map.on('click', 'clusters', function (e) {
             var features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
@@ -125,7 +128,7 @@ export default {
             map.getCanvas().style.cursor = 'pointer';
             
             var coordinates = h.features[0].geometry.coordinates.slice();
-            var hotel_name = h.features[0].properties.name +'\n' +h.features[0].properties.price;
+            var hotel_name = h.features[0].properties.name +'<br>' +h.features[0].properties.price;
             while (Math.abs(h.lngLat.lng - coordinates[0]) > 180) {
                 coordinates[0] += h.lngLat.lng > coordinates[0] ? 360 : -360;
             }
@@ -142,8 +145,6 @@ export default {
             // console.log("selected",h.features[0])
             self.selectedpoint = h.features[0]
             self.whileclick()
-            //this.selectedpoint = h.features[0]
-            //this.$emit('inputdata',this.selectedpoint);
             
         });
         map.on('mouseenter', 'clusters', function () {
@@ -157,12 +158,12 @@ export default {
       this.$emit('point_maptohome',this.selectedpoint)
       // console.log("map/whileclick")
       this.selectedpoint = {}; // clear out the variable
-  }
+  },
 },
 watch:{
     thekey: function(){
-        // console.log("watch_map",newValue,oldValue)
-        //this.clusteer()
+        // console.log(newV,oldV)
+        this.IamMap.getSource('hotels').setData(this.hotel)
     }
 }
 }

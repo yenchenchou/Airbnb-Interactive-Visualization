@@ -24,6 +24,7 @@ props: {
   },
   methods: {
    drawbubbleplot(){
+     d3.select('#svg_bubble').remove();
      var data = this.hotel;
         const priceAvgAmount = d3.nest().key(d => d.properties.city)
         .rollup(function(v) {
@@ -36,6 +37,7 @@ props: {
         }).entries(data.features);
         const svg = d3.select('#bubbleplot')
             .append('svg')
+            .attr("id", "svg_bubble")
             // .attr('viewBox', `0 0 800 600`)
             .attr('width', this.width)
             .attr('height', this.height)
@@ -300,6 +302,9 @@ props: {
         //   console.log("watch",newValue,oldValue)
           this.update_plot()
       },
+      hotel: function(){
+          this.drawbubbleplot()
+      }
   }
 }
 </script>

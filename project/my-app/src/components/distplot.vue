@@ -25,10 +25,12 @@ export default {
   },
   methods: {
     drawdistplot(){
+      d3.select('#svg_dist').remove();
         var new_data = this.hotel.features;
         
         const svg = d3.select('#distplot')
             .append('svg')
+            .attr("id", "svg_dist")
             // .attr('viewBox', `0 0 800 300`)
             .attr('width', this.width)
             .attr('height', this.height)
@@ -325,6 +327,9 @@ export default {
       incomingpoint: function() {
           // console.log("watch",newValue,oldValue)
           this.update_plot()
+      },
+      hotel: function(){
+          this.drawdistplot()
       }
   }
 }

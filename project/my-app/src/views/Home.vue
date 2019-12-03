@@ -24,7 +24,7 @@
                   <input type="radio"  name="task1" value="1" v-model='selectStatus1'> Shared Room
                   <input type="radio"  name="task1" value="2" v-model='selectStatus1'> Private Room
                   <input type="radio"  name="task1" value="3" v-model='selectStatus1'> Entire Home/Apt
-                  <input class="forSearch" type="button" value="Search" @click="search1(selectStatus1)"/>
+                  <!-- <input class="forSearch" type="button" value="Search" @click="search1(selectStatus1)"/> -->
                 </div>
                 <div>Instant Bookable</div>
                 <div class="taskList" >
@@ -35,7 +35,7 @@
                   <input type="radio"  name="task2" value="0" v-model='selectStatus2'> All
                   <input type="radio"  name="task2" value="1" v-model='selectStatus2'> Bookable
                   <input type="radio"  name="task2" value="2" v-model='selectStatus2'> Not Bookable
-                  <input class="forSearch" type="button" value="Search" @click="search2(selectStatus2)"/>
+                  <!-- <input class="forSearch" type="button" value="Search" @click="search2(selectStatus2)"/> -->
                 </div>
                 <!-- <div class="taskList" @click="handle1">
                 <label for="all">All</label>
@@ -111,12 +111,11 @@
 <script>
 // @ is an alias to /src
 import * as d3 from 'd3'
-import cluster_sep from "@/components/cluster_sep.vue";
 import barplot from "@/components/barplot.vue";
 import bubbleplot from "@/components/bubbleplot.vue";
 import circular_bar from "@/components/circular_bar.vue";
 import distplot from "@/components/distplot.vue";
-
+import cluster_sep from "@/components/cluster_sep.vue";
 export default {
   name: "home",
   components: {
@@ -144,7 +143,6 @@ export default {
         self.all_hotel = data;
         self.hotel = data;
         self.dataIsReady+=1
-
     });
   },
   Mounted(){
@@ -153,53 +151,41 @@ export default {
   methods:{
     forceRerender(){
         this.dataIsReady+=1
-    },
-    search1(val){
-        // room type
-        if (val==0){
-            // console.log("show all")
-            this.hotel = this.all_hotel
-        } else{
-            var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
-            var data = this.all_hotel
-            var temp = data.features.filter(d=>d.properties.room_type==room_type_map[val])
-            this.hotel = {type:"FeatureCollection",features: temp }
-        }
-        // console.log(room_type_map[val])
-        this.forceRerender()
-    },
-    search2(val){
-        // bookable
-        if (val==0){
-            this.hotel = this.all_hotel;
-        } else{
-            var bookable_map = {1:"t",2:"f"}
-            var data = this.all_hotel
-            // console.log(data.features.filter(d=>d.properties.instant_bookable==bookable_map[val]))
-            var temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[val])
-            this.hotel = {type:"FeatureCollection",features: temp }
-        }
-        // console.log(bookable_map[val])
-        this.forceRerender()
-
+        console.log(this.selectStatus1,this.selectStatus2,this.hotel.features.length)
     },
     print_input(variable){
-        // console.log("Home/print_input",variable)
-        this.selectedpoint = variable
-        //this.$emit("point_hometoplot",this.point)
-        
-      }
+        this.selectedpoint = variable        
+      },
+    filter_data(){
+        var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
+        var bookable_map = {1:"t",2:"f"}
+        var data = this.all_hotel
+        var temp=[];
+        if (this.selectStatus1==0 & this.selectStatus2==0){
+            temp = data.features
+        } else if(this.selectStatus1==0) {
+            temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
+        } else if(this.selectStatus2==0){
+            temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
+        } else{
+            temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
+            temp = temp.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
+            
+        }
+        this.hotel = {type:"FeatureCollection",features: temp }
+        this.forceRerender()
+    }
+    
   },
-computed:{
-    // filter_data(){
-    //     if (this.selectStatus1==0 & this.selectStatus2==0){
-    //         this.hotel = this.all_hotel
-    //     }
-    //     else{
-
-    //     }
-    // }
-}
-
+watch:{
+    selectStatus1: function(newValue,oldValue){
+        console.log("select1",newValue,oldValue)
+        this.filter_data()
+    },
+    selectStatus2: function(newValue,oldValue){
+        console.log("select2",newValue,oldValue)
+        this.filter_data()
+    },
+    }
 }
 </script>
