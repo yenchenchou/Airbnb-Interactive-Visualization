@@ -37,22 +37,6 @@
                   <input type="radio"  name="task2" value="2" v-model='selectStatus2'> Not Bookable
                   <!-- <input class="forSearch" type="button" value="Search" @click="search2(selectStatus2)"/> -->
                 </div>
-                <!-- <div class="taskList" @click="handle1">
-                <label for="all">All</label>
-                <input type="radio" value="1" v-model="picked">
-                <label for="sharedroom">Shared Room</label>
-                <input type="radio" value="2" v-model="picked">
-                <label for="privateroom">Private Room</label>
-                <input type="radio" value="3" v-model="picked">
-                <label for="entirehomeapt">Entire Home/Apt</label>
-                <input type="radio" value=4 v-model="picked">
-                <span id='csv'>Picked: {{ picked }}</span>
-                </div> -->
-                <!-- filter function -->
-                <!-- <div type="hidden" id="detectChange">
-                  <input name="flag1" id="flag1"/>
-                  <input type="hidden" name="flag2" id="flag2"/>
-                </div> -->
           </td>
         </tr>
         <tr>

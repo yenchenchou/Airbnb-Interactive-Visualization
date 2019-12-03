@@ -261,6 +261,7 @@ export default {
 
     },
     update_plot(){
+
       // console.log("testing in coming",this.incomingpoint)
       d3.selectAll('.dist2_identifier').remove();
 
