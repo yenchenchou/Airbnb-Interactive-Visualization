@@ -152,6 +152,20 @@ watch:{
         // console.log("select2",newValue,oldValue)
         this.filter_data()
     },
+    search2(val){
+        // bookable
+        if (val==0){
+            this.hotel = this.all_hotel;
+        } else{
+            var bookable_map = {1:"t",2:"f"}
+            var data = this.all_hotel
+            // console.log(data.features.filter(d=>d.properties.instant_bookable==bookable_map[val]))
+            var temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[val])
+            this.hotel = {type:"FeatureCollection",features: temp }
+        }
+        // console.log(bookable_map[val])
+        this.forceRerender()
+    },
     print_input(variable){
         // console.log("Home/print_input",variable)
         this.selectedpoint = variable
