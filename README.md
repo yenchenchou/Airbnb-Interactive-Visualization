@@ -14,7 +14,7 @@
 ### PROJECT ARTIFACTS
 
 - [Demonstration URL](http://pdms.usc.edu/~yenchenc/project/dist/)
-- [Presentation PDF](<presentation-pdf-url>) and [transcript](<presentation-transcript-md-url>)
+- [Presentation PDF]https://github.com/INF554/a5-undefined/blob/master/INF554_Undefined_Presentation.pdf) and [transcript](https://github.com/INF554/a5-undefined/blob/master/PRESENTATION_TRANSCRIPT.md)
 - [Article](<article-pdf-url>) and [Overleaf URL](https://www.overleaf.com/4559825934xjssmcfbkrkt)
 - [YouTube video](<youtube-video-url>)
 
