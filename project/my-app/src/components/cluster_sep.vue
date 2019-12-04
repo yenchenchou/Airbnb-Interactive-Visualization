@@ -130,7 +130,7 @@ export default {
             map.getCanvas().style.cursor = 'pointer';
             
             var coordinates = h.features[0].geometry.coordinates.slice();
-            var hotel_name = h.features[0].properties.name +'<br>' +h.features[0].properties.price;
+            var hotel_name = h.features[0].properties.name +'<br>'+ h.features[0].properties.room_type+'<br> $' +h.features[0].properties.price + ' per night';
             while (Math.abs(h.lngLat.lng - coordinates[0]) > 180) {
                 coordinates[0] += h.lngLat.lng > coordinates[0] ? 360 : -360;
             }
@@ -172,4 +172,9 @@ watch:{
 </script>
 <style>
 @import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css');
+.mapboxgl-popup-content{
+max-width: 150px;
+font: 12px sans-serif;
+border-radius: 5px;
+}
 </style>
