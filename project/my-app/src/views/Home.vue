@@ -127,20 +127,35 @@ export default {
         this.dataIsReady+=1
         // console.log(this.selectStatus1,this.selectStatus2,this.hotel.features.length)
     },
-    search1(val){
-        // room type
-        if (val==0){
-            // console.log("show all")
-            this.hotel = this.all_hotel
-        } else{
-            var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
-            var data = this.all_hotel
-            var temp = data.features.filter(d=>d.properties.room_type==room_type_map[val])
-            this.hotel = {type:"FeatureCollection",features: temp }
+    filter_data(){
+        console.log(this.hotel)
+        console.log('filter_function',this.selectStatus1,this.selectStatus2,this.hotel.features.length)
+        var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
+        var bookable_map = {1:'t',2:'f'}
+        var data = this.all_hotel
+        var temp = []
+        if (this.selectStatus1==0 & this.selectStatus2==0){
+            temp = data.features
+        }else if (this.selectStatus1==0){
+            temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
+        }else if (this.selectStatus2==0){
+            temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
+
+        }else{
+            temp  = data.features.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
+            temp = temp.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
+
         }
-        // console.log(room_type_map[val])
+        this.hotel = {type:"FeatureCollection",features: temp }
         this.forceRerender()
-    }
+    },
+    print_input(variable){
+        console.log("Home/print_input",variable)
+        this.selectedpoint = variable
+        //this.$emit("point_hometoplot",this.point)
+        
+      }
+
     
   },
 watch:{
@@ -151,27 +166,7 @@ watch:{
     selectStatus2: function(){
         // console.log("select2",newValue,oldValue)
         this.filter_data()
-    },
-    search2(val){
-        // bookable
-        if (val==0){
-            this.hotel = this.all_hotel;
-        } else{
-            var bookable_map = {1:"t",2:"f"}
-            var data = this.all_hotel
-            // console.log(data.features.filter(d=>d.properties.instant_bookable==bookable_map[val]))
-            var temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[val])
-            this.hotel = {type:"FeatureCollection",features: temp }
-        }
-        // console.log(bookable_map[val])
-        this.forceRerender()
-    },
-    print_input(variable){
-        // console.log("Home/print_input",variable)
-        this.selectedpoint = variable
-        //this.$emit("point_hometoplot",this.point)
-        
-      }
+    }
   },
 computed:{
     // filter_data(){
