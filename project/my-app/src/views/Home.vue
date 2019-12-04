@@ -127,18 +127,26 @@ export default {
         this.dataIsReady+=1
         // console.log(this.selectStatus1,this.selectStatus2,this.hotel.features.length)
     },
-    search1(val){
-        // room type
-        if (val==0){
-            // console.log("show all")
-            this.hotel = this.all_hotel
-        } else{
-            var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
-            var data = this.all_hotel
-            var temp = data.features.filter(d=>d.properties.room_type==room_type_map[val])
-            this.hotel = {type:"FeatureCollection",features: temp }
+    filter_data(){
+        console.log(this.hotel)
+        console.log('filter_function',this.selectStatus1,this.selectStatus2,this.hotel.features.length)
+        var room_type_map = {1:"Shared room",2:"Private room",3:"Entire home/apt"}
+        var bookable_map = {1:'t',2:'f'}
+        var data = this.all_hotel
+        var temp = []
+        if (this.selectStatus1==0 & this.selectStatus2==0){
+            temp = data.features
+        }else if (this.selectStatus1==0){
+            temp = data.features.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
+        }else if (this.selectStatus2==0){
+            temp = data.features.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
+
+        }else{
+            temp  = data.features.filter(d=>d.properties.instant_bookable==bookable_map[this.selectStatus2])
+            temp = temp.filter(d=>d.properties.room_type==room_type_map[this.selectStatus1])
+
         }
-        // console.log(room_type_map[val])
+        this.hotel = {type:"FeatureCollection",features: temp }
         this.forceRerender()
     }
     
