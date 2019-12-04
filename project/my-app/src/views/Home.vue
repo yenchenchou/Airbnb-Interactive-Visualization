@@ -148,7 +148,14 @@ export default {
         }
         this.hotel = {type:"FeatureCollection",features: temp }
         this.forceRerender()
-    }
+    },
+    print_input(variable){
+        console.log("Home/print_input",variable)
+        this.selectedpoint = variable
+        //this.$emit("point_hometoplot",this.point)
+        
+      }
+
     
   },
 watch:{
@@ -159,13 +166,7 @@ watch:{
     selectStatus2: function(){
         // console.log("select2",newValue,oldValue)
         this.filter_data()
-    },
-    print_input(variable){
-        // console.log("Home/print_input",variable)
-        this.selectedpoint = variable
-        //this.$emit("point_hometoplot",this.point)
-        
-      }
+    }
   },
 computed:{
     // filter_data(){

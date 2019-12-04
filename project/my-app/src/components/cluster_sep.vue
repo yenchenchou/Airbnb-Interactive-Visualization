@@ -126,6 +126,7 @@ export default {
             closeOnClick: false
             });
         map.on('mouseenter','unclustered-point',function(h){
+            console.log('on point')
             map.getCanvas().style.cursor = 'pointer';
             
             var coordinates = h.features[0].geometry.coordinates.slice();
@@ -133,7 +134,7 @@ export default {
             while (Math.abs(h.lngLat.lng - coordinates[0]) > 180) {
                 coordinates[0] += h.lngLat.lng > coordinates[0] ? 360 : -360;
             }
-            //console.log(hotel_name)
+            
             popup.setLngLat(coordinates)
                 .setHTML(hotel_name)
                 .addTo(map)
@@ -156,9 +157,9 @@ export default {
         });
   },
     whileclick(){
-      this.$emit('point_maptohome',this.selectedpoint)
-      // console.log("map/whileclick")
-      this.selectedpoint = {}; // clear out the variable
+        this.$emit('point_maptohome',this.selectedpoint)
+        console.log("map/whileclick",this.selectedpoint)
+        this.selectedpoint = {}; // clear out the variable
   },
 },
 watch:{
@@ -170,5 +171,5 @@ watch:{
 }
 </script>
 <style>
-/* @import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css'); */
+@import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css');
 </style>
