@@ -11,7 +11,11 @@ A platform where you understand your house selections comprehensively. It’s a 
 
 ### Slide3 - Analysis – Explain the Data
 
+We used open data released by Airbnb. It is concerned with Airbnb house or room description. In the next slide, I will show you what our data contains.
+
 ### Slide4 - Analysis – Explain the Data
+
+The data contains a lot of useful information and some features, just like location, price and so forth. Our project actually focuses on some important features, such as price. 
 
 ### Slide5 - Analysis – Explain the Topic
 We actually want to help users to know about the market of house renting in the area of California. For travelers, it can help provide a better choice for a house or a room in terms of specific requirements. For airbnb hosts, this app can give them advice on how they could improve their room to attract more travelers or make more profit.
@@ -26,23 +30,21 @@ We use Python to preprocess data and then use D3 to visualize them by drawing fo
 We chose VUE as web framework to develop our web application. And we also use bootstrap table to achieve a responsive website.
 
 
-### Slide8 - Who Did What
+### Slide8 - Who Did What(Renze)
 
 My job was to design the architecture of the system and the layout of our website. And I helped do some tasks about data exploring and visualization.
 
 
 
-### Slide9 - Who Did What
+### Slide9 - Who Did What(Wei-Fan)
 
 
 Wei-Fan was responsible for data preprocessing and built a bubble map by maxbox which can interact with the plots that draw by D3. And she built the filter function as well. 
 
 
-### Slide10 - Who Did 
+### Slide10 - Who Did (Yen-Chen)
 
 Yen-Chen preprocessed them and designed four statistics graphs using D3 after analyzing all data. And he deployed our web on server.
-
-
 
 ### Slide11 - Research From Others
 
