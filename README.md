@@ -19,5 +19,14 @@
 - [YouTube video](<youtube-video-url>)
 
 
-- 
+### PROJECT CONTRIBUTIONS
+- Demonstration: [<member-name> (<member-USC-username>) ...]
+- Presentation: [Runze Liu (runzeliu@usc.edu)]
+- Transcript: [<member-name> (<member-USC-username>) ...]
+- Paper: [<member-name> (<member-USC-username>) ...]
+- YouTube video: [<member-name> (<member-USC-username>) ...]
+- Web site: [<member-name> (<member-USC-username>) ...]
+- <chart-description>: [<member-name> (<member-USC-username>) ...]
+- <chart-description>: [<member-name> (<member-USC-username>) ...]
+- <chart-description>: [<member-name> (<member-USC-username>) ...]
 
