@@ -14,7 +14,7 @@
 ### PROJECT ARTIFACTS
 
 - [Demonstration URL](http://pdms.usc.edu/~yenchenc/project/dist/)
-- [Presentation PDF]https://github.com/INF554/a5-undefined/blob/master/INF554_Undefined_Presentation.pdf) and [transcript](https://github.com/INF554/a5-undefined/blob/master/PRESENTATION_TRANSCRIPT.md)
+- [Presentation PDF](https://github.com/INF554/a5-undefined/blob/master/INF554_Undefined_Presentation.pdf) and [transcript](https://github.com/INF554/a5-undefined/blob/master/PRESENTATION_TRANSCRIPT.md)
 - [Article](<article-pdf-url>) and [Overleaf URL](https://www.overleaf.com/4559825934xjssmcfbkrkt)
 - [YouTube video](<youtube-video-url>)
 
@@ -29,7 +29,7 @@
 - web-format-setting: [Runze Liu (runzeliu@usc.edu)]
 - data-preparation: [Yen-Chen Chou (yenchenc@usc.edu), Wei-Fan Chen (weifanch@usc.edu)]
 - chart-description-bubblemap: [Wei-Fan Chen (weifanch@usc.edu)]
-- chart-description-barchart: [Yen-Chen Chou (yenchenc@usc.edu)]
+- [chart-description-barchart]<https://github.com/INF554/a5-undefined/blob/master/project/my-app/src/components/barplot.vue>: [Yen-Chen Chou (yenchenc@usc.edu)]
 - chart-description-histogram: [Yen-Chen Chou (yenchenc@usc.edu)]
 - chart-description-bubbleplot: [Yen-Chen Chou (yenchenc@usc.edu)]
 - chart-description-circularbar: [Yen-Chen Chou (yenchenc@usc.edu), Wei-Fan Chen (weifanch@usc.edu)]
