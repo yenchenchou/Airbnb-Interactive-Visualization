@@ -29,7 +29,7 @@
 - web-format-setting: [Runze Liu (runzeliu@usc.edu)]
 - data-preparation: [Yen-Chen Chou (yenchenc@usc.edu), Wei-Fan Chen (weifanch@usc.edu)]
 - chart-description-bubblemap: [Wei-Fan Chen (weifanch@usc.edu)]
-- [chart-description-barchart]<https://github.com/INF554/a5-undefined/blob/master/project/my-app/src/components/barplot.vue>: [Yen-Chen Chou (yenchenc@usc.edu)]
+- chart-description-barchart: [Yen-Chen Chou (yenchenc@usc.edu)]
 - chart-description-histogram: [Yen-Chen Chou (yenchenc@usc.edu)]
 - chart-description-bubbleplot: [Yen-Chen Chou (yenchenc@usc.edu)]
 - chart-description-circularbar: [Yen-Chen Chou (yenchenc@usc.edu), Wei-Fan Chen (weifanch@usc.edu)]
