@@ -29,20 +29,17 @@ export default {
         var new_data = this.hotel.features;
         const filter_data = new_data.filter(function(d){return d.properties.price < 1500;})
         const svg = d3.select('#distplot')
-            .append('svg')
-            .attr("id", "svg_dist")
-            // .attr('viewBox', `0 0 800 300`)
-            .attr('width', this.width)
-            .attr('height', this.height)
-            .style('background-color', "#f5f5f5");
+          .append('svg')
+          .attr("id", "svg_dist")
+          .attr('viewBox', `0 0 ${this.width} ${this.height}`)
+          .style('background-color', "#f5f5f5");
         // create margins & dimensions
         const margin = {top: 20, right: 20, bottom: 70, left: 120};
         const graphWidth = this.width - margin.left - margin.right;
         const graphHeight = this.height - margin.top - margin.bottom;
         const graph = svg.append('g')
         .attr('id', 'dist_g')
-        .attr('width', graphWidth)
-        .attr('height', graphHeight)
+        .attr('viewBox', `0 0 ${graphWidth} ${graphHeight}`)
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
         // console.log(d3.max(new_data, d => d.properties.price));
         // prepare scale for histogram

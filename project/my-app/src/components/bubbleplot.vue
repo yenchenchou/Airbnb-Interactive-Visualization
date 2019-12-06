@@ -38,9 +38,7 @@ props: {
         const svg = d3.select('#bubbleplot')
             .append('svg')
             .attr("id", "svg_bubble")
-            // .attr('viewBox', `0 0 800 600`)
-            .attr('width', this.width)
-            .attr('height', this.height)
+            .attr('viewBox', `0 0 ${this.width} ${this.height}`)
             .style('background-color', "#f5f5f5");
         // create margins & dimensions
         const margin = {top: 20, right: 20, bottom: 50, left: 90};
@@ -48,8 +46,7 @@ props: {
         const graphHeight = this.height - margin.top - margin.bottom;
         const graph = svg.append('g')
           .attr('id', 'bubble_g')
-          .attr('width', graphWidth)
-          .attr('height', graphHeight)
+          .attr('viewBox', `0 0 ${graphWidth} ${graphHeight}`)
           .attr('transform', `translate(${margin.left}, ${margin.top})`);
         // prepare scale for bubble/color/legend
         const sorted_cnt_house = priceAvgAmount.map(d => d.value.cnt_house).sort(d3.ascending)

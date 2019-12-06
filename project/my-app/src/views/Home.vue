@@ -100,7 +100,7 @@ export default {
   },
   data(){
       return{
-          plotswidth:600,
+          plotswidth:500,
           hotel:{},
           all_hotel:{},
           dataIsReady:0,

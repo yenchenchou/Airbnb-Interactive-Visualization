@@ -38,9 +38,7 @@ export default {
           .attr("preserveAspectRatio", "xMinYMin meet")
           .append('svg')
           .attr("id", "svg_bar")
-          // .attr('viewBox', `0 0 {$width} {$height}`)
-          .attr('width', this.width)
-          .attr('height', this.height)
+          .attr('viewBox', `0 0 ${this.width} ${this.height}`)
           .style('background-color', "#f5f5f5");
       // create margins & dimensions
       const margin = {top: 20, right: 40, bottom: 45, left: 120};
@@ -48,9 +46,7 @@ export default {
       const graphHeight = this.height - margin.top - margin.bottom;
       const graph = svg.append('g')
         .attr("id", "bar_g")
-        .attr('width', graphWidth)
-        .attr('height', graphHeight)
-        // .attr('viewBox', `0 0 ${graphWidth} ${graphHeight}`)
+        .attr('viewBox', `0 0 ${graphWidth} ${graphHeight}`)
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
       // prepare scale for rect/color
       const x = d3.scaleLinear()
@@ -85,30 +81,31 @@ export default {
         return content;
       }).direction('e');
       graph.call(tip);
+
       // join the data to rects
-      graph.selectAll('.bar')
-        .data(priceAvg)
-        .enter()
-        .append('rect')
-        .attr("class", "bar1")
-        .attr('height', y.bandwidth())
-        .attr('fill', d => myColor(d.key))
-        .attr('x', 0)
-        .attr('y', d => y(d.key))
-        .attr('stroke-width', '0px')
-        .style("opacity", '1')
-        .transition().duration(3000)
+        graph.selectAll('.bar')
+          .data(priceAvg)
+          .enter()
+          .append('rect')
+          .attr("class", "bar1")
+          .attr('height', y.bandwidth())
+          .attr('fill', d => myColor(d.key))
           .attr('x', 0)
-          .attr("width", d => x(d.value.avg_price));
-      graph.selectAll('rect')
-        .on("mouseover", (d, i, n) => {
-          tip.show(d, n[i]);
-          handleMouserover(d, i, n);
-        })
-        .on("mouseout", (d, i, n) => {
-          tip.hide();
-          handleMouseout(d, i, n);
-        });
+          .attr('y', d => y(d.key))
+          .attr('stroke-width', '0px')
+          .style("opacity", '1')
+          .transition().duration(3000)
+            .attr('x', 0)
+            .attr("width", d => x(d.value.avg_price));
+        graph.selectAll('rect')
+          .on("mouseover", (d, i, n) => {
+            tip.show(d, n[i]);
+            handleMouserover(d, i, n);
+          })
+          .on("mouseout", (d, i, n) => {
+            tip.hide();
+            handleMouseout(d, i, n);
+          });
       // create axes groups
       const xAxisGroup = graph.append('g')
         .attr("class", "axis_x")
@@ -130,6 +127,22 @@ export default {
         .style('font-size', '16px')
         .style("text-anchor", "middle");
 
+    resize();  //redraw in case we start small!
+    function resize() {
+      // responsive
+      if(this.width < 400 || this.height < 350){            
+        // graph.selectAll('rect').remove();
+        // graph.selectAll('.axis_x').remove();
+        // graph.selectAll('.axis_y').remove();
+        svg.select('.axis_x').style('display', 'none');  //hide
+        svg.select('.axis_y').style('display', 'none');  //hide
+      }
+      else{        
+        // svg.select('.axis_x').style('display', 'initial');  //show
+        // svg.select('.axis_y').style('display', 'initial');  //show
+      }
+    }
+      window.addEventListener("resize", resize);
     },
     update_plot(){
         // console.log("testing in bar",this.incomingpoint.properties)
