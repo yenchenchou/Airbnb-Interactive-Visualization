@@ -19,8 +19,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-<<<<<<< HEAD
-
-/node_modules/*
-=======
->>>>>>> master

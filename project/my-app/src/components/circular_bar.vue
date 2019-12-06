@@ -14,7 +14,7 @@ export default {
   data:function() {
     return {
         width : this.pltwidth,
-        height : 500  
+        height : 450
     }
   },
   props: {
@@ -34,11 +34,11 @@ export default {
         .style('background-color', "#f5f5f5");
 
     // set the dimensions and margins of the graph
-    var margin = {top: 0, right: 120, bottom: 0, left: 0},
+    var margin = {top: 0, right: 65, bottom: 5, left: 0},
         graphWidth = self.width - margin.left - margin.right,
         graphHeight = self.height - margin.top - margin.bottom,
-        innerRadius = 130,
-        outerRadius = 500;
+        innerRadius = 135,
+        outerRadius = 450;
 
     // append the svg object
     const graph = svg.append('g')
@@ -107,8 +107,8 @@ export default {
     const tip = d3Tip()
     .attr('class', 'tip_card_circular_bar')
     .html(d => {
-        let content = `<p>${'Avg. Price: $'} <span style="color:#FF5A5F">${d.price.toFixed(0)}</span></p>`;
-        content += `<p>${'Available Houses: '}<span style="color:#FF5A5F">${d.countword.toFixed(0)}</span></p>`;
+        let content = `<p style='margin-bottom: 0px; padding: 5px;'>${'Avg. Price: $'} <span style="color:#FFF">${d.price.toFixed(0)}</span></p>`;
+        content += `<p style='margin-bottom: 0px; padding: 5px;'>${'Available Houses: '}<span style="color:#FFF">${d.countword.toFixed(0)}</span></p>`;
         return content;
     }).direction('se')
     graph.call(tip)
@@ -173,11 +173,11 @@ export default {
         .data(data_for_legend)
         .enter()
         .append('rect')
-        .attr('width', 45)
-        .attr('height', 10)
+        .attr('width', 50)
+        .attr('height', 15)
         .attr('fill', d => d.color)
         .attr('x', graphWidth/2.1)
-        .attr('y', d => d.value - 200)
+        .attr('y', d => d.value - 220)
         .attr('stroke-width', '0px')
         .style("anchor", "middle")
         .style("opacity", '0.6');
@@ -211,9 +211,10 @@ export default {
         .enter()
         .append("text")
             .attr('x', graphWidth/2.1 + 10)
-            .attr('y', d => d.value - 195)
+            .attr('y', d => d.value - 211)
             .text(d => '$' + d.price)
             .style("font-size", 12)
+            .style("font-weight","bold")
             .attr('alignment-baseline', 'middle')
             .attr('font-family', 'Arial')
             .attr("fill", "#767676");

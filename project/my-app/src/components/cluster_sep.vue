@@ -28,7 +28,8 @@ export default {
       mapboxgl.accessToken = 'pk.eyJ1Ijoid2VpZmFuY2giLCJhIjoiY2syM3p6NGZ5MDNqbDNtbW43MGd2dHhuYiJ9.ja_sOhkG72iVGI1eeyyRbw';
       var map = new mapboxgl.Map({
         container: this.$refs.clustermap_2,
-        style: 'mapbox://styles/mapbox/streets-v9',
+        // style: 'mapbox://styles/mapbox/streets-v9',
+        style: 'mapbox://styles/mapbox/light-v10',
         center: [-118.6, 33],
         zoom: 5
       })
@@ -37,10 +38,9 @@ export default {
     layers(){
         var map = this.IamMap
         var self = this
-        console.log('in the layer function')
+        // console.log('in the layer function')
         map.on('load', function() {
-        console.log("in map on load",self.hotel.features.length)
-
+        // console.log("in map on load",self.hotel.features.length)
         map.addSource("hotels", {
             type: "geojson",
             data: self.hotel,
@@ -103,7 +103,6 @@ export default {
         });
         
       });
-
     },
     cluster(){
         var map = this.IamMap
@@ -126,51 +125,46 @@ export default {
             closeButton: false,
             closeOnClick: false
             });
-
         map.on('mouseenter','unclustered-point',function(h){
+            console.log('on point')
             map.getCanvas().style.cursor = 'pointer';
             
             var coordinates = h.features[0].geometry.coordinates.slice();
-            var hotel_name = h.features[0].properties.name +'<br>' +h.features[0].properties.price;
-
+            var hotel_name = h.features[0].properties.name +'<br>'+ h.features[0].properties.room_type+'<br> $' +h.features[0].properties.price + ' per night';
             while (Math.abs(h.lngLat.lng - coordinates[0]) > 180) {
                 coordinates[0] += h.lngLat.lng > coordinates[0] ? 360 : -360;
             }
-            //console.log(hotel_name)
+            
             popup.setLngLat(coordinates)
                 .setHTML(hotel_name)
                 .addTo(map)
         });
-
         map.on('mouseleave', 'unclustered-point', function () {
             map.getCanvas().style.cursor = '';
             popup.remove();
         });
-
         map.on('click', 'unclustered-point', function (h) {
-            console.log("selected",h.features[0])
+            // console.log("selected",h.features[0])
             self.selectedpoint = h.features[0]
             self.whileclick()
             
         });
-
         map.on('mouseenter', 'clusters', function () {
             map.getCanvas().style.cursor = 'pointer';
-
         });
         map.on('mouseleave', 'clusters', function () {
             map.getCanvas().style.cursor = '';
         });
   },
     whileclick(){
-      this.$emit('point_maptohome',this.selectedpoint)
-      console.log("map/whileclick")
-      this.selectedpoint = {}; // clear out the variable
+        this.$emit('point_maptohome',this.selectedpoint)
+        console.log("map/whileclick",this.selectedpoint)
+        this.selectedpoint = {}; // clear out the variable
   },
 },
 watch:{
-    thekey: function(newV,oldV){
-        console.log(newV,oldV)
+    thekey: function(){
+        // console.log(newV,oldV)
         this.IamMap.getSource('hotels').setData(this.hotel)
     }
 }
@@ -178,4 +172,9 @@ watch:{
 </script>
 <style>
 @import url('https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css');
+.mapboxgl-popup-content{
+max-width: 150px;
+font: 12px sans-serif;
+border-radius: 5px;
+}
 </style>

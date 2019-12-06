@@ -1,9 +1,35 @@
-
-/* body {
+body {
   position:absolute;
-  background-image: url('background1.jpg');
+  /* background-image: url('background1.jpg'); */
+  background-color: #f5f5f5;
   background-size: cover;
-} */
+}
+h1 {
+  color: #767676;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 0px;
+}
+.plot_name_h3{
+  color: #767676;
+  font-size: 24px;
+  font:16px Arial,sans-serif bold;
+  font-style:normal;
+  text-align: left;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  margin-right: 20px;
+  font-weight: 1200px;
+}
+
+.room_type_words{
+  color: #767676;
+  font-size: 14px;
+}
+
+
 table {
   position: relative;
   top: 0px;
@@ -15,7 +41,9 @@ table, th, td {
   border-collapse: collapse;
   font-weight: 600;
 }
-
+.input {
+  color: #767676;
+}
 .left-part {
   width: 1300px;
   height: 820px;
@@ -28,9 +56,11 @@ table, th, td {
 .top {
   height: 100px;
 }
+
+
 .tip_card {
   padding: 3px;
-  background: #808080;
+  background: #767676;
   color: #fff;
   border-radius: 10px;
   font-size: 14px;
@@ -43,7 +73,7 @@ table, th, td {
 }
 .tip_card_circular_bar {
   padding: 5px;
-  background: #808080;
+  background: #767676;
   color: #FFF;
   border-radius: 10px;
   font-size: 15px;
@@ -56,27 +86,27 @@ table, th, td {
   left: 940px !important; */
 }
 .axis_x line{
-  stroke: #808080;
+  stroke: #767676;
   stroke-width: 2px;
 }
 .axis_y line{
-  stroke: #808080;
+  stroke: #767676;
   stroke-width: 2px;
 }
 .axis_x path{
-  stroke: #808080;
+  stroke: #767676;
   stroke-width: 2px;
 }
 .axis_y path{
-  stroke: #808080;
+  stroke: #767676;
   stroke-width: 2px;
 }
 .axis_x text{
-  fill: #808080;
+  fill: #767676;
   font-size: 14px;
 }
 .axis_y text{
-  fill: #808080;
+  fill: #767676;
   font-size: 14px;
 }
 
@@ -113,4 +143,18 @@ table, th, td {
 
 .right_part_bottom{
   margin : 0 px;
+}
+
+.plotmargin{
+  position:relative;
+  padding:0;
+  margin:0;
+}
+
+hr {
+  width: 600px;
+  border-radius: 7px;
+  fill: #ccc;
+  margin-left: 20px;
+  padding: 0;
 }

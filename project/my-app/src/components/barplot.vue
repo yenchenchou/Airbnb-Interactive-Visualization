@@ -12,7 +12,7 @@ export default {
   data:function() {
     return {
       width : this.pltwidth,
-      height : 450,  
+      height : 300,  
       //point:this.incomingpoint
     }
   },
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     drawbarplot(){
-
+      d3.select('#svg_bar').remove();
       var data = this.hotel;
     const priceAvg = d3.nest().key(d => d.properties.room_type)
         .rollup(function(v) {
@@ -34,25 +34,24 @@ export default {
                 avg_price: d3.mean(v, d => d.properties.price)
             }
         }).entries(data.features);
-
       const svg = d3.select('#barplot')
           .attr("preserveAspectRatio", "xMinYMin meet")
           .append('svg')
+          .attr("id", "svg_bar")
           // .attr('viewBox', `0 0 {$width} {$height}`)
           .attr('width', this.width)
           .attr('height', this.height)
           .style('background-color', "#f5f5f5");
-
       // create margins & dimensions
       const margin = {top: 20, right: 40, bottom: 45, left: 120};
       const graphWidth = this.width - margin.left - margin.right;
       const graphHeight = this.height - margin.top - margin.bottom;
       const graph = svg.append('g')
+        .attr("id", "bar_g")
         .attr('width', graphWidth)
         .attr('height', graphHeight)
         // .attr('viewBox', `0 0 ${graphWidth} ${graphHeight}`)
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
-
       // prepare scale for rect/color
       const x = d3.scaleLinear()
         .domain([0, d3.max(priceAvg, d => d.value.avg_price)])
@@ -78,16 +77,14 @@ export default {
           .attr('stroke','#ffd1d2')
           .attr('stroke-width', '0px')   
       } ;
-
       // tooltip function and content setup
       const tip = d3Tip()
       .attr('class', 'tip_card')
       .html(d => {
-        let content = `<p class=bubble_point>${'$ ' + d.value.avg_price.toFixed(0)}</p>`;
+        let content = `<p class=bubble_point style="margin-bottom: 0px; padding: 5px;">${'$ ' + d.value.avg_price.toFixed(0)}</p>`;
         return content;
       }).direction('e');
       graph.call(tip);
-
       // join the data to rects
       graph.selectAll('.bar')
         .data(priceAvg)
@@ -112,7 +109,6 @@ export default {
           tip.hide();
           handleMouseout(d, i, n);
         });
-
       // create axes groups
       const xAxisGroup = graph.append('g')
         .attr("class", "axis_x")
@@ -134,37 +130,70 @@ export default {
         .style('font-size', '16px')
         .style("text-anchor", "middle");
 
-      // click data show own plot 
-      var has_data = true;
-      if(has_data == true){
-        const new_coming = [{'properties':{'room_type':'Entire home/apt', 'price':100}}]
-        graph.selectAll('.bar2')
-          .data(new_coming)
-          .enter()
-          .append('rect')
-          .attr("class", "bar2")
-          .attr('x', 0)
-          .attr('y', d => y(d.properties.room_type))
-          .attr('height', y.bandwidth())
-          .attr("width", d => x(d.properties.price))
-          .attr('fill', '#FF5A5F')
-          .attr('stroke-width', '0px')
-          .style("opacity", '1')
-      }
-      else{
-        const new_coming = [{'properties':{'room_type':'Entire home/apt', 'price':100}}]
-        console.log(new_coming)
-      }
     },
     update_plot(){
-        console.log("testing in bar",this.incomingpoint.properties)
+        // console.log("testing in bar",this.incomingpoint.properties)
+      d3.selectAll('.bar2_identifier').remove();
+      var data = this.hotel;
+      var priceAvg = d3.nest().key(d => d.properties.room_type)
+        .rollup(function(v) {
+            return {
+                avg_price: d3.mean(v, d => d.properties.price),
+                cnt_house: v.length
+            }
+        }).entries(data.features);
+      var margin = {top: 20, right: 40, bottom: 45, left: 120};
+      var graphWidth = this.width - margin.left - margin.right;
+      var graphHeight = this.height - margin.top - margin.bottom;
+      const x = d3.scaleLinear()
+        .domain([0, d3.max(priceAvg, d => d.value.avg_price)])
+        .range([0, graphWidth]); 
+      const y = d3.scaleBand()
+        .domain(['Entire home/apt', 'Private room', 'Shared room']) // d3.map(new_data => new_data.properties.room_type)
+        .range([0, graphHeight])
+        .paddingInner(0.2)
+        .paddingOuter(0.2);
+      const new_coming = [{'properties':{'room_type':this.incomingpoint.properties.room_type, 
+                          'price':this.incomingpoint.properties.price}}]    
+      d3.select("#bar_g").selectAll('.bar1').style("opacity", '0.3');
+      d3.select("#bar_g").append('g') 
+        .attr("class", "bar2_identifier_text")
+        .selectAll('.bar2')
+        .append('g')
+        .data(new_coming)
+        .enter()
+        .append('rect')
+        .attr("class", "bar2_identifier")
+        .attr('x', 0)
+        .attr('y', d => y(d.properties.room_type))
+        .attr('height', y.bandwidth())
+        .attr('fill', function(d){
+          if(d.properties.room_type == 'Entire home/apt'){
+            return '#FF5A5F'
+          } else if (d.properties.room_type == 'Private room'){
+            return '#00A699'
+          } else{
+            return '#FC642D'
+          }
+        })
+        .attr('stroke-width', '0px')
+        .style("opacity", '1')
+        .transition().duration(3000)
+          .attr('x', 0)
+          .attr("width", d => x(d.properties.price));    
+
+      d3.select('body').select('#click_data_stats')
+        .text('Your Selection Price: ' + this.incomingpoint.properties.price)
     }
   },
   watch:{
-      incomingpoint: function(newValue,oldValue) {
-          console.log("watch",newValue,oldValue)
+      incomingpoint: function() {
+          // console.log("watch",newValue,oldValue)
           this.update_plot()
       },
+      hotel: function(){
+          this.drawbarplot()
+      }
   }
 }
 </script>
