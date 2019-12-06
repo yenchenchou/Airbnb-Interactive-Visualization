@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#%%
 import glob
 import os
 import re
@@ -49,7 +50,7 @@ def get_keyword(df):
 
 
 def data_cleaning(df):
-    filter_column_name = ['host_id', 'name', 'latitude', 'longitude', 'room_type', 'price', 'neighborhood',
+    filter_column_name = ['host_id', 'name', 'latitude', 'longitude', 'room_type', 'price', 'neighbourhood_cleansed',
                             'minimum_nights', 'reviews_per_month', 'number_of_reviews',
                             'description', 'amenities', 'property_type', 'accommodates',
                             'availability_365', 'instant_bookable', 'city']
@@ -70,5 +71,8 @@ if __name__ == '__main__':
     describe_word = hotel_describe_words(path)
     df_new = data_cleaning(df)
     save_path = '/Users/yc/Desktop/OneDrive/USC/課程syllabus+resource/INF554/a5-undefined/project/data/dataset'
-    df_new.to_csv(os.path.join(save_path ,"df2.csv"), index = False)
+    df_new.to_csv(os.path.join(save_path ,"df_2.csv"), index = False)
     print('complete!')
+
+
+# %%
