@@ -12,7 +12,7 @@ map.addLayer(osm);
 
 var dataset = omnivore.csv('assets_cwy_new simple.csv');
 
-
+ 
 
 // 
 // var width = 800,

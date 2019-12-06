@@ -2,6 +2,7 @@
   <div class="about">
     <h1>Intro of our project?</h1>
     <h1>basically the content from proposal?</h1>
+    <d3map/>
   <div class="row" align = "center">
   <div class="column" style="float:left; margin-left: 100px; width: 300px; height: 500px;">
     <div class="card">
@@ -50,9 +51,11 @@
 
 <script>
 //import * as d3 from "d3"
+import d3map from "@/components/d3map.vue";
 export default {
-  name: "index",
+  name: "about",
   components: {
+      d3map
   },
   data: function(){
       return {

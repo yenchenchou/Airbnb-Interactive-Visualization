@@ -9,8 +9,9 @@
   <div class="container-fluid">
   <div class="row">
     <div class="col-sm-7">
-      <cluster_sep v-if="dataIsReady" :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
-    </div>
+        <img src='background.jpg'>
+      <!--<cluster_sep v-if="dataIsReady" :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>-->
+    </div>   
     <div class="col-sm-5">
       <div style="overflow:auto">
         <div>Room Type</div>
@@ -80,7 +81,7 @@
 <script>
 // @ is an alias to /src
 import * as d3 from 'd3'
-import cluster_sep from "@/components/cluster_sep.vue";
+//import cluster_sep from "@/components/cluster_sep.vue";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'jquery/src/jquery.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
@@ -92,7 +93,7 @@ import distplot from "@/components/distplot.vue";
 export default {
   name: "home",
   components: {
-      cluster_sep,
+      //cluster_sep,
       barplot,
       bubbleplot,
       circular_bar,
