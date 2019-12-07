@@ -31,24 +31,30 @@ export default {
         var promises = [];
         promises.push(d3.csv("city_house_cnt.csv", ({city, cnt}) => [city, +cnt]));
         Promise.all(promises).then(function (values) {
-            const house = Object.assign(new Map(values[0]), {title: "house count"});
-
+          const house = Object.assign(new Map(values[0]), {title: "house count"});
           d3.json("california-counties.json").then(function(data){
-
-          const color = d3.scaleLinear()
-            .domain([0, 10])
-            .range(["#FFF", "#FF5A5F"]);
           var svg = d3.select("#d3map")
             .append("svg")
             .attr("id", "svg_map")
             .attr("preserveAspectRatio", "xMinYMin meet")
             .attr('viewBox', `0 0 ${self.width} ${self.height}`)
             .style('background-color', "#f5f5f5");
+          // create margins & dimensions
+          const margin = {top: 20, right: 40, bottom: 45, left: 120};
+          const graphWidth = self.width - margin.left - margin.right;
+          const graphHeight = self.height - margin.top - margin.bottom;
+          const graph = svg.append('g')
+            .attr("id", "map_g")
+            .attr('viewBox', `0 0 ${graphWidth} ${graphHeight}`)
+            .attr('transform', `translate(${0}, ${margin.top})`);
 
-          var projection = d3.geoMercator().fitSize([self.width, self.height], data);
+          const color = d3.scaleLinear()
+            .domain([0, 10])
+            .range(["#FFF", "#FF5A5F"]);
+          var projection = d3.geoMercator().fitSize([self.width, self.height - 40], data);
             
           var path = d3.geoPath().projection(projection)
-          svg.append("g")
+          graph.append("g")
             .selectAll("path")
             .data(data.features)
             .join("path")
@@ -61,7 +67,7 @@ export default {
             })
             // .attr("fill", d => color(house.get(d.properties.name)))
             .attr("d", path)
-            .attr('stroke', '#767676')
+            .attr('stroke', '#cccccc')
             .attr('stroke-width', '1px')
             .attr("class", "cities");
         });  

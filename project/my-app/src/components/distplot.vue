@@ -34,7 +34,7 @@ export default {
           .attr('viewBox', `0 0 ${this.width} ${this.height}`)
           .style('background-color', "#f5f5f5");
         // create margins & dimensions
-        const margin = {top: 20, right: 20, bottom: 70, left: 120};
+        const margin = {top: 20, right: 20, bottom: 70, left: 70};
         const graphWidth = this.width - margin.left - margin.right;
         const graphHeight = this.height - margin.top - margin.bottom;
         const graph = svg.append('g')
@@ -249,7 +249,7 @@ export default {
             .style("text-anchor", "middle");
         // text label for the y axis
         svg.append("text")             
-            .attr("transform", `translate(35, ${graphHeight/2 + margin.top})`)
+            .attr("transform", `translate(20, ${graphHeight/2 + margin.top}) rotate(-90)`)
             .attr('font-family', 'Arial')
             .attr('fill', '#767676')
             .text("Counts")

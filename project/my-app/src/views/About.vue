@@ -1,55 +1,48 @@
 <template>
-  <div class="about">
-    <h1>Intro of our project?</h1>
-    <h1>basically the content from proposal?</h1>
-  <div class="row" align = "center">
-  <div class="column" style="float:left; margin-left: 100px; width: 300px; height: 500px;">
-    <div class="card">
-      <img src="renzo.jpg" alt="renzo" style="width: 300px; height: 400px">
-      <div class="container">
+  <div class="about" style="width:100%; height:100%">
+    <div class="container">
+    <div class="row align-items-center">
+        <div class="col">
+        <img src='quote.png' class="img-fluid" alt="Responsive image" style='width:1000px; height: 400px;'>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm">
+        <img src="renzo.jpg" alt="renzo" style="width: 300px; height: 400px">
         <h2>Runze Liu</h2>
         <p class="title">CEO &amp; Format Layout Designer</p>
         <p>Some text that describes me lorem ipsum ipsum lorem.</p>
         <p>runzeliu@usc.edu</p>
-        <p><button class="button">Contact</button></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="column" style="display: inline-block; margin-left: 0px; width: 300px; height: 500px;">
-    <div class="card">
-      <img src="weifan.jpg" alt="weifan" style="width: 300px; height: 400px">
-      <div class="container">
-        <h2>WeiFan Chen</h2>
-        <p class="title">Map design and data connection</p>
+        </div>
+        <div class="col-sm">
+        <img src="weifan.jpg" alt="weifan" style="width: 300px; height: 400px">
+         <h2>WeiFan Chen</h2>
+        <p class="title">Map design and Vue interation</p>
         <p>Some text that describes me lorem ipsum ipsum lorem.</p>
         <p>weifanch@usc.edu</p>
-        <p><button class="button">Contact</button></p>
-      </div>
-    </div>
-  </div>
 
-  <div class="column" style="float:right; margin-right: 50px; width: 300px; height: 500px;">
-    <div class="card">
-      <img src="yenchen.jpg" alt="yenchen" style="width: 300px; height: 400px">
-      <div class="container">
+        </div>
+        <div class="col-sm">
+        <img src="yenchen.jpg" alt="yenchen" style="width: 300px; height: 400px">
         <h2>YenChen Chou</h2>
         <p class="title">Plot Designer</p>
         <p>Some text that describes me lorem ipsum ipsum lorem.</p>
         <p>yenchenc@usc.edu</p>
-        <p><button class="button">Contact</button></p>
-      </div>
+        </div>
     </div>
-  </div>
+    </div>
 </div>
-    
-  </div>
+
 
 </template>
 
 
 <script>
 //import * as d3 from "d3"
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'jquery/src/jquery.js'
+import 'bootstrap/dist/js/bootstrap.min.js'
 export default {
   name: "index",
   components: {
@@ -62,6 +55,7 @@ export default {
   
 };
 </script>
+  
 <style>
 /* Three columns side by side */
 .column {

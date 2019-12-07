@@ -34,10 +34,10 @@ export default {
         .style('background-color', "#f5f5f5");
 
     // set the dimensions and margins of the graph
-    var margin = {top: 0, right: 120, bottom: 0, left: 0},
+    var margin = {top: 0, right: 53, bottom: 0, left: 0},
         graphWidth = self.width - margin.left - margin.right,
         graphHeight = self.height - margin.top - margin.bottom,
-        innerRadius = 130,
+        innerRadius = 150,
         outerRadius = 500;
 
     // append the svg object
@@ -173,11 +173,11 @@ export default {
         .data(data_for_legend)
         .enter()
         .append('rect')
-        .attr('width', 45)
-        .attr('height', 10)
+        .attr('width', 50)
+        .attr('height', 15)
         .attr('fill', d => d.color)
         .attr('x', graphWidth/2.1)
-        .attr('y', d => d.value - 200)
+        .attr('y', d => d.value - 220)
         .attr('stroke-width', '0px')
         .style("anchor", "middle")
         .style("opacity", '0.6');
@@ -211,9 +211,10 @@ export default {
         .enter()
         .append("text")
             .attr('x', graphWidth/2.1 + 10)
-            .attr('y', d => d.value - 195)
+            .attr('y', d => d.value - 211)
             .text(d => '$' + d.price)
             .style("font-size", 12)
+            .style("font-weight","bold")
             .attr('alignment-baseline', 'middle')
             .attr('font-family', 'Arial')
             .attr("fill", "#767676");

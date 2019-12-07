@@ -41,7 +41,7 @@ props: {
             .attr('viewBox', `0 0 ${this.width} ${this.height}`)
             .style('background-color', "#f5f5f5");
         // create margins & dimensions
-        const margin = {top: 20, right: 20, bottom: 50, left: 90};
+        const margin = {top: 20, right: 20, bottom: 50, left: 60};
         const graphWidth = this.width - margin.left - margin.right;
         const graphHeight = this.height - margin.top - margin.bottom;
         const graph = svg.append('g')
@@ -123,8 +123,8 @@ props: {
             "top_circle_legend" : 65,
             "right_circle_legend" : 100,
             "top_line_legend" : 85,
-            "left_line_legend" : 50,
-            "top_number_legend" : 85,
+            "left_line_legend" : 30,
+            "top_number_legend" : 85, //fix
             "right_number_legend" : 60,
         }
         graph.selectAll("legend")
@@ -238,7 +238,7 @@ props: {
             .style("text-anchor", "middle");
         // text label for the y axis
         svg.append("text")             
-            .attr("transform", `translate(50, ${graphHeight/2 + margin.top + 5})`)
+            .attr("transform", `translate(20, ${graphHeight/2 + margin.top + 5}) rotate(-90)`)
             .attr('font-family', 'Arial')
             .attr('fill', '#767676')
             .text("Days")

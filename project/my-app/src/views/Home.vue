@@ -5,10 +5,10 @@
     <!-- <mainpage/> -->
     <!-- <header style="margin-top:0px;">Deep Trip in California</header> -->
     <!-- <h1 align="center">Deep Trip in California</h1> -->
-    
+    <div>Note: Click the smallest point on the bubble map, statistical graphs on the right will change accordingly.</div>
   <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-7" style="min-height:300px;">
       <cluster_sep v-if="dataIsReady" :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
     </div>
     <div class="col-sm-5">
@@ -28,15 +28,8 @@
         </div>
       </div>
       <div style="height:700px;overflow:auto">
-        <!-- map -->
-        <h3 class='plot_name_h3' style="margin-left: 0px;">House Density Map</h3><hr style="margin-left: 0px;">
-        <div align="justify" style="font-size: 16px; color: #767676; margin-left: 0px; margin-right: 20px;">
-          Showing house density through choropleth
-        </div>
-        <div class="plotmargin" >
-          <d3map v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel"  :incomingpoint="selectedpoint"/>
-        </div>
         <!-- bar plot -->
+      <div style="height:700px;overflow-x:hidden; overflow-y:auto">
         <h3 class='plot_name_h3' style="margin-left: 0px;">Room Type</h3><hr style="margin-left: 0px;">
         <div class="room_type_words" style="float:left; margin-left: 0px;" >
           <strong style="font-size:20px;">63.2% </strong>
@@ -71,6 +64,14 @@
         <div class="plotmargin">
           <bubbleplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel" :incomingpoint="selectedpoint"/>
         </div>
+        <!-- map -->
+        <h3 class='plot_name_h3' style="margin-left: 0px;">House Density Map</h3><hr style="margin-left: 0px;">
+        <div align="justify" style="font-size: 16px; color: #767676; margin-left: 0px; margin-right: 20px;">
+          Showing house density through choropleth
+        </div>
+        <div class="plotmargin" >
+          <d3map v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel"  :incomingpoint="selectedpoint"/>
+        </div>
         <!-- circular plot -->
         <h3 class='plot_name_h3' style="margin-left: 0px;">House Style</h3><hr style="margin-left: 0px;">   
         <div align="justify" style="font-size: 16px; color: #767676; margin-left: 0px; margin-right: 20px;">
@@ -79,6 +80,7 @@
         <div class="plotmargin"> 
           <circular_bar v-if="dataIsReady" :pltwidth="plotswidth"/>
         </div> 
+        </div>
       </div>
     </div>
   </div>
@@ -121,6 +123,7 @@ export default {
       }
   },
   beforeMount(){
+
     var self = this;
     d3.json('test_geo.json').then(data=>{
         //console.log(data)
@@ -131,6 +134,7 @@ export default {
     });
   },
   Mounted(){
+
       //all_hotelconsole.log(this.)
   },
   methods:{
