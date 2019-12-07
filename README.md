@@ -36,3 +36,9 @@
 - Vue-integration: [Wei-Fan Chen (weifanch@usc.edu)]
 - Bootstrap-integration: [Runze Liu (runzeliu@usc.edu)]
 
+### REQUIRED ITEMS
+- d3 maps:  House Density Map
+- responsive d3 charts:  Average Price of Each Room Type, Price Distribution, Available Days versus Number of Reviews, House Density Map
+- interactive d3 charts: Average Price of Each Room Type, Price Distribution, Available Days versus Number of Reviews
+- d3 animated transitions: Average Price of Each Room Type, Price Distribution
+- d3 layouts:  Average Price of Each Room Type, Price Distribution, Available Days versus Number of Reviews, House Style
