@@ -5,10 +5,10 @@
     <!-- <mainpage/> -->
     <!-- <header style="margin-top:0px;">Deep Trip in California</header> -->
     <!-- <h1 align="center">Deep Trip in California</h1> -->
-    
+    <div>Note: Click the smallest point on the bubble map, statistical graphs on the right will change accordingly.</div>
   <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-7" style="min-height:300px;">
       <cluster_sep v-if="dataIsReady" :hotel="hotel" :thekey="dataIsReady" @point_maptohome="print_input"/>
     </div>
     <div class="col-sm-5">
@@ -27,7 +27,7 @@
           <input type="radio"  name="task2" value="2" v-model='selectStatus2'> Not Bookable
         </div>
       </div>
-      <div style="height:700px;overflow:auto">
+      <div style="height:700px;overflow-x:hidden; overflow-y:auto">
         <h3 class='plot_name_h3' style="margin-left: 0px;">Room Type</h3><hr style="margin-left: 0px;">
         <div class="room_type_words" style="float:left; margin-left: 0px;" >
           <strong style="font-size:20px;">63.2% </strong>
@@ -110,6 +110,7 @@ export default {
       }
   },
   beforeMount(){
+
     var self = this;
     d3.json('test_geo.json').then(data=>{
         //console.log(data)
@@ -120,6 +121,7 @@ export default {
     });
   },
   Mounted(){
+
       //all_hotelconsole.log(this.)
   },
   methods:{

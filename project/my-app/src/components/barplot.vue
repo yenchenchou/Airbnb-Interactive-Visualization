@@ -12,7 +12,7 @@ export default {
   data:function() {
     return {
       width : this.pltwidth,
-      height : 450,  
+      height : 300,  
       //point:this.incomingpoint
     }
   },
@@ -38,6 +38,8 @@ export default {
           .attr("preserveAspectRatio", "xMinYMin meet")
           .append('svg')
           .attr("id", "svg_bar")
+          //.attr('width',this.width)
+          //.attr('height',this.height)
           .attr('viewBox', `0 0 ${this.width} ${this.height}`)
           .style('background-color', "#f5f5f5");
       // create margins & dimensions
@@ -46,6 +48,8 @@ export default {
       const graphHeight = this.height - margin.top - margin.bottom;
       const graph = svg.append('g')
         .attr("id", "bar_g")
+        //.attr('width',this.width)
+        //.attr('height',this.height)
         .attr('viewBox', `0 0 ${graphWidth} ${graphHeight}`)
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
       // prepare scale for rect/color
@@ -107,17 +111,20 @@ export default {
             handleMouseout(d, i, n);
           });
       // create axes groups
-      const xAxisGroup = graph.append('g')
-        .attr("class", "axis_x")
-        .attr('transform', `translate(0, ${graphHeight})`);
-      const yAxisGroup = graph.append('g')
-        .attr("class", "axis_y");
       const xAxis = d3.axisBottom(x)
         .ticks(7)
         .tickFormat(d => '$' + d);
       const yAxis = d3.axisLeft(y)
-      xAxisGroup.call(xAxis);
-      yAxisGroup.call(yAxis);
+      graph.append('g')
+        .attr("class", "axis_x")
+        .attr('transform', `translate(0, ${graphHeight})`)
+        .call(xAxis);
+      graph.append('g')
+        .attr("class", "axis_y")
+        .call(yAxis);
+      
+      //xAxisGroup.call(xAxis);
+      //yAxisGroup.call(yAxis);
       // text label for the x axis
       svg.append("text")             
         .attr("transform", `translate(${graphWidth/2 + margin.left}, ${graphHeight + margin.top + 40})`)
@@ -128,21 +135,27 @@ export default {
         .style("text-anchor", "middle");
 
     resize();  //redraw in case we start small!
+    d3.select(window).on('resize', resize());
     function resize() {
+        var width = parseInt(d3.select('#svg_bar').style('width')) - margin.left - margin.right;
+        var height = parseInt(d3.select('#svg_bar').style('height')) - margin.top - margin.bottom;
+      console.log(width,height)
       // responsive
-      if(this.width < 400 || this.height < 350){            
+      //if(self.width < 300 || self.height < 200){            
+    if(width < 300 || height < 200){            
         // graph.selectAll('rect').remove();
         // graph.selectAll('.axis_x').remove();
         // graph.selectAll('.axis_y').remove();
+        console.log('small')
         svg.select('.axis_x').style('display', 'none');  //hide
         svg.select('.axis_y').style('display', 'none');  //hide
       }
       else{        
-        // svg.select('.axis_x').style('display', 'initial');  //show
-        // svg.select('.axis_y').style('display', 'initial');  //show
+         svg.select('.axis_x').style('display', 'initial');  //show
+         svg.select('.axis_y').style('display', 'initial');  //show
       }
     }
-      window.addEventListener("resize", resize);
+    //window.addEventListener("resize", resize);
     },
     update_plot(){
         // console.log("testing in bar",this.incomingpoint.properties)
@@ -206,6 +219,9 @@ export default {
       },
       hotel: function(){
           this.drawbarplot()
+      },
+      width:function(){
+          console(this.width)
       }
   }
 }

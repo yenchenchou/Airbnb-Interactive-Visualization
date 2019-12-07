@@ -12,7 +12,10 @@
     <router-view />
   </div>
 </template>
+<script>
+    alert('Please wait few seconds to load the map and plots.\nPlease click the smallest point on the bubble map, statistical graphs on the right will change accordingly.')
 
+</script>
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
