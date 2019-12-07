@@ -123,8 +123,6 @@ export default {
         .attr("class", "axis_y")
         .call(yAxis);
       
-      //xAxisGroup.call(xAxis);
-      //yAxisGroup.call(yAxis);
       // text label for the x axis
       svg.append("text")             
         .attr("transform", `translate(${graphWidth/2 + margin.left}, ${graphHeight + margin.top + 40})`)
@@ -139,14 +137,8 @@ export default {
     function resize() {
         var width = parseInt(d3.select('#svg_bar').style('width')) - margin.left - margin.right;
         var height = parseInt(d3.select('#svg_bar').style('height')) - margin.top - margin.bottom;
-      console.log(width,height)
-      // responsive
-      //if(self.width < 300 || self.height < 200){            
+        
     if(width < 300 || height < 200){            
-        // graph.selectAll('rect').remove();
-        // graph.selectAll('.axis_x').remove();
-        // graph.selectAll('.axis_y').remove();
-        console.log('small')
         svg.select('.axis_x').style('display', 'none');  //hide
         svg.select('.axis_y').style('display', 'none');  //hide
       }
@@ -221,7 +213,7 @@ export default {
           this.drawbarplot()
       },
       width:function(){
-          console(this.width)
+          // console(this.width)
       }
   }
 }

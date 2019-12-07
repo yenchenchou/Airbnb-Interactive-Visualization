@@ -27,6 +27,8 @@
           <input type="radio"  name="task2" value="2" v-model='selectStatus2'> Not Bookable
         </div>
       </div>
+      <div style="height:700px;overflow:auto">
+        <!-- bar plot -->
       <div style="height:700px;overflow-x:hidden; overflow-y:auto">
         <h3 class='plot_name_h3' style="margin-left: 0px;">Room Type</h3><hr style="margin-left: 0px;">
         <div class="room_type_words" style="float:left; margin-left: 0px;" >
@@ -47,7 +49,7 @@
         <div class="plotmargin">
           <barplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel" :incomingpoint="selectedpoint"/>
         </div>
-
+        <!-- histogram -->
         <h3 class='plot_name_h3' style="margin-left: 0px;">Price Distribution</h3><hr style="margin-left: 0px;">
         <div align="justify" style="font-size: 16px; color: #767676; margin-left: 0px; margin-right: 20px;">
           Price distribution of California. Remove Extreme button removes price larger than $1500, which occupies 1% of houses.
@@ -57,12 +59,20 @@
           <button id="btn2" type="button" class="btn btn-info btn-sm" style="margin:5px;">Keep Extreme Price</button>
           <distplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel"  :incomingpoint="selectedpoint"/>
         </div>
-
+        <!-- bubble plot-->
         <h3 class='plot_name_h3' style="margin-left: 0px;">Available Days versus Number of Reviews</h3><hr style="margin-left: 0px;">
         <div class="plotmargin">
           <bubbleplot v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel" :incomingpoint="selectedpoint"/>
         </div>
-
+        <!-- map -->
+        <h3 class='plot_name_h3' style="margin-left: 0px;">House Density Map</h3><hr style="margin-left: 0px;">
+        <div align="justify" style="font-size: 16px; color: #767676; margin-left: 0px; margin-right: 20px;">
+          Showing house density through choropleth
+        </div>
+        <div class="plotmargin" >
+          <d3map v-if="dataIsReady" :pltwidth="plotswidth" :hotel="hotel"  :incomingpoint="selectedpoint"/>
+        </div>
+        <!-- circular plot -->
         <h3 class='plot_name_h3' style="margin-left: 0px;">House Style</h3><hr style="margin-left: 0px;">   
         <div align="justify" style="font-size: 16px; color: #767676; margin-left: 0px; margin-right: 20px;">
           The distribution of house types and its corresponding average price. The longer bars represent the larger number of houses. Average price between house styles are specified in different colors.
@@ -70,6 +80,7 @@
         <div class="plotmargin"> 
           <circular_bar v-if="dataIsReady" :pltwidth="plotswidth"/>
         </div> 
+        </div>
       </div>
     </div>
   </div>
@@ -84,6 +95,7 @@ import cluster_sep from "@/components/cluster_sep.vue";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'jquery/src/jquery.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
+import d3map from "@/components/d3map.vue";
 import barplot from "@/components/barplot.vue";
 import bubbleplot from "@/components/bubbleplot.vue";
 import circular_bar from "@/components/circular_bar.vue";
@@ -93,6 +105,7 @@ export default {
   name: "home",
   components: {
       cluster_sep,
+      d3map,
       barplot,
       bubbleplot,
       circular_bar,
@@ -171,14 +184,7 @@ watch:{
     }
   },
 computed:{
-    // filter_data(){
-    //     if (this.selectStatus1==0 & this.selectStatus2==0){
-    //         this.hotel = this.all_hotel
-    //     }
-    //     else{
-
-    //     }
-    // }
+    
 }
 
 }

@@ -1,0 +1,543 @@
+,city,cnt
+0,xs,1
+1, Encino,1
+2, Hollywood,1
+3, La Jolla,2
+4, Los Angeles,3
+5, Los Angeles ,1
+6, San Jose,1
+7, Venice,1
+8, Venice Los Angeles,1
+9,0,42
+10,Acton,7
+11,Agoura Hills,59
+12,Agoura Hills-Malibu,3
+13,Agua Dulce,10
+14,Alameda,2
+15,Alhambra,272
+16,Alpine,2
+17,Altadena,202
+18,Aptos,325
+19,Aptos ,1
+20,Aptos Hills,1
+21,Aptos Hills-Larkin Valley,1
+22,Arcadia,276
+23,Arcadia ,4
+24,Arleta,1
+25,Artesia,9
+26,Avalon,204
+27,Avocado Heights,5
+28,Azusa,85
+29,Baldwin Park,37
+30,Bel Air,2
+31,Bell,3
+32,Bell Gardens,6
+33,Bellflower,29
+34,Ben Lomond,36
+35,Berkeley,50
+36,"Bernal Heights, San Francisco",1
+37,Beverly Grove,1
+38,Beverly Hills,766
+39,Beverly Hills ,4
+40,Beverly Hills ( post office) zip code,1
+41,Beverly Hills/ Los Angeles,1
+42,Bixby Knolls ,1
+43,Bonita,5
+44,Bonny Doon,15
+45,Bonny doon / Santa cruz,1
+46,Boulder Creek,58
+47,Bradbury,2
+48,Brookdale,4
+49,Burbank,383
+50,"Burbank, Los Angeles",1
+51,Burlingame,1
+52,CA,3
+53,Calabasas,70
+54,Campbell,121
+55,Canoga Park,6
+56,Canoga Park ,1
+57,Canola Park,1
+58,Canyon country ,2
+59,Capitola,82
+60,Carson,66
+61,Castaic,26
+62,Century city,2
+63,Cerritos,22
+64,Chatsworth,5
+65,Chatsworth ,2
+66,Chicago,1
+67,Chula Vista,302
+68,Chula Vista ,1
+69,Chula Vista (Eastlake),1
+70,"Chula Vista,",1
+71,City of Industry,4
+72,Claremont,46
+73,Colma,1
+74,Commerce,4
+75,Compton,28
+76,Coronado,1
+77,Corralitos,4
+78,Covina,63
+79,Covina Hills,1
+80,Cudahy,1
+81,Culver City,331
+82,Cupertino,338
+83,Daly City,35
+84,Daly City ,1
+85,Danville ,1
+86,Davenport,10
+87,Del Aire,6
+88,Del Mar,88
+89,Del Mar Highlands ,1
+90,Del Monte Forest,1
+91,Diamond Bar,167
+92,Downey,68
+93,Downtown Los Angeles,2
+94,Duarte,29
+95,East Los Angeles,33
+96,East Palo Alto,4
+97,East San Gabriel,1
+98,Echo Park,1
+99,"Echo Park, Los Angeles",2
+100,El Camino Village,1
+101,El Monte,126
+102,El Monte ,1
+103,El Segundo,144
+104,"El Segundo, California, US",1
+105,Elizabeth Lake,1
+106,Emeryville,29
+107,Emeryville ,1
+108,Encino,14
+109,Encino ,3
+110,Encino Ca,1
+111,"Encino, Los Angeles",1
+112,Escondido,5
+113,Felton,78
+114,Freedom,1
+115,Fremont,1
+116,GRANADA HILLS,1
+117,Gardena,120
+118,Gardena ,3
+119,Gas lamp San Diego,1
+120,Gilroy,28
+121,Glendale,512
+122,"Glendale, California, US",1
+123,Glendora,50
+124,Glendora ,1
+125,Granada Hills,3
+126,Granada Hills ,2
+127,"Granada Hills, (Los Angeles)",1
+128,Green Valley,2
+129,HARBOR CITY,1
+130,Hacienda Heights,212
+131,Hacienda Heights ,2
+132,Hacienda heights,1
+133,Harbor City,1
+134,Hawthorne,182
+135,Hermosa Beach,193
+136,Historic Highland Park zoning Montecito Heights,1
+137,Hollister,2
+138,Hollywood,53
+139,Hollywood ,10
+140,Hollywood  ,1
+141,Hollywood HIlls,1
+142,Hollywood Heights,1
+143,Hollywood Hills,8
+144,"Hollywood Hills, Los Angeles",1
+145,"Hollywood, Hollywood Hills, Los Angeles",1
+146,Huntington Park,7
+147,Imperial Beach,3
+148,Industry,3
+149,Inglewood,396
+150,Irvine,1
+151,Koreatown Los Angeles,1
+152,LA,1
+153,LA JOLLA,1
+154,LONG BEACH ,1
+155,LOS ANGELES ,1
+156,LOS ANGELES CA,2
+157,La Cañada Flintridge,36
+158,La Crescenta-Montrose,23
+159,La Habra,4
+160,La Habra Heights,21
+161,La Jolla,309
+162,La Jolla ,9
+163,La Jolla Cove,2
+164,La Jolla Shores,1
+165,"La Jolla, San Diego",1
+166,La Mesa,10
+167,La Mirada,32
+168,La Puente,70
+169,La Selva Beach,41
+170,La Selva Beach ,1
+171,La Verne,47
+172,La jolla,1
+173,LaTuna Canyon,1
+174,Lake Balboa,5
+175,Lake Hughes,6
+176,Lake Los Angeles,1
+177,Lakewood,56
+178,Lancaster,124
+179,Lawndale,72
+180,Lemon Grove,4
+181,Lennox,6
+182,Leona Valley,5
+183,Lincoln heights ,1
+184,Littlerock,8
+185,Llano,2
+186,Lomita,28
+187,Long Beach,1611
+188,Long Beach ,2
+189,Los Altos,98
+190,Los Altos Hills,52
+191,Los Angeles,27930
+192,Los Angeles ,60
+193,Los Angeles    ,1
+194,Los Angeles (Elysian Valley),1
+195,Los Angeles (Montecito Heights),1
+196,Los Angeles / Beverly Hills,1
+197,Los Angeles / Hollywood ,1
+198,Los Angeles / Valley Village / North Hollywood ,1
+199,Los Angeles City,1
+200,Los Angeles County,126
+201,Los Angeles ca ,1
+202,"Los Angeles, Hollywood Hills",1
+203,"Los Angeles, NoHo Art District",1
+204,"Los Angeles, Studio City, Tujunga Village",1
+205,"Los Angeles, Tarzana ",1
+206,"Los Angeles, Woodland Hills ",1
+207,Los Angeles/ Hollywood ,1
+208,Los Angeles/Burbank/Toluca Lake,1
+209,Los Angeles/La Crescenta,1
+210,Los Angels ,1
+211,"Los Feliz, Los Angeles",4
+212,Los Gatos,173
+213,Los Gatos ,1
+214,Los angeles,1
+215,Lost Angeles,1
+216,Lynwood,16
+217,Malibu,478
+218,Malibu ,1
+219,Malibu Beach,2
+220,Malibu Canyon/Monte Nido,1
+221,Manhattan Beach,246
+222,Mar Vista,2
+223,Marina Del Rey,4
+224,Marina Del Rey ,1
+225,Marina del Rey,760
+226,Marina del Rey ,1
+227,"Marina del Rey, Venice, Los Angeles",1
+228,Marina del rey,1
+229,Maywood,8
+230,Menlo Park,14
+231,Millbrae,3
+232,Milpitas,274
+233,Milpitas ,2
+234,Mission Bay,1
+235,Mission Beach,5
+236,Mission Hills,1
+237,Mission Hills ,1
+238,Monrovia,83
+239,Monte Sereno,19
+240,Montebello,32
+241,Montebello ,1
+242,Monterey,6
+243,Monterey Hill. Los Angeles,1
+244,Monterey Park,308
+245,Monterey Park ,2
+246,Monterey park,2
+247,Montrose,2
+248,Morgan Hill,58
+249,Mount Baldy,2
+250,Mount Hermon,1
+251,Mountain View,885
+252,Mountain View ,1
+253,"Mountain View,",1
+254,N Hollywood,2
+255,NORTH HOLLYWOOD,2
+256,National City,6
+257,New York,2
+258,No Hollywood,1
+259,Noe Valley - San Francisco,1
+260,North Hills,2
+261,North Hollywood,61
+262,North Hollywood ,31
+263,North Hollywood (Toluca Lake),1
+264,North Hollywood Los Angeles Studio City,1
+265,"North Hollywood, Los Angeles",1
+266,North hills,7
+267,North hollywood,3
+268,North hollywood ,1
+269,Northridge,10
+270,Northridge ,6
+271,Norwalk,37
+272,Oak Park,1
+273,Oakland,3095
+274,Oakland ,1
+275,Ocean Beach,2
+276,"Ocean Beach, San Diego",1
+277,Oceanside,1
+278,P,1
+279,Pacific Grove,220
+280,Pacific Palisades,28
+281,Pacific Palisades ,2
+282,"Pacific Palisades, Los Angeles",1
+283,Pacific palisades ,1
+284,Pacoima,1
+285,Pacoima ,1
+286,Pajaro Dunes,26
+287,Palm Springs,1
+288,Palmdale,84
+289,Palo Alto,799
+290,Palo Alto ,6
+291,Palos Verdes Estates,18
+292,Palos Verdes Peninsula,1
+293,Paramount,14
+294,Pasadena,614
+295,Pasadena ,4
+296,"Pasadena, Los Angeles",1
+297,Pensacola,1
+298,Pescadero,1
+299,Phillips Ranch,1
+300,Phillips Ranch ,2
+301,Pico Rivera,37
+302,Piedmont,25
+303,Playa,1
+304,Playa Del Rey,10
+305,Playa Del Rey ,1
+306,Playa Vista,5
+307,Playa Vista ,3
+308,Playa del Rey,7
+309,Playa del Rey ,1
+310,Playa del rey,1
+311,Pomona,130
+312,Porter ranch ,1
+313,Poway,1
+314,Quartz Hill,1
+315,ROWLAND HGHTS,5
+316,Rancho Palos Verdes,77
+317,Redo do beach,1
+318,Redondo Beach,400
+319,Reseda,10
+320,Reseda ,8
+321,"Reseda , Los Angeles",1
+322,"Reseda , los Angeles",1
+323,Rio del Mar,1
+324,"Rockridge, Oakland",1
+325,Rolling Hills,3
+326,Rolling Hills Estates,4
+327,Rosemead,128
+328,Rosemead ,1
+329,Rowland Heigh,1
+330,Rowland Heights,493
+331,Rowland Heights ,3
+332,Rowland Heights / Hacienda Heights,1
+333,Rowland Helghts,2
+334,Rowland Hghts,3
+335,Rowland height ,1
+336,Rowland heights ,2
+337,SAN DIEGO,1
+338,SAN PEDRO,2
+339,STUDIO CITY,3
+340,San DIego,1
+341,San Deigo,2
+342,San Diego,12232
+343,San Diego ,7
+344,San Diego County,8
+345,"San Diego, CA, United States",1
+346,"San Diego, California, US",2
+347,San Dimas,36
+348,San Fernando,18
+349,San Fernando Valley,1
+350,San Francisco,7782
+351,San Francisco ,2
+352,"San Francisco, Hayes Valley",1
+353,San Gabriel,255
+354,San Gabriel ,2
+355,San Jose,2878
+356,San Jose ,1
+357,"San Jose, California, US",1
+358,San Leandro,6
+359,San Marino,6
+360,San Martin,13
+361,San Mateo,1
+362,San Pedro,13
+363,San Pedro ,2
+364,San Pedro Los Angeles,6
+365,San Pedro Los Angeles ,4
+366,"San Pedro, Los Angeles",1
+367,San Ysidro,1
+368,San diego,3
+369,Santa Clara,651
+370,Santa Clara ,1
+371,Santa Clara County,1
+372,Santa Clarita,135
+373,Santa Cruz,857
+374,Santa Cruz County,1
+375,Santa Monica,1059
+376,Santa Monica ,1
+377,Santee,7
+378,Saratoga,72
+379,Scotts Valley,44
+380,Seal Beach,1
+381,Select Cities,1
+382,Sherman Oaks,39
+383,Sherman Oaks ,6
+384,"Sherman Oaks, ",1
+385,"Sherman Oaks, Los Angeles",3
+386,Sherman oaks,2
+387,Sherman oaks ,3
+388,Sherwood Forest,1
+389,Sierra Madre,18
+390,Signal Hill,39
+391,Silver Lake,2
+392,"Silver Lake, Los Angeles",1
+393,"Silverlake, Los Angeles ",1
+394,Simi Valley,3
+395,Solana Beach,4
+396,Soquel,62
+397,South Bay,1
+398,South El Monte,5
+399,South Gate,19
+400,South Pasadena,71
+401,South San Francisco,1
+402,South San Gabriel,2
+403,Stanford,6
+404,Stevenson Ranch,17
+405,Studio City,41
+406,Studio City ,7
+407,Studio city,2
+408,Study City,1
+409,Sun Valley,1
+410,Sun Valley ,1
+411,Sun valley,1
+412,Sunland ,1
+413,Sunnyvale,717
+414,Sunnyvale ,3
+415,Sylmar,3
+416,TORRANCE ,1
+417,Tarzana,8
+418,Tarzana ,4
+419,Temple City,184
+420,Temple City ,2
+421,Temple city,1
+422,Thousand Oaks,2
+423,Tijuana,8
+424,Toluca ,1
+425,Toluca Lake,5
+426,Toluca Lake (Los Angeles area),1
+427,Toluca lake,1
+428,Topanga,226
+429,Topanga Canyon,13
+430,Torrance,285
+431,Tujunga,2
+432,Universal City,1
+433,University heights,1
+434,Upland,1
+435,VENICE,1
+436,Val Verde,3
+437,Valencia,5
+438,Valencia ,2
+439,Valley Glen,4
+440,Valley Village,13
+441,Valley Village ,1
+442,Valley village ,3
+443,Valyermo,3
+444,Van Nuys,15
+445,Van Nuys ,7
+446,"Van Nuys, Los Angeles",1
+447,Van nuys,1
+448,Venice,338
+449,Venice ,26
+450,Venice (Los Angeles),1
+451,"Venice , Los Angeles",1
+452,Venice Beach,20
+453,Venice Beach ,3
+454,"Venice Beach, Los Angeles",1
+455,Venice beach,1
+456,"Venice, Los Angeles",3
+457,View Park,1
+458,View Park-Windsor Hills,51
+459,WEST HOLLYWOOD HILLS,1
+460,Walnut,143
+461,Watsonville,70
+462,West Carson,1
+463,West Covina,98
+464,West Covina ,1
+465,West Hills,6
+466,West Hills ,1
+467,West Hollywood,972
+468,West Hollywood ,6
+469,West LA,1
+470,West Los Angeles,4
+471,West Puente Valley,1
+472,West covina,1
+473,West hills,1
+474,West hollywood,1
+475,Westchester,1
+476,Westchester ,1
+477,Westlake Village,10
+478,Westminster,2
+479,Westwood ,1
+480,Whittier,115
+481,Wilmington,14
+482,Wilmington ,1
+483,Windsor Hills,2
+484,Windsor Hills ,1
+485,Winnetka,11
+486,Winnetka ,3
+487,Woodland Hills,44
+488,Woodland Hills ,11
+489,Woodland Hills (Los Angeles),1
+490,"Woodland Hills, Los Angeles",1
+491,Woodland Hills/Los Angeles,1
+492,Woodland Hls,1
+493,Woodland hills ,1
+494,Wrightwood,3
+495,arcadia,1
+496,beverly hills,1
+497,burbank,1
+498,depends on your choice,1
+499,diamond bar,1
+500,east edna PI.Covina,1
+501,echo park,1
+502,el monte,1
+503,gardena,1
+504,long beach,1
+505,los angeles,2
+506,los angeles ,1
+507,north hollywood,2
+508,pacific palisades ,1
+509,roesmead,2
+510,rosemead,1
+511,rowland heights,2
+512,san Gabriel/Rosemead,2
+513,san gabriel,2
+514,san jose,1
+515,san pedro,1
+516,sherman oaks,1
+517,studio city,1
+518,tarzana,1
+519,tempcity,1
+520,temple city,1
+521,toluca lake,1
+522,valencia,1
+523,valley glen,1
+524,valley village,1
+525,venice,7
+526,venice beach,1
+527,walnut,4
+528,"west hills ,los Angeles",1
+529,"west hills,Los Angeles",1
+530,west hollywood ,1
+531,woodland hills,3
+532,Лос-Анджелес,1
+533,哈仙达岗,1
+534,因達斯特里,1
+535,天普市,1
+536,沃尔纳特,1
+537,洛杉矶,1
+538,罗兰岗,1
+539,罗兰高地,3
+540,艾尔蒙地,1
+541,蒙特利帕克,2

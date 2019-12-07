@@ -22,9 +22,9 @@
 ### PROJECT CONTRIBUTIONS
 - Demonstration: [Yen-Chen Chou (yenchenc@usc.edu)]
 - Presentation: [Runze Liu (runzeliu@usc.edu)]
-- Transcript: [<member-name> (<member-USC-username>) ...]
-- Paper: [<member-name> (<member-USC-username>) ...]
-- YouTube video: [<member-name> (<member-USC-username>) ...]
+- Transcript: [Runze Liu (runzeliu@usc.edu),Yen-Chen Chou (yenchenc@usc.edu)]
+- Paper: [Runze Liu (runzeliu@usc.edu),Yen-Chen Chou (yenchenc@usc.edu), Wei-Fan Chen (weifanch@usc.edu)]
+- YouTube video: [Runze Liu (runzeliu@usc.edu),Yen-Chen Chou (yenchenc@usc.edu), Wei-Fan Chen (weifanch@usc.edu)]
 - Web site: [Yen-Chen Chou (yenchenc@usc.edu)]
 - web-format-setting: [Runze Liu (runzeliu@usc.edu)]
 - data-preparation: [Yen-Chen Chou (yenchenc@usc.edu), Wei-Fan Chen (weifanch@usc.edu)]

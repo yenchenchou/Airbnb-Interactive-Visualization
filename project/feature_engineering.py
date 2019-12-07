@@ -86,3 +86,9 @@ description_cnt_avg_df.to_json('project/data/dataset/description_cnt_avg_df.json
 amenity_cnt_avg_df.to_json('project/data/dataset/amenity_cnt_avg_df.json', orient = 'records')
 
 # %%
+# get city count house
+city_house_cnt = df_test[['host_id', 'city']].groupby(by='city').count().reset_index()
+city_house_cnt.to_csv('project/data/dataset/city_house_cnt.csv')
+
+
+# %%

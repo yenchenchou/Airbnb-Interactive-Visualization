@@ -34,7 +34,7 @@ export default {
         .style('background-color', "#f5f5f5");
 
     // set the dimensions and margins of the graph
-    var margin = {top: 0, right: 80, bottom: 0, left: 0},
+    var margin = {top: 0, right: 53, bottom: 0, left: 0},
         graphWidth = self.width - margin.left - margin.right,
         graphHeight = self.height - margin.top - margin.bottom,
         innerRadius = 150,
@@ -83,7 +83,7 @@ export default {
         .range([innerRadius, outerRadius / 2]);   // Domain will be define later.
     const myColor = d3.scaleLinear()
         .domain([20, 300])
-        .range(["#00ccbb", "#FF5A5F"]); // ["#00A699", "#FF5A5F"]
+        .range(["#00ccbb", "#FF5A5F"]);
 
     // event handler
     const handleMouserover = (d, i, n) => {
@@ -91,10 +91,6 @@ export default {
         .transition().duration(10)
             .attr('stroke', '#767676')
             .attr('stroke-width', '3px')
-            // .html(
-            //   "<p>Avg. Price: $ <span style=color:#FF5A5F>" + d.price.toFixed(0) + "</span></p>"
-            // )
-            // .attr('transform', `translate(${graphWidth/2}, ${graphHeight/2})`);
     }
     const handleMouseout = (d, i, n) => {
         d3.select(n[i])
@@ -152,15 +148,6 @@ export default {
             .attr("alignment-baseline", "middle")
             .attr('font-family', "Arial")
             .attr('fill', '#767676');
-    // graph.selectAll('text')
-    //     .on("mouseover", (d, i, n) => {
-    //         tip.show(d, n[i]);
-    //         handleMouserover(d, i, n);
-    //     })
-    //     .on("mouseout", (d, i, n) => {
-    //         tip.hide();
-    //         handleMouseout(d, i, n);
-    //     })
 
     // Color legend.
     var data_for_legend = [
@@ -181,30 +168,6 @@ export default {
         .attr('stroke-width', '0px')
         .style("anchor", "middle")
         .style("opacity", '0.6');
-    // legend segments line (colored square, which represent the price)
-    // graph.selectAll("legend")
-    //     .data(data_for_legend)
-    //     .enter()
-    //     .append("line")
-    //         .attr('x1', graphWidth/2.1 + 50)
-    //         .attr('x2', graphWidth/2.1 + 70)
-    //         .attr('y1', d => d.value - 195)
-    //         .attr('y2', d => d.value - 195)
-    //         .attr('stroke', '#767676')
-    //         .attr('stroke-width', '2px')
-    //         .style('stroke-dasharray', ('2,2'));
-    // // legend labels (colored square, which represent the price)
-    // graph.selectAll("legend")
-    //     .data(data_for_legend)
-    //     .enter()
-    //     .append("text")
-    //         .attr('x', graphWidth/2.1 + 80)
-    //         .attr('y', d => d.value - 195)
-    //         .text(d => '$' + d.price)
-    //         .style("font-size", 12)
-    //         .attr('alignment-baseline', 'middle')
-    //         .attr('font-family', 'Arial')
-    //         .attr("fill", "#767676");
 
        graph.selectAll("legend")
         .data(data_for_legend)
