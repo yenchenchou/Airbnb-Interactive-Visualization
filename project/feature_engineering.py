@@ -92,3 +92,19 @@ city_house_cnt.to_csv('project/data/dataset/city_house_cnt.csv')
 
 
 # %%
+final_df = df_test[[
+    'host_id', 
+    'name', 
+    'latitude',
+    'longitude',
+    'room_type',
+    'price',
+    'number_of_reviews',
+    'description',
+    'availability_365',
+    'instant_bookable',
+    'city'
+]]
+final_df.to_csv('project/data/dataset/df.csv')
+
+# %%
