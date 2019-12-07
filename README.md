@@ -14,8 +14,8 @@
 ### PROJECT ARTIFACTS
 
 - [Demonstration URL](http://pdms.usc.edu/~yenchenc/project/dist/)
-- [Presentation PDF](https://github.com/INF554/a5-undefined/blob/master/INF554_Undefined_Presentation.pdf) and [transcript](https://github.com/INF554/a5-undefined/blob/master/PRESENTATION_TRANSCRIPT.md)
-- [Article](<article-pdf-url>) and [Overleaf URL](https://www.overleaf.com/4559825934xjssmcfbkrkt)
+- [Presentation PDF](http://pdms.usc.edu/~yenchenc/project/INF554_Team_Undefined_Presentation_PDF.pdf) and [transcript](https://github.com/INF554/a5-undefined/blob/master/PRESENTATION_TRANSCRIPT.md)
+- [Article](<http://pdms.usc.edu/~yenchenc/project/INF554_Team_Undefined_Article.pdf>) and [Overleaf URL](https://www.overleaf.com/4559825934xjssmcfbkrkt)
 - [YouTube video](<https://youtu.be/xDBVZ2o26jY>)
 
 
