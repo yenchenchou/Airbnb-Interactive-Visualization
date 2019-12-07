@@ -126,23 +126,6 @@ export default {
         .text("Average Price")
         .style('font-size', '16px')
         .style("text-anchor", "middle");
-
-    resize();  //redraw in case we start small!
-    function resize() {
-      // responsive
-      if(this.width < 400 || this.height < 350){            
-        // graph.selectAll('rect').remove();
-        // graph.selectAll('.axis_x').remove();
-        // graph.selectAll('.axis_y').remove();
-        svg.select('.axis_x').style('display', 'none');  //hide
-        svg.select('.axis_y').style('display', 'none');  //hide
-      }
-      else{        
-        // svg.select('.axis_x').style('display', 'initial');  //show
-        // svg.select('.axis_y').style('display', 'initial');  //show
-      }
-    }
-      window.addEventListener("resize", resize);
     },
     update_plot(){
         // console.log("testing in bar",this.incomingpoint.properties)
