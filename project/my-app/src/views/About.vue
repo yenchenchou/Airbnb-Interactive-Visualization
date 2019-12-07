@@ -6,7 +6,6 @@
         <!-- <img src='quote.png' class="img-fluid" alt="Responsive image" style='width:1000px; height: 400px;'> -->
         </div>
     </div>
-    <div class="row"></div>
     <div class="row justify-content-center align-items-center">
         <div class="col-sm">
         <img src="renzo.jpg" alt="renzo" style="width: 300px; height: 400px">
@@ -21,7 +20,6 @@
         <p class="title">Map design and Vue interation</p>
         <p>Wei-Fan was responsible for data preprocessing and built a bubble map by maxbox which can interact with the plots that draw by D3. And she built the filter function as well.</p>
         <p>weifanch@usc.edu</p>
- 
         </div>
         <div class="col-sm">
         <img src="yenchen.jpg" alt="yenchen" style="width: 300px; height: 400px">

@@ -13,14 +13,14 @@
     </div>
     <div class="col-sm-5">
       <div style="overflow:auto">
-        <div>Room Type</div>
+        <div style='font-weight:bold'>Room Type</div>
         <div class="taskList" >
           <input type="radio"  name="task1" value="0"  v-model='selectStatus1'> All
           <input type="radio"  name="task1" value="1" v-model='selectStatus1'> Shared Room
           <input type="radio"  name="task1" value="2" v-model='selectStatus1'> Private Room
           <input type="radio"  name="task1" value="3" v-model='selectStatus1'> Entire Home/Apt
         </div>
-        <div>Instant Bookable</div>
+        <div style='font-weight:bold'>Instant Bookable</div>
         <div class="taskList" >
           <input type="radio"  name="task2" value="0" v-model='selectStatus2'> All
           <input type="radio"  name="task2" value="1" v-model='selectStatus2'> Bookable
@@ -30,7 +30,7 @@
       <div style="height:700px;overflow:auto">
         <!-- bar plot -->
       <div style="height:700px;overflow-x:hidden; overflow-y:auto">
-        <h3 class='plot_name_h3' style="margin-left: 0px;">Room Type</h3><hr style="margin-left: 0px;">
+        <h3 class='plot_name_h3' style="margin-left: 0px;">Average Price of Each Room Type</h3><hr style="margin-left: 0px;">
         <div class="room_type_words" style="float:left; margin-left: 0px;" >
           <strong style="font-size:20px;">63.2% </strong>
           <span style="font-size:12px">Entire home/apt</span>
