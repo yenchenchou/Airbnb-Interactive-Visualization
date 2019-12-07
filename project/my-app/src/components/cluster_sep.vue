@@ -126,7 +126,7 @@ export default {
             closeOnClick: false
             });
         map.on('mouseenter','unclustered-point',function(h){
-            console.log('on point')
+            // console.log('on point')
             map.getCanvas().style.cursor = 'pointer';
             
             var coordinates = h.features[0].geometry.coordinates.slice();
@@ -158,7 +158,7 @@ export default {
   },
     whileclick(){
         this.$emit('point_maptohome',this.selectedpoint)
-        console.log("map/whileclick",this.selectedpoint)
+        // console.log("map/whileclick",this.selectedpoint)
         this.selectedpoint = {}; // clear out the variable
   },
 },

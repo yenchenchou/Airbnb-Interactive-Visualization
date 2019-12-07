@@ -123,16 +123,16 @@ props: {
             "top_circle_legend" : 65,
             "right_circle_legend" : 100,
             "top_line_legend" : 85,
-            "left_line_legend" : 30,
+            "left_line_legend" : 20,
             "top_number_legend" : 85, //fix
-            "right_number_legend" : 60,
+            "right_number_legend" : 20,
         }
         graph.selectAll("legend")
             .data(legendData)
             .enter()
             .append("circle")
             .attr("cx", graphWidth - lengend_margin.right_circle_legend)
-            .attr("cy", d => lengend_margin.top_circle_legend - legend_size(d))
+            .attr("cy", d => lengend_margin.top_circle_legend - legend_size(d) + 10)
             .attr("r", d => legend_size(d))
             .attr("stroke", "#767676")
             .attr('stroke-width', '2px')
@@ -143,10 +143,10 @@ props: {
             .data(legendData)
             .enter()
             .append("line")
-                .attr('x1', graphWidth + lengend_margin.left_line_legend)
-                .attr('x2', d => graphWidth + legend_size(d) + 10)
-                .attr('y1', d => lengend_margin.top_line_legend - legend_size(d))
-                .attr('y2', d => lengend_margin.top_line_legend - legend_size(d))
+                .attr('x1', graphWidth + 15)
+                .attr('x2', graphWidth - 5)
+                .attr('y1', d => lengend_margin.top_line_legend - legend_size(d) + 10)
+                .attr('y2', d => lengend_margin.top_line_legend - legend_size(d) + 10)
                 .attr('stroke', '#767676')
                 .attr('stroke-width', '2px')
                 .style('stroke-dasharray', ('2,2'));
@@ -156,7 +156,7 @@ props: {
             .enter()
             .append("text")
                 .attr('x', graphWidth + lengend_margin.right_number_legend)
-                .attr('y', d => lengend_margin.top_number_legend - legend_size(d))
+                .attr('y', d => lengend_margin.top_number_legend - legend_size(d) + 10)
                 .text(d => d)
                 .attr('alignment-baseline', 'middle')
                 .attr('font-family', 'Arial')
@@ -164,7 +164,7 @@ props: {
                 .style("font-size", 12);
         // legend text (bubble)
         svg.append("text")             
-            .attr("transform", `translate(${graphWidth - 10}, ${margin.top})`)
+            .attr("transform", `translate(${graphWidth - 40}, ${margin.top + 10})`)
             .text("House Counts")
             .attr('fill', '#767676')
             .attr('font-family', 'Arial')
@@ -200,8 +200,8 @@ props: {
             .data(data_for_legend)
             .enter()
             .append("line")
-                .attr('x1', graphWidth + 30)
-                .attr('x2', graphWidth + 50)
+                .attr('x1', graphWidth - 10)
+                .attr('x2', graphWidth + 15)
                 .attr('y1', d => 110 + d.value)
                 .attr('y2', d => 110 + d.value)
                 .attr('stroke', '#767676')
@@ -212,7 +212,7 @@ props: {
             .data(data_for_legend)
             .enter()
             .append("text")
-                .attr('x', graphWidth + 60)
+                .attr('x', graphWidth + 20)
                 .attr('y', d => 110 + d.value)
                 .text(d => '$' + d.price)
                 .attr('alignment-baseline', 'middle')

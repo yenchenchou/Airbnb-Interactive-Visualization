@@ -1,9 +1,9 @@
 <template>
   <div class="about" style="width:100%; height:100%">
-    <div class="container">
+    <div class="container" style="align: center;">
     <div class="row align-items-center">
         <div class="col">
-        <img src='quote.png' class="img-fluid" alt="Responsive image" style='width:1000px; height: 400px;'>
+        <!-- <img src='quote.png' class="img-fluid" alt="Responsive image" style='width:1000px; height: 400px;'> -->
         </div>
     </div>
     <div class="row"></div>
