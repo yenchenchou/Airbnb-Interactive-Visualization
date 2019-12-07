@@ -126,7 +126,7 @@ export default {
 
     var self = this;
     d3.json('test_geo.json').then(data=>{
-        //console.log(data)
+        console.log(data)
         self.all_hotel = data;
         self.hotel = data;
         self.dataIsReady+=1
