@@ -132,21 +132,21 @@ export default {
         .style('font-size', '16px')
         .style("text-anchor", "middle");
 
-    resize();  //redraw in case we start small!
-    d3.select(window).on('resize', resize());
-    function resize() {
-        var width = parseInt(d3.select('#svg_bar').style('width')) - margin.left - margin.right;
-        var height = parseInt(d3.select('#svg_bar').style('height')) - margin.top - margin.bottom;
+    // resize();  //redraw in case we start small!
+    // d3.select(window).on('resize', resize());
+    // function resize() {
+    //     var width = parseInt(d3.select('#svg_bar').style('width')) - margin.left - margin.right;
+    //     var height = parseInt(d3.select('#svg_bar').style('height')) - margin.top - margin.bottom;
         
-    if(width < 300 || height < 200){            
-        svg.select('.axis_x').style('display', 'none');  //hide
-        svg.select('.axis_y').style('display', 'none');  //hide
-      }
-      else{        
-         svg.select('.axis_x').style('display', 'initial');  //show
-         svg.select('.axis_y').style('display', 'initial');  //show
-      }
-    }
+    // if(width < 300 || height < 200){            
+    //     svg.select('.axis_x').style('display', 'none');  //hide
+    //     svg.select('.axis_y').style('display', 'none');  //hide
+    //   }
+    //   else{        
+    //      svg.select('.axis_x').style('display', 'initial');  //show
+    //      svg.select('.axis_y').style('display', 'initial');  //show
+    //   }
+    // }
     //window.addEventListener("resize", resize);
     },
     update_plot(){
