@@ -50,13 +50,13 @@ def get_keyword(df):
 
 
 def data_cleaning(df):
-    filter_column_name = ['host_id', 'name', 'latitude', 'longitude', 'room_type', 'price', 'neighbourhood_cleansed',
+    filter_column_name = ['host_id', 'name', 'latitude', 'longitude', 'room_type', 'price',
                             'minimum_nights', 'reviews_per_month', 'number_of_reviews',
                             'description', 'amenities', 'property_type', 'accommodates',
                             'availability_365', 'instant_bookable', 'city']
     df = df[filter_column_name]
     df.dropna(subset = ['longitude', 'latitude', 'price'], inplace = True) 
-    df['price'] = [float(re.sub(r"[^0-9]", "", row)) for row in df['price']]
+    df['price'] = [float(re.sub(r"[^0-9]", "", row))/100 for row in df['price']]
     df['description'] = get_keyword(df)
     df['description'].fillna('<None>', inplace = True)
     df['amenities'] = [re.sub(r"[\"\{\}]", "", row) for row in df['amenities']]
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     describe_word = hotel_describe_words(path)
     df_new = data_cleaning(df)
     save_path = '/Users/yc/Desktop/OneDrive/USC/課程syllabus+resource/INF554/a5-undefined/project/data/dataset'
-    df_new.to_csv(os.path.join(save_path ,"df_2.csv"), index = False)
+    df_new.to_csv(os.path.join(save_path ,"df.csv"), index = False)
     print('complete!')
 
 
